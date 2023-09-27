@@ -5,7 +5,6 @@ import AboutHero from '../about-hero';
 import AboutWhat from '../about-what';
 import AboutTeam from '../about-team';
 import AboutFeatures from '../about-features';
-import AboutContacts from '../about-contacts';
 
 export default function AboutView() {
   return (
@@ -14,7 +13,6 @@ export default function AboutView() {
       <AboutWhat />
       <AboutFeatures />
       <AboutTeam />
-      <AboutContacts />
     </MainLayout>
   );
 }

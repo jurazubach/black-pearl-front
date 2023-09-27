@@ -5,12 +5,13 @@ import { useScroll } from 'framer-motion';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
+import Container from '@mui/material/Container';
 import MainLayout from 'src/layouts/main';
 import ScrollProgress from 'src/components/scroll-progress';
 import Iconify from 'src/components/iconify';
-import getCategoryAlias from 'src/utils/getCategoryAlias';
+import getCategoryAlias from 'src/utils/get-category-alias';
 import CatalogGrid from 'src/components/catalog-grid';
-import getFilterContainer from 'src/utils/getFilterContainer';
+import getFilterContainer from 'src/utils/get-filter-container';
 import Filters from 'src/components/filters/filters';
 
 const products = [
@@ -53,7 +54,9 @@ export default function MainView() {
 			<ScrollProgress scrollYProgress={scrollYProgress} />
 			<Filters categoryAlias={alias} filterContainer={filterContainer} />
 
-			<CatalogGrid products={[...products, ...products, ...products.slice(0, 3)]} />
+			<Container maxWidth='lg' disableGutters>
+				<CatalogGrid products={[...products, ...products, ...products.slice(0, 3)]} />
+			</Container>
 
 			<Box py={2} display='flex' justifyContent='center' alignItems='center' sx={{ borderTop: `1px solid ${theme.palette.divider}` }}>
 				<Button

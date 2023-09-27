@@ -9,8 +9,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Iconify from 'src/components/iconify';
 import { PATH_PAGE } from 'src/routes/paths';
-import UrlBuilder from 'src/utils/urlBuilder';
-import { ESortPage, IFilterContainerOut, SortTitles, TSortPage } from 'src/utils/getFilterContainer';
+import UrlBuilder from 'src/utils/url-builder';
+import { ESortPage, IFilterContainerOut, SortTitles, TSortPage } from 'src/utils/get-filter-container';
 
 interface ISortPanelProps {
 	categoryAlias: string;
@@ -49,7 +49,7 @@ const SortPanel = ({ categoryAlias, filterContainer }: ISortPanelProps) => {
 		}
 
 		return (
-			<MenuItem onClick={onSortClick(sortPage)}>
+			<MenuItem key={sortPage} onClick={onSortClick(sortPage)}>
 				<Typography variant='subtitle2' sx={styleOptions}>{title}</Typography>
 			</MenuItem>
 		);

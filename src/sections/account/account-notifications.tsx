@@ -35,7 +35,7 @@ const NOTIFICATIONS = [
     items: [
       { id: 'application_news', label: 'News and announcements' },
       { id: 'application_product', label: 'Weekly product-minimal updates' },
-      { id: 'application_blog', label: 'Weekly blog digest' },
+      { id: 'application_blog', label: 'Weekly blog-article digest' },
     ],
   },
 ];

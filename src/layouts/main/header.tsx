@@ -48,7 +48,7 @@ const StyledTopHeaderBox: any = styled(Box)(({ theme }) => ({
 
 const ImageLogoWrapper: any = styled(Image)({
 	maxWidth: '320px',
-	opacity: 0.7,
+	opacity: 0.8,
 	transition: 'all 0.2s ease-in',
 	'&:hover': {
 		opacity: 1,
@@ -64,9 +64,9 @@ const StyledMenu: any = styled(Link)(({ theme }) => ({
 	userSelect: 'none',
 	transition: 'all 0.2s ease-in',
 	paddingBottom: '5px',
-	borderBottom: '3px solid black',
+	borderBottom: `3px solid ${theme.palette.background.default}`,
 	'&:hover': {
-		borderBottom: `3px solid ${theme.palette.grey[300]}`,
+		borderBottom: `3px solid ${theme.palette.primary.main}`,
 		color: theme.palette.grey[100],
 		textDecoration: 'none',
 	},
@@ -86,7 +86,7 @@ export default function Header() {
 		const styleOptions = {};
 		if (!!matchCatalogSection && matchCatalogSection === catalogSection) {
 			Object.assign(styleOptions, {
-				borderBottom: `3px solid ${theme.palette.grey[200]}`,
+				borderBottom: `3px solid ${theme.palette.primary.main}`,
 				color: theme.palette.grey[100],
 			});
 		}
@@ -107,10 +107,10 @@ export default function Header() {
 		return (
 			<StyledMenu key={href} sx={styleOptions} component={NextLink} href={href}>{title}</StyledMenu>
 		);
-	}), [matchCatalogSection, theme.palette.error.main, theme.palette.grey]);
+	}), [matchCatalogSection, theme.palette.error.main, theme.palette.grey, theme.palette.primary.main]);
 
 	return (
-		<AppBar>
+		<AppBar sx={{ display: { xs: 'none', sm: 'block' } }}>
 			<Toolbar
 				disableGutters
 				sx={{
@@ -168,7 +168,7 @@ export default function Header() {
 						</Stack>
 
 						<NextLink href='/'>
-							<ImageLogoWrapper disabledEffect alt='logo' src='/assets/images/header/logo.png' />
+							<ImageLogoWrapper disabledEffect alt='logo' src='/assets/images/header/logo-color.png' />
 						</NextLink>
 
 						<Stack direction='row' alignItems='center' justifyContent='flex-end' spacing={1} sx={{ width: '185px' }}>

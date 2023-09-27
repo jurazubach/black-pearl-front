@@ -29,7 +29,7 @@ export default function TermsView() {
 		<MainLayout>
 			<ContainerTitle center title='Угода користувача' />
 
-			<Container maxWidth='xl'>
+			<Container maxWidth='lg'>
 				<Stack direction='column' spacing={3}>
 					<Typography variant='h4' sx={{ mt: 3 }}>1. ЗАГАЛЬНІ ПОЛОЖЕННЯ</Typography>
 

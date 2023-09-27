@@ -60,7 +60,6 @@ const NAVIGATION_LINKS = [
 	{ name: 'Доставка і оплата', href: PATH_PAGE.delivery },
 	{ name: 'Обмін і повернення', href: PATH_PAGE.returnOfGoods },
 	{ name: 'Угода користувача', href: PATH_PAGE.terms },
-	{ name: 'Співпраця', href: PATH_PAGE.cooperation },
 	{ name: 'Контакти', href: PATH_PAGE.contacts },
 	{ name: 'Про нас', href: PATH_PAGE.about },
 ];
@@ -155,11 +154,14 @@ export default function HeaderMobile() {
 		speed: 500,
 		infinite: true,
 		variableWidth: true,
+		centerPadding: theme.spacing(0),
+		swipe: true,
+		swipeToSlide: true,
 		initialSlide: activeHeaderItemNumber,
 	});
 
 	return (
-		<AppBar>
+		<AppBar sx={{ display: { xs: 'block', sm: 'none' } }}>
 			<Toolbar
 				disableGutters
 				sx={{
@@ -184,7 +186,7 @@ export default function HeaderMobile() {
 					}}
 				>
 					<NextLink href='/'>
-						<MainLogoWrapper disabledEffect alt='hero' src='/assets/images/header/logo.png' />
+						<MainLogoWrapper disabledEffect alt='hero' src='/assets/images/header/logo-color.png' />
 					</NextLink>
 
 					<Stack direction='row' alignItems='center' justifyContent='flex-end'>

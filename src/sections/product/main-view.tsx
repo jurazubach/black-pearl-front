@@ -59,32 +59,32 @@ export default function MainView({ product }: Props) {
 		<MainLayout>
 			<ScrollProgress scrollYProgress={scrollYProgress} />
 
-			<Container maxWidth='lg' sx={{ my: { xs: 2, sm: 3 } }}>
+			<Container maxWidth='lg' sx={{ p: { xs: 2, sm: 3, lg: 0 }, my: { xs: 2, sm: 3 } }} disableGutters>
 				<Grid container spacing={3}>
-					<Grid item xs={12}>
-						<Grid container spacing={3}>
-							<Grid item xs={12} sm={6}>
-								<ProductGallery />
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<Stack spacing={3}>
-									<ProductInfo product={product} />
-									<ProductPrices oldPrice={defaultGoods.oldPrice} price={defaultGoods.price} />
-									{smUp && (<ProductDescriptions product={product} />)}
-									<ProductActions product={product} />
-									{!smUp && (<ProductDescriptions product={product} />)}
-								</Stack>
-							</Grid>
-						</Grid>
+					<Grid item xs={12} sm={6}>
+						<ProductGallery />
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<Stack spacing={3}>
+							<ProductInfo product={product} />
+							<ProductPrices oldPrice={defaultGoods.oldPrice} price={defaultGoods.price} />
+							{smUp && (<ProductDescriptions product={product} />)}
+							<ProductActions product={product} />
+							{!smUp && (<ProductDescriptions product={product} />)}
+						</Stack>
 					</Grid>
 				</Grid>
 			</Container>
 
 			<ContainerTitle center title="Носіть разом" description="Об'єднайте стиль та знайдіть ідеальний образ" />
-			<CarouselProducts products={products} />
+			<Container maxWidth='lg' disableGutters>
+				<CarouselProducts products={products} />
+			</Container>
 
 			<ContainerTitle center title="Схожі товари" description="Знайдіть схожий стиль та оберіть ідеальний варіант" />
-			<CarouselProducts products={products} />
+			<Container maxWidth='lg' disableGutters>
+				<CarouselProducts products={products} />
+			</Container>
 		</MainLayout>
 	);
 }

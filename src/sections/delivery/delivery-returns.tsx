@@ -4,32 +4,21 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import React from 'react';
-import { useResponsive } from 'src/hooks/use-responsive';
 import Image from 'src/components/image';
 import ContainerTitle from 'src/components/container-title';
 
 export default function DeliveryReturns() {
-  const mdUp = useResponsive('up', 'md');
-
   return (
-    <Box sx={{ bgcolor: 'grey.800' }}>
+    <Box>
       <ContainerTitle center title="Повернення товару" />
+      <Container maxWidth='lg' sx={{ py: 3, textAlign: { xs: 'center', md: 'unset' } }}>
+        <Grid container columnSpacing={6} rowSpacing={3} alignItems="flex-start" sx={{ flexDirection: { xs: 'column-reverse', md: 'row' } }}>
+          <Grid xs={12} md={5} alignItems="center">
+            <Image sx={{ borderRadius: '8px', maxHeight: '380px' }} alt="our mission" src="/assets/images/about/features.png" />
+          </Grid>
 
-      <Container
-        maxWidth='xl'
-        sx={{ py: 6, textAlign: { xs: 'center', md: 'unset' } }}
-      >
-        <Grid container columnSpacing={{ md: 6 }} alignItems="flex-start">
-          {mdUp && (
-            <Grid container xs={5} alignItems="center">
-              <Grid xs={12}>
-                <Image sx={{ borderRadius: '8px' }} alt="our mission" src="/assets/images/about/features.png" />
-              </Grid>
-            </Grid>
-          )}
-
-          <Grid xs={7}>
-            <Stack spacing={6}>
+          <Grid xs={12} md={7}>
+            <Stack spacing={3}>
               <Stack spacing={2}>
                 <Typography variant="h6">
                   Умови повернення для товарів належної якості

@@ -5,18 +5,20 @@ import Box from '@mui/material/Box';
 import { SxProps } from '@mui/system';
 
 const StyledProductCardRoot = styled(Stack)(({ theme }) => ({
-		margin: '0 4px',
-		padding: theme.spacing(1),
-		border: `1px solid ${theme.palette.grey[700]}`,
-		position: 'relative',
-		transition: 'all .2s ease-in',
-		'&:hover': {
-			backgroundColor: theme.palette.grey[800],
-		},
-		'&:hover .MuiBox-root[data-attr="angles"]': {
-			backgroundSize: theme.spacing(6, 6),
-		},
-	}));
+	margin: '1px 4px',
+	padding: theme.spacing(1),
+	border: `1px solid ${theme.palette.grey[700]}`,
+	position: 'relative',
+	transition: 'all .2s ease-in',
+	opacity: 0.8,
+	'&:hover': {
+		backgroundColor: theme.palette.grey[800],
+		opacity: 1,
+	},
+	'&:hover .MuiBox-root[data-attr="angles"]': {
+		backgroundSize: theme.spacing(6, 6),
+	},
+}));
 
 const CardAngles = styled(Box)(({ theme }) => {
 	const borderColor = theme.palette.grey[500];
@@ -41,11 +43,11 @@ interface Props {
 }
 
 const BorderCard = ({ sx, children, spacing = 0 }: Props) => (
-		<StyledProductCardRoot sx={sx} spacing={spacing}>
-			<CardAngles data-attr="angles" />
+	<StyledProductCardRoot sx={sx} spacing={spacing}>
+		<CardAngles data-attr='angles' />
 
-			{children}
-		</StyledProductCardRoot>
-	)
+		{children}
+	</StyledProductCardRoot>
+);
 
 export default BorderCard;

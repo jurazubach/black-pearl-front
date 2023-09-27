@@ -13,11 +13,17 @@ import { _mock } from 'src/_mock';
 import AboutUs from '../about-us';
 
 const images = [
-	'https://media.zoho.in.ua/resized-images/4cb9bb17-4fbd-4db2-b161-f72de973711c-W1000?v=1685558522278',
-	'https://media.zoho.in.ua/5c197335-6091-4edb-97ec-399d82c07d25?v=1685560168494',
-	'https://media.zoho.in.ua/49ce71e2-62ce-4839-93ad-d000b49d3a0e?v=1687041598746',
-	'https://media.zoho.in.ua/d38c7f8e-2ff4-4147-9472-f0a148271044?v=1685554868008',
-	'https://media.zoho.in.ua/a0b89399-7f16-4f8f-a5f0-de3f0016b09a?v=1685575774541',
+	'https://cdn3.lichi.com/constructor/static//28/2/fdvf.jpg',
+	'https://cdn3.lichi.com/constructor/static//28/2/ddsd.jpg',
+	'https://cdn3.lichi.com/constructor/static//28/2/fdvf.jpg',
+	'https://cdn3.lichi.com/constructor/static//28/2/ddsd.jpg',
+	'https://cdn3.lichi.com/constructor/static//28/2/fdvf.jpg',
+	'https://cdn3.lichi.com/constructor/static//28/2/ddsd.jpg',
+	// 'https://media.zoho.in.ua/resized-images/4cb9bb17-4fbd-4db2-b161-f72de973711c-W1000?v=1685558522278',
+	// 'https://media.zoho.in.ua/5c197335-6091-4edb-97ec-399d82c07d25?v=1685560168494',
+	// 'https://media.zoho.in.ua/49ce71e2-62ce-4839-93ad-d000b49d3a0e?v=1687041598746',
+	// 'https://media.zoho.in.ua/d38c7f8e-2ff4-4147-9472-f0a148271044?v=1685554868008',
+	// 'https://media.zoho.in.ua/a0b89399-7f16-4f8f-a5f0-de3f0016b09a?v=1685575774541',
 ];
 
 const _carouselsExample = [...Array(4)].map((_, index) => ({
@@ -86,30 +92,35 @@ const noveltyProducts = [
 const posts = [
 	{
 		id: 123,
+		href: '/fawdawdwadaw',
 		imageSrc: 'https://wwd.com/wp-content/uploads/2023/01/3-2.jpg',
 		title: 'Жовта однотонна базова футболка - річ, яка легко впишеться в будь-який гардероб',
 		date: '2023-01-20 20:05:00',
 	},
 	{
 		id: 125,
+		href: '/dgwadwda',
 		imageSrc: 'https://wwd.com/wp-content/uploads/2023/01/3-2.jpg',
 		title: 'Жовта однотонна базова футболка - річ, яка легко впишеться в будь-який гардероб',
 		date: '2023-01-20 20:05:00',
 	},
 	{
 		id: 125,
+		href: '/greeegw',
 		imageSrc: 'https://wwd.com/wp-content/uploads/2023/01/3-2.jpg',
 		title: 'Жовта однотонна базова футболка - річ, яка легко впишеться в будь-який гардероб',
 		date: '2023-01-20 20:05:00',
 	},
 	{
 		id: 126,
+		href: '/greeegw',
 		imageSrc: 'https://wwd.com/wp-content/uploads/2023/01/3-2.jpg',
 		title: 'Жовта однотонна базова футболка - річ, яка легко впишеться в будь-який гардероб',
 		date: '2023-01-20 20:05:00',
 	},
 	{
 		id: 127,
+		href: '/greeegw',
 		imageSrc: 'https://wwd.com/wp-content/uploads/2023/01/3-2.jpg',
 		title: 'Жовта однотонна базова футболка - річ, яка легко впишеться в будь-який гардероб',
 		date: '2023-01-20 20:05:00',
@@ -208,16 +219,24 @@ export default function HomeView() {
 			</Container>
 
 			<ContainerTitle center title='Популярні товари' description='Обирайте з найпопулярніших моделей' />
-			<CarouselProducts products={popularProducts} />
+			<Container maxWidth='lg' disableGutters>
+				<CarouselProducts products={popularProducts} />
+			</Container>
 
 			<ContainerTitle center title='Новинки' description='Зустрічайте останні стильні новинки' />
-			<CarouselProducts products={noveltyProducts} />
+			<Container maxWidth='lg' disableGutters>
+				<CarouselProducts products={noveltyProducts} />
+			</Container>
 
 			<ContainerTitle center title='Ми також ведемо Блог' description='Слідкуйте за модними трендами, та нашими новинками' />
-			<CarouselPosts posts={posts} />
+			<Container maxWidth='lg' disableGutters>
+				<CarouselPosts posts={posts} />
+			</Container>
 
 			<ContainerTitle center title='Підписуйтесь на наш інстаграм' description='Наша офіційна сторінка @theblackpearl.com.ua' />
-			<CarouselInstagramPosts posts={instagramPosts} />
+			<Container maxWidth='lg' disableGutters>
+				<CarouselInstagramPosts posts={instagramPosts} />
+			</Container>
 		</MainLayout>
 	);
 }
