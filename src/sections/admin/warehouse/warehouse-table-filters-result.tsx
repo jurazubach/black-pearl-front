@@ -1,0 +1,83 @@
+import React, { useMemo } from 'react';
+import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import Stack, { StackProps } from '@mui/material/Stack';
+import Iconify from 'src/components/iconify';
+import { IWarehouseProductTableFilters, IWarehouseProductTableFilterValue, SIZES_OPTIONS } from 'src/types/warehouseProduct';
+
+type Props = StackProps & {
+  filters: IWarehouseProductTableFilters;
+  onFilters: (name: string, value: IWarehouseProductTableFilterValue) => void;
+  onResetFilters: VoidFunction;
+  results: number;
+};
+
+export default function WarehouseTableFiltersResult({
+  filters,
+  onFilters,
+  onResetFilters,
+  results,
+  ...other
+}: Props) {
+  const sizeMemo = useMemo(() => SIZES_OPTIONS.filter((i) => filters.sizes.includes(i.value)), [filters.sizes]);
+
+  const handleRemoveSizes = (inputValue: string) => {
+    const newValue = filters.sizes.filter((item) => item !== inputValue);
+    onFilters('sizes', newValue);
+  };
+
+  return (
+    <Stack spacing={1.5} {...other}>
+      <Stack flexGrow={1} spacing={1} direction="row" flexWrap="wrap" alignItems="center">
+        {!!filters.sizes.length && (
+          <Block label="Розміри:">
+            {sizeMemo.map((item) => (
+              <Chip key={item.value} label={item.label} size="small" onDelete={() => handleRemoveSizes(item.value)} />
+            ))}
+          </Block>
+        )}
+
+        <Button
+          color="error"
+          onClick={onResetFilters}
+          startIcon={<Iconify icon="solar:trash-bin-trash-bold" />}
+        >
+          Очистити
+        </Button>
+      </Stack>
+    </Stack>
+  );
+}
+
+type BlockProps = StackProps & {
+  label: string;
+};
+
+function Block({ label, children, sx, ...other }: BlockProps) {
+  return (
+    <Stack
+      component={Paper}
+      variant="outlined"
+      spacing={1}
+      direction="row"
+      sx={{
+        p: 1,
+        borderRadius: 1,
+        overflow: 'hidden',
+        borderStyle: 'dashed',
+        ...sx,
+      }}
+      {...other}
+    >
+      <Box component="span" sx={{ typography: 'subtitle2' }}>
+        {label}
+      </Box>
+
+      <Stack spacing={1} direction="row" flexWrap="wrap">
+        {children}
+      </Stack>
+    </Stack>
+  );
+}

@@ -29,7 +29,6 @@ import useCheckout from 'src/hooks/use-checkout';
 import ContainerTitle from 'src/components/container-title';
 import ProductPrices from 'src/components/product-prices';
 import CheckoutCardProduct from 'src/components/card-product/checkout';
-import { useResponsive } from '../../hooks/use-responsive';
 
 const StyledRHFTextField: any = styled(RHFTextField)({
 	'& .MuiInputBase-input': {
@@ -46,8 +45,8 @@ const StyledTextField: any = styled(TextField)({
 });
 
 export enum EPostType {
-	NOVA_POSHTA = 'novaPoshta',
-	UKR_POSHTA = 'ukrPoshta',
+	NOVA_POSHTA = 'nova-poshta',
+	UKR_POSHTA = 'ukr-poshta',
 }
 
 export enum EPaymentType {
@@ -61,7 +60,6 @@ const CheckoutView = () => {
 	const { checkoutProducts } = useCheckout();
 	const router = useRouter();
 	const formCoupon = useFormCoupon();
-	const smUp = useResponsive('up', 'sm');
 
 	useEffect(() => {
 		if (checkoutProducts.length === 0) {
@@ -133,28 +131,28 @@ const CheckoutView = () => {
 
 	return (
 		<MainLayout>
-			<ContainerTitle maxWidth='lg' title='Оформлення замовлення' />
+			<ContainerTitle center maxWidth='lg' title='Оформлення замовлення' />
 
-			<Container maxWidth={smUp ? 'lg' : false}>
+			<Container maxWidth='lg' disableGutters>
 				<FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
 					<Grid container>
-						<Grid item xs={12} sm={8} sx={{ p: 2 }}>
-							<Grid container spacing={2}>
+						<Grid item xs={12} md={8} sx={{ p: 3 }}>
+							<Grid container spacing={3}>
 								<Grid item xs={12}>
 									<Typography variant='h6'>Персональні данні</Typography>
 								</Grid>
-								<Grid item xs={12} sm={6}>
+								<Grid item xs={12} md={6}>
 									<StyledRHFTextField fullWidth name='firstName' variant='outlined' label='Ім`я' type='text' />
 								</Grid>
-								<Grid item xs={12} sm={6}>
+								<Grid item xs={12} md={6}>
 									<StyledRHFTextField fullWidth name='lastName' variant='outlined' label='Прізвище' type='text' />
 								</Grid>
 
-								<Grid item xs={12} sm={6}>
+								<Grid item xs={12} md={6}>
 									<StyledRHFTextField fullWidth name='email' variant='outlined' label='Email' type='text' />
 								</Grid>
 
-								<Grid item xs={12} sm={6}>
+								<Grid item xs={12} md={6}>
 									<StyledRHFTextField fullWidth name='phone' variant='outlined' label='Мобільний телефон' type='text' />
 								</Grid>
 
@@ -163,22 +161,20 @@ const CheckoutView = () => {
 								</Grid>
 								<Grid item xs={12}>
 									<FormControl>
-										<RadioGroup defaultValue={EPostType.NOVA_POSHTA} value={formValues.postType}
-										            onChange={onPostTypeChange}>
+										<RadioGroup defaultValue={EPostType.NOVA_POSHTA} value={formValues.postType} onChange={onPostTypeChange}>
 											<FormControlLabel value={EPostType.NOVA_POSHTA} control={<Radio />} label='Нова пошта' />
 											<FormControlLabel value={EPostType.UKR_POSHTA} control={<Radio />} label='Укр пошта' />
 										</RadioGroup>
 									</FormControl>
 								</Grid>
-								<Grid item xs={12} sm={6}>
+								<Grid item xs={12} md={6}>
 									<StyledRHFTextField fullWidth name='region' variant='outlined' label='Область' type='text' />
 								</Grid>
-								<Grid item xs={12} sm={6}>
+								<Grid item xs={12} md={6}>
 									<StyledRHFTextField fullWidth name='city' variant='outlined' label='Місто' type='text' />
 								</Grid>
 								<Grid item xs={12}>
-									<StyledRHFTextField fullWidth name='postAddress' variant='outlined' label='Адреса та номер відділення'
-									                    type='text' />
+									<StyledRHFTextField fullWidth name='postAddress' variant='outlined' label='Адреса та номер відділення' type='text' />
 								</Grid>
 
 								<Grid item xs={12}>
@@ -186,10 +182,8 @@ const CheckoutView = () => {
 								</Grid>
 								<Grid item xs={12}>
 									<FormControl>
-										<RadioGroup defaultValue={EPaymentType.CASH} value={formValues.paymentType}
-										            onChange={onPaymentTypeChange}>
-											<FormControlLabel value={EPaymentType.CASH} control={<Radio />}
-											                  label='Оплата під час отримання товару' />
+										<RadioGroup defaultValue={EPaymentType.CASH} value={formValues.paymentType} onChange={onPaymentTypeChange}>
+											<FormControlLabel value={EPaymentType.CASH} control={<Radio />} label='Оплата під час отримання товару' />
 											<FormControlLabel value={EPaymentType.CARD} control={<Radio />} label='Переказ на карту' />
 										</RadioGroup>
 									</FormControl>
@@ -197,7 +191,19 @@ const CheckoutView = () => {
 							</Grid>
 						</Grid>
 
-						<Grid item xs={12} sm={4} sx={{ borderLeft: { xs: 'none', sm: `1px solid ${theme.palette.divider}` } }}>
+						<Grid
+							item
+							xs={12}
+							md={4}
+							sx={{
+								borderLeft: { xs: 'none', md: `1px solid ${theme.palette.divider}` },
+								borderTop: { xs: `2px solid ${theme.palette.divider}`, md: `none` },
+							}}
+						>
+							<Grid item xs={12} sx={{ pt: 3, pl: 3 }}>
+								<Typography variant='h6'>Список товарів</Typography>
+							</Grid>
+
 							<Stack spacing={1}>
 								{checkoutProducts.map((checkoutProduct) => (
 									<CheckoutCardProduct key={checkoutProduct.productId} product={checkoutProduct} />
@@ -245,7 +251,8 @@ const CheckoutView = () => {
 
 							<Divider />
 
-							<Box display='flex' justifyContent='flex-end' mr={2.5} my={1}>
+							<Box display='flex' justifyContent='space-between' p={2}>
+								<Typography variant="subtitle1">Всього:</Typography>
 								<ProductPrices
 									size='small'
 									oldPrice={totalOldPrice}

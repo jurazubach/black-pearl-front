@@ -8,6 +8,7 @@ export function cssBaseline(theme: Theme) {
       styleOverrides: {
         '*': {
           boxSizing: 'border-box',
+          textRendering: 'geometricPrecision',
         },
         html: {
           margin: 0,

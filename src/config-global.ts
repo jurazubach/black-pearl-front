@@ -33,3 +33,7 @@ export const MAPBOX_API = process.env.NEXT_PUBLIC_MAPBOX_API;
 
 // ROOT PATH AFTER LOGIN SUCCESSFUL
 export const PATH_AFTER_LOGIN = paths.dashboard.root; // as '/dashboard'
+
+export const JWT_COOKIE_NAME = process.env.JWT_COOKIE_NAME || 'JWT';
+export const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN || '';
+export const COOKIE_PATH = process.env.COOKIE_PATH || '/';

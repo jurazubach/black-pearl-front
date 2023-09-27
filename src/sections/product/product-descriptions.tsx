@@ -28,7 +28,7 @@ const BetweenTextWrapper = ({ leftText, rightText }: { leftText: string, rightTe
 			<Typography sx={{
 				whiteSpace: 'nowrap',
 				textOverflow: 'ellipsis',
-				fontWeight: 'bold'
+				fontWeight: 'bold',
 			}}>{rightText}</Typography>
 		</Stack>
 	);
@@ -40,43 +40,55 @@ const ProductDescriptions = ({ product }: Props) => {
 
 	return (
 		<Box sx={{ '& .MuiPaper-root.MuiAccordion-root.Mui-expanded': { bgcolor: 'grey.800' } }}>
-			<Accordion expanded={expanded === 'descriptions'} onChange={handleChange('descriptions')} sx={{ marginTop: '0px !important' }}>
-				<AccordionSummary expandIcon={<Iconify icon='material-symbols:arrow-drop-down-rounded' color='primary' width={32} />}>
+			<Accordion expanded={expanded === 'descriptions'} onChange={handleChange('descriptions')}
+			           sx={{ marginTop: '0px !important' }}>
+				<AccordionSummary
+					expandIcon={<Iconify icon='material-symbols:arrow-drop-down-rounded' color='primary' width={32} />}>
 					<Typography variant='h6'>Короткий опис товару</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
 					<Typography>{product.description}</Typography>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion expanded={expanded === 'properties'} onChange={handleChange('properties')} sx={{ marginTop: '0px !important' }}>
-				<AccordionSummary expandIcon={<Iconify icon='material-symbols:arrow-drop-down-rounded' color='primary' width={32} />}>
+			<Accordion expanded={expanded === 'properties'} onChange={handleChange('properties')}
+			           sx={{ marginTop: '0px !important' }}>
+				<AccordionSummary
+					expandIcon={<Iconify icon='material-symbols:arrow-drop-down-rounded' color='primary' width={32} />}>
 					<Typography variant='h6'>Деталі</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
 					<Stack direction='column' spacing={1}>
 						{product.properties.map(({ property, value }: any) => (
-								<BetweenTextWrapper leftText={property.title} rightText={value.title} />
-							))}
+							<BetweenTextWrapper leftText={property.title} rightText={value.title} />
+						))}
 					</Stack>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion expanded={expanded === 'returns'} onChange={handleChange('returns')} sx={{ marginTop: '0px !important' }}>
-				<AccordionSummary expandIcon={<Iconify icon='material-symbols:arrow-drop-down-rounded' color='primary' width={32} />}>
+			<Accordion expanded={expanded === 'returns'} onChange={handleChange('returns')}
+			           sx={{ marginTop: '0px !important' }}>
+				<AccordionSummary
+					expandIcon={<Iconify icon='material-symbols:arrow-drop-down-rounded' color='primary' width={32} />}>
 					<Typography variant='h6'>Гарантія та повернення</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
 					<Stack spacing={2}>
 						<Typography>
-							Повернення або обмін товару здійснюється протягом 14 днів з моменту покупки (не враховуючи день покупки); товар не підійшов за кольором, формою, розмірами або іншими характеристиками; товар має механічні пошкодження, несправності, пошкоджену упаковку чи шлюб із вини виробника чи служби доставки; повернення/обмін товару належної якості можливе лише за умови, якщо товар не використовувався, збережено всі споживчі якості та товарний вигляд, має повну комплектацію, не порушено цілісність виробу, присутні всі ярлики, пломби, а також наявність розрахункової накладної, отриманої разом із товаром.
+							Повернення або обмін товару здійснюється протягом 14 днів з моменту покупки (не враховуючи день покупки);
+							товар не підійшов за кольором, формою, розмірами або іншими характеристиками; товар має механічні
+							пошкодження, несправності, пошкоджену упаковку чи шлюб із вини виробника чи служби доставки;
+							повернення/обмін товару належної якості можливе лише за умови, якщо товар не використовувався, збережено
+							всі споживчі якості та товарний вигляд, має повну комплектацію, не порушено цілісність виробу, присутні
+							всі ярлики, пломби, а також наявність розрахункової накладної, отриманої разом із товаром.
 						</Typography>
 
 						<Link component={NextLink} href={PATH_PAGE.returnOfGoods}>
-							<Typography variant="subtitle1">Більше інформації тут</Typography>
+							<Typography variant='subtitle1'>Більше інформації тут</Typography>
 						</Link>
 					</Stack>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion expanded={expanded === 'instructions'} onChange={handleChange('instructions')} sx={{ marginTop: '0px !important' }}>
+			<Accordion expanded={expanded === 'instructions'} onChange={handleChange('instructions')}
+			           sx={{ marginTop: '0px !important' }}>
 				<AccordionSummary
 					expandIcon={<Iconify icon='material-symbols:arrow-drop-down-rounded' color='primary' width={32} />}
 				>
@@ -118,6 +130,6 @@ const ProductDescriptions = ({ product }: Props) => {
 			</Accordion>
 		</Box>
 	);
-}
+};
 
 export default ProductDescriptions;

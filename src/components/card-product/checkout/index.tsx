@@ -16,19 +16,21 @@ import { useResponsive } from 'src/hooks/use-responsive';
 
 interface Props {
 	product: ICheckoutProduct;
+	readOnly?: boolean;
 }
 
 const ImagePreview: any = styled(Image)({
 	height: '90px',
 	width: '78px',
+	minWidth: '78px',
 	overflow: 'unset',
 	'& > span': {
-		height: { xs: '115px !important', sm: '100%' },
+		height: { xs: '105px !important', sm: '100%' },
 		width: { xs: '78px !important', sm: '100%' },
 	},
 });
 
-export default ({ product }: Props) => {
+export default ({ product, readOnly = false }: Props) => {
 	const theme = useTheme();
 	const smUp = useResponsive('up', 'sm');
 
@@ -39,7 +41,7 @@ export default ({ product }: Props) => {
 		<Stack
 			direction='row'
 			spacing={2}
-			sx={{ p: 2, '& + &': { borderTop: `1px solid ${theme.palette.divider}` } }}
+			sx={{ p: 3, '& + &': { borderTop: `1px solid ${theme.palette.divider}` } }}
 		>
 			<ImagePreview disabledEffect src={product.imageSrc} />
 
@@ -47,8 +49,8 @@ export default ({ product }: Props) => {
 				direction='column'
 				sx={{
 					width: {
-						xs: 'calc(100vw - 16px - 16px - 16px - 78px)',
-						sm: '100%',
+						xs: 'calc(100vw - 64px - 78px)',
+						md: 'calc(100% - 16px - 78px)',
 					},
 					position: 'relative',
 				}} spacing={1}>
@@ -56,20 +58,22 @@ export default ({ product }: Props) => {
 					<Tooltip title={product.title}>
 						<Typography sx={{
 							typography: 'body2',
-							width: 'calc(100% - 36px - 8px)',
+							width: readOnly ? 'calc(100% - 8px)' : 'calc(100% - 36px - 8px)',
 							fontWeight: 'bold',
 							whiteSpace: 'nowrap',
 							overflow: 'hidden',
 							textOverflow: 'ellipsis',
 						}}>{product.title}</Typography>
 					</Tooltip>
-					<Box sx={{ position: 'absolute', top: '-5px', right: '1px' }}>
-						<Tooltip title='Видалити товар'>
-							<IconButton color='primary' onClick={onRemoveProductClick}>
-								<Iconify icon='material-symbols:close' />
-							</IconButton>
-						</Tooltip>
-					</Box>
+					{!readOnly && (
+						<Box sx={{ position: 'absolute', top: '-5px', right: '1px' }}>
+							<Tooltip title='Видалити товар'>
+								<IconButton color='primary' onClick={onRemoveProductClick}>
+									<Iconify icon='material-symbols:close' />
+								</IconButton>
+							</Tooltip>
+						</Box>
+					)}
 				</Stack>
 
 				<Stack direction='row' spacing={1}>
@@ -78,7 +82,13 @@ export default ({ product }: Props) => {
 				</Stack>
 
 				<Stack direction={smUp ? 'row' : 'column'} alignItems="flex-start" justifyContent='space-between' spacing={1}>
-					<ProductCounterField type='checkout' productId={product.productId} productSize={product.size} quantity={product.quantity} />
+					<ProductCounterField
+						type='checkout'
+						productId={product.productId}
+						productSize={product.size}
+						quantity={product.quantity}
+						readOnly={readOnly}
+					/>
 
 					<ProductPrices
 						size='small'

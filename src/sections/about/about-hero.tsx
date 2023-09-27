@@ -1,28 +1,24 @@
 import { m, MotionProps } from 'framer-motion';
-// @mui
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Box, { BoxProps } from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-// components
 import { MotionContainer, varFade } from 'src/components/animate';
-
-// ----------------------------------------------------------------------
 
 export default function AboutHero() {
   return (
     <Box
       sx={{
-        height: { md: 560 },
+        height: { xs: 'calc(100vh - 105px)', sm: 560 },
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundImage: 'url(/assets/images/about/hero_main.png)',
       }}
     >
-      <Container maxWidth='xl' component={MotionContainer}>
+      <Container maxWidth='lg' component={MotionContainer}>
         <Box
           sx={{
-            height: { md: 560 },
+            height: { xs: 'calc(100vh - 105px)', sm: 560 },
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',

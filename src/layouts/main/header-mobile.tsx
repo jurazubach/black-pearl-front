@@ -24,6 +24,7 @@ import { _socials } from 'src/_mock';
 import { PATH_PAGE } from 'src/routes/paths';
 import Carousel, { useCarousel } from 'src/components/carousel';
 import { Searchbar } from '../_common';
+import CategoryLinks from './category-links';
 
 const MainLogoWrapper: any = styled(Image)({
 	maxWidth: '220px',
@@ -43,16 +44,17 @@ const StyledDrawerMenu: any = styled(Link)(({ theme }) => ({
 }));
 
 const StyledHeaderMenu: any = styled(Link)(({ theme }) => ({
-	margin: theme.spacing(0, 1),
-	height: '42px',
-	cursor: 'pointer',
+	padding: '0 8px',
+	margin: '0 4px !important',
+	...theme.typography.body2,
 	color: theme.palette.grey[500],
-	textAlign: 'center',
-	lineHeight: '36px',
-	fontSize: '18px',
-	fontWeight: 'bold',
+	height: '26px',
 	userSelect: 'none',
-	textDecoration: 'none',
+	transition: 'all 0.2s ease-in',
+	borderBottom: `2px solid ${theme.palette.background.default}`,
+	'&:hover': {
+		textDecoration: 'none',
+	},
 }));
 
 const NAVIGATION_LINKS = [
@@ -60,7 +62,6 @@ const NAVIGATION_LINKS = [
 	{ name: 'Доставка і оплата', href: PATH_PAGE.delivery },
 	{ name: 'Обмін і повернення', href: PATH_PAGE.returnOfGoods },
 	{ name: 'Угода користувача', href: PATH_PAGE.terms },
-	{ name: 'Співпраця', href: PATH_PAGE.cooperation },
 	{ name: 'Контакти', href: PATH_PAGE.contacts },
 	{ name: 'Про нас', href: PATH_PAGE.about },
 ];
@@ -89,20 +90,8 @@ export default function HeaderMobile() {
 			if (matchCatalogSection === catalogSection) {
 				Object.assign(styleOptions, {
 					color: theme.palette.grey[100],
-					borderBottom: `3px solid ${theme.palette.grey[100]}`,
+					borderBottom: `2px solid ${theme.palette.primary.main}`,
 				});
-			}
-
-			if (catalogSection === ECatalogSection.SALE) {
-				Object.assign(styleOptions, {
-					color: 'error.main',
-				});
-
-				if (matchCatalogSection === catalogSection) {
-					Object.assign(styleOptions, {
-						borderBottom: `3px solid ${theme.palette.error.main}`,
-					});
-				}
 			}
 
 			if (matchCatalogSection === catalogSection) {
@@ -111,19 +100,19 @@ export default function HeaderMobile() {
 
 			const href = `/catalog/${catalogSection}`;
 			headerItems.push(
-				<StyledHeaderMenu key={href} sx={styleOptions} component={NextLink} href={href}>{title}</StyledHeaderMenu>
+				<StyledHeaderMenu key={href} sx={styleOptions} component={NextLink} href={href}>{title}</StyledHeaderMenu>,
 			);
 		});
 
 		return [activeHeaderItem, headerItems];
-	}, [matchCatalogSection, theme.palette.error.main, theme.palette.grey]);
+	}, [matchCatalogSection, theme]);
 
 	const drawerMenuItems = useMemo(() => {
 		const navigationLinks = NAVIGATION_LINKS.map((link) => (
-				<StyledDrawerMenu key={link.href} component={NextLink} href={link.href}>
-					{link.name}
-				</StyledDrawerMenu>
-			));
+			<StyledDrawerMenu key={link.href} component={NextLink} href={link.href}>
+				{link.name}
+			</StyledDrawerMenu>
+		));
 
 		const categoryLinks: React.ReactNode[] = [];
 		Object.values(ECatalogSection).forEach((catalogSection) => {
@@ -134,42 +123,34 @@ export default function HeaderMobile() {
 				Object.assign(styleOptions, { color: theme.palette.grey[100] });
 			}
 
-			if (catalogSection === ECatalogSection.SALE) {
-				Object.assign(styleOptions, { color: 'error.main' });
-
-				if (matchCatalogSection === catalogSection) {
-					Object.assign(styleOptions, { color: 'error.main' });
-				}
-			}
-
 			const href = `/catalog/${catalogSection}`;
 			categoryLinks.push(
-				<StyledDrawerMenu key={href} sx={styleOptions} component={NextLink} href={href}>{title}</StyledDrawerMenu>
+				<StyledDrawerMenu key={href} sx={styleOptions} component={NextLink} href={href}>{title}</StyledDrawerMenu>,
 			);
 		});
 
 		return { navigationLinks, categoryLinks };
-	}, [matchCatalogSection, theme.palette.grey]);
+	}, [matchCatalogSection, theme]);
 
 	const carousel = useCarousel({
 		speed: 500,
-		infinite: true,
 		variableWidth: true,
+		swipe: true,
+		swipeToSlide: true,
 		initialSlide: activeHeaderItemNumber,
 	});
 
 	return (
-		<AppBar>
+		<AppBar sx={{ display: { xs: 'block', sm: 'none' } }}>
 			<Toolbar
 				disableGutters
 				sx={{
 					zIndex: theme.zIndex.appBar,
 					backgroundColor: theme.palette.background.default,
 					padding: '0 !important',
-					height: '114px',
+					height: '106px',
 					display: 'flex',
 					flexDirection: 'column',
-					borderBottom: `1px solid ${theme.palette.divider}`,
 				}}
 			>
 				<Box
@@ -184,7 +165,7 @@ export default function HeaderMobile() {
 					}}
 				>
 					<NextLink href='/'>
-						<MainLogoWrapper disabledEffect alt='hero' src='/assets/images/header/logo.png' />
+						<MainLogoWrapper disabledEffect alt='hero' src='/assets/images/header/logo-color.png' />
 					</NextLink>
 
 					<Stack direction='row' alignItems='center' justifyContent='flex-end'>
@@ -202,11 +183,17 @@ export default function HeaderMobile() {
 					</Stack>
 				</Box>
 
+				<CategoryLinks />
 				<Box sx={{
+					display: 'none',
 					backgroundColor: theme.palette.grey[900],
-					height: '42px',
+					height: '32px',
 					width: '100vw',
 					borderTop: `1px solid ${theme.palette.divider}`,
+					borderBottom: `1px solid ${theme.palette.divider}`,
+					position: 'relative',
+					overflow: 'hidden',
+					px: theme.spacing(1),
 				}}>
 					<Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
 						{headerItemsMemo}
@@ -254,13 +241,15 @@ export default function HeaderMobile() {
 					</Stack>
 
 
-					<Stack direction="row" alignItems="center" spacing={2} sx={{ p: 2, borderBottom: `1px solid ${theme.palette.divider}` }}>
-						<Iconify color="grey" icon='mdi:phone' />
-						<StyledDrawerMenu href='tel:+380997305113' target="_blank" sx={{ textDecoration: 'underline' }}>+380997305113</StyledDrawerMenu>
+					<Stack direction='row' alignItems='center' spacing={2}
+					       sx={{ p: 2, borderBottom: `1px solid ${theme.palette.divider}` }}>
+						<Iconify color='grey' icon='mdi:phone' />
+						<StyledDrawerMenu href='tel:+380997305113' target='_blank'
+						                  sx={{ textDecoration: 'underline' }}>+380997305113</StyledDrawerMenu>
 					</Stack>
 
 					<Stack sx={{ p: 2, borderBottom: `1px solid ${theme.palette.divider}` }}>
-						<Typography variant="subtitle1">Ми в соціальних мережах</Typography>
+						<Typography variant='subtitle1'>Ми в соціальних мережах</Typography>
 
 						<Stack spacing={1} direction='row' justifyContent='flex-start' sx={{ mt: 2 }}>
 							{_socials.map((social) => (

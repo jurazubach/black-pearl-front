@@ -1,9 +1,5 @@
-// routes
 import { paths } from 'src/routes/paths';
-// utils
 import axios from 'src/utils/axios';
-
-// ----------------------------------------------------------------------
 
 function jwtDecode(token: string) {
   const base64Url = token.split('.')[1];
@@ -18,8 +14,6 @@ function jwtDecode(token: string) {
 
   return JSON.parse(jsonPayload);
 }
-
-// ----------------------------------------------------------------------
 
 export const isValidToken = (accessToken: string) => {
   if (!accessToken) {

@@ -4,16 +4,13 @@ import { useTheme } from '@mui/material/styles';
 import Carousel, { CarouselArrows, CarouselDots, useCarousel } from 'src/components/carousel';
 import { useWidth } from 'src/hooks/use-responsive';
 import CardProduct from 'src/components/card-product/catalog';
+import { IProductItemCatalog } from 'src/types/product';
 
 type Props = {
-  products: {
-    id: number;
-    title: string;
-    description: string;
-  }[];
+  products: IProductItemCatalog[];
 };
 
-const slidesToShowByBreakPoints = { 'xs': 1, 'sm': 2, 'md': 3, 'lg': 4, 'xl': 5 };
+const slidesToShowByBreakPoints = { 'xs': 1, 'sm': 2, 'md': 3, 'lg': 4, 'xl': 4 };
 
 export default function CarouselProducts({ products }: Props) {
   const theme = useTheme();
@@ -23,13 +20,15 @@ export default function CarouselProducts({ products }: Props) {
     infinite: true,
     centerMode: true,
     centerPadding: theme.spacing(0),
+    swipe: true,
+    swipeToSlide: true,
     slidesToShow: slidesToShowByBreakPoints[breakpoints],
     ...CarouselDots({ rounded: true, sx: { pt: 3, pb: 2 } }),
   });
 
   return (
     <Box sx={{ position: 'relative', overflow: 'hidden', my: 1 }}>
-      <CarouselArrows filled icon="noto:backhand-index-pointing-right" onNext={carousel.onNext} onPrev={carousel.onPrev}>
+      <CarouselArrows filled icon="mdi:arrow-right" onNext={carousel.onNext} onPrev={carousel.onPrev}>
         <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
           {products.map((product, idx) => (
             <CardProduct key={product.id} idx={idx} product={product} />

@@ -20,7 +20,7 @@ import { CatalogTitles, ECatalogSection, TCatalogSection } from 'src/types/catal
 import useCheckout from 'src/hooks/use-checkout';
 import { calculateTotalProductsInCheckout } from 'src/utils/checkout';
 import { RouterLink } from 'src/routes/components';
-import { PATH_PAGE } from '../../routes/paths';
+import { PATH_PAGE } from 'src/routes/paths';
 import { Searchbar } from '../_common';
 
 const StyledTopHeaderWrapper: any = styled(Box)(({ theme }) => ({
@@ -48,7 +48,7 @@ const StyledTopHeaderBox: any = styled(Box)(({ theme }) => ({
 
 const ImageLogoWrapper: any = styled(Image)({
 	maxWidth: '320px',
-	opacity: 0.7,
+	opacity: 0.8,
 	transition: 'all 0.2s ease-in',
 	'&:hover': {
 		opacity: 1,
@@ -58,15 +58,15 @@ const ImageLogoWrapper: any = styled(Image)({
 const StyledMenu: any = styled(Link)(({ theme }) => ({
 	cursor: 'pointer',
 	padding: '0 12px',
+	...theme.typography.body2,
 	color: theme.palette.grey[500],
-	fontSize: '18px',
-	fontWeight: 'bold',
+	height: '28px',
 	userSelect: 'none',
 	transition: 'all 0.2s ease-in',
-	paddingBottom: '5px',
-	borderBottom: '3px solid black',
+	paddingBottom: '4px',
+	borderBottom: `2px solid ${theme.palette.background.default}`,
 	'&:hover': {
-		borderBottom: `3px solid ${theme.palette.grey[300]}`,
+		borderBottom: `3px solid ${theme.palette.primary.main}`,
 		color: theme.palette.grey[100],
 		textDecoration: 'none',
 	},
@@ -86,19 +86,8 @@ export default function Header() {
 		const styleOptions = {};
 		if (!!matchCatalogSection && matchCatalogSection === catalogSection) {
 			Object.assign(styleOptions, {
-				borderBottom: `3px solid ${theme.palette.grey[200]}`,
+				borderBottom: `2px solid ${theme.palette.primary.main}`,
 				color: theme.palette.grey[100],
-			});
-		}
-
-		if (catalogSection === ECatalogSection.SALE) {
-			Object.assign(styleOptions, {
-				color: 'error.main',
-				borderBottom: matchCatalogSection === catalogSection ? `3px solid ${theme.palette.error.main}` : undefined,
-				'&:hover': {
-					color: 'error.main',
-					borderBottom: `3px solid ${theme.palette.error.main}`,
-				},
 			});
 		}
 
@@ -107,10 +96,10 @@ export default function Header() {
 		return (
 			<StyledMenu key={href} sx={styleOptions} component={NextLink} href={href}>{title}</StyledMenu>
 		);
-	}), [matchCatalogSection, theme.palette.error.main, theme.palette.grey]);
+	}), [matchCatalogSection, theme]);
 
 	return (
-		<AppBar>
+		<AppBar sx={{ display: { xs: 'none', sm: 'block' } }}>
 			<Toolbar
 				disableGutters
 				sx={{
@@ -118,13 +107,10 @@ export default function Header() {
 					position: 'relative',
 					backgroundColor: theme.palette.background.default,
 					padding: '0 !important',
-					height: '140px',
+					height: '141px',
 					display: 'flex',
 					flexDirection: 'column',
-					transition: theme.transitions.create(['height', 'background-color'], {
-						easing: theme.transitions.easing.easeInOut,
-						duration: theme.transitions.duration.shorter,
-					}),
+					borderBottom: `1px solid ${theme.palette.divider}`,
 				}}
 			>
 				<StyledTopHeaderWrapper>
@@ -168,7 +154,7 @@ export default function Header() {
 						</Stack>
 
 						<NextLink href='/'>
-							<ImageLogoWrapper disabledEffect alt='logo' src='/assets/images/header/logo.png' />
+							<ImageLogoWrapper disabledEffect alt='logo' src='/assets/images/header/logo-color.png' />
 						</NextLink>
 
 						<Stack direction='row' alignItems='center' justifyContent='flex-end' spacing={1} sx={{ width: '185px' }}>

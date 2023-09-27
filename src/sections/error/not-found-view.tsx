@@ -1,27 +1,29 @@
 'use client';
 
+import { useMemo } from 'react';
 import { m } from 'framer-motion';
-// @mui
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-// layouts
 import Stack from "@mui/material/Stack";
+import { usePathname } from 'next/navigation';
 import MainLayout from 'src/layouts/main';
-// routes
+import AuthLayout from 'src/layouts/auth/classic';
+import DashboardLayout from 'src/layouts/dashboard';
 import { RouterLink } from 'src/routes/components';
-// components
 import { MotionContainer, varBounce } from 'src/components/animate';
-// assets
 import { PageNotFoundIllustration } from 'src/assets/illustrations';
-
-// ----------------------------------------------------------------------
+import { PATH_PAGE } from 'src/routes/paths';
 
 export default function NotFoundView() {
-  return (
-    <MainLayout>
+  const pathname = usePathname();
+  const isAdmin = String(pathname).includes('/admin');
+  const isAuth = String(pathname).includes('/auth');
+
+  const notFoundMemo = useMemo(() => (
       <Stack
         sx={{
-          py: 6,
+          py: 3,
+          height: '100%',
           m: 'auto',
           maxWidth: '768px',
           textAlign: 'center',
@@ -50,11 +52,30 @@ export default function NotFoundView() {
             />
           </m.div>
 
-          <Button color="primary" component={RouterLink} href="/" size="large" variant="contained">
+          <Button
+            color="primary"
+            component={RouterLink}
+            href={isAdmin ? PATH_PAGE.admin.dashboard : PATH_PAGE.home}
+            size="large"
+            variant="contained"
+          >
             Повернутися на головну сторінку
           </Button>
         </MotionContainer>
       </Stack>
+    ), [isAdmin]);
+
+  if (isAdmin) {
+    return <DashboardLayout>{notFoundMemo}</DashboardLayout>
+  }
+
+  if (isAuth) {
+    return <AuthLayout>{notFoundMemo}</AuthLayout>
+  }
+
+  return (
+    <MainLayout>
+      {notFoundMemo}
     </MainLayout>
   );
 }

@@ -2,8 +2,6 @@
 import { paramCase } from 'src/utils/change-case';
 import { _id, _postTitles } from 'src/_mock/assets';
 
-// ----------------------------------------------------------------------
-
 const MOCK_ID = _id[1];
 
 const MOCK_TITLE = _postTitles[2];
@@ -14,19 +12,33 @@ const ROOTS = {
   DASHBOARD: '/dashboard',
 };
 
-// ----------------------------------------------------------------------
-
 export const PATH_PAGE = {
   home: '/',
+  auth: '/auth/login',
+  admin: {
+    banners: '/admin/banners',
+    social: '/admin/social',
+    blog: '/admin/blog',
+    dashboard: '/admin/dashboard',
+    coupons: '/admin/coupons',
+    promotions: '/admin/promotions',
+    products: '/admin/products',
+    categories: '/admin/categories',
+    looks: '/admin/looks',
+    warehouse: '/admin/warehouse',
+    orders: '/admin/orders',
+    customers: '/admin/customers',
+  },
+  product: (alias: string) => `/product/${alias}`,
   comingSoon: '/coming-soon',
   catalog: '/catalog',
   about: '/about-us',
   delivery: '/delivery',
   returnOfGoods: '/return-of-goods',
   terms: '/terms',
-  cooperation: '/cooperation',
   tracking: '/tracking',
-  contacts: '/contacts',
+  blog: '/blog',
+  contacts: '/contact-us',
   page403: '/403',
   page404: '/404',
   page500: '/500',

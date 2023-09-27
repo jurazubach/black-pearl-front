@@ -1,81 +1,36 @@
-// ----------------------------------------------------------------------
+import { ICategoryItem } from './category';
+import { IWarehouseProductItemCatalog } from './warehouseProduct';
 
-export type IProductFilterValue = string | string[] | number | number[];
+export type IProductTableFilterValue = string | Date | null | string[];
 
-export type IProductFilters = {
-  rating: string;
-  gender: string[];
-  category: string;
-  colors: string[];
-  priceRange: number[];
-};
+export enum EProductStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'in-active',
+}
 
-// ----------------------------------------------------------------------
+export type TProductStatus = EProductStatus.ACTIVE | EProductStatus.INACTIVE;
 
-export type IProductReviewNewForm = {
-  rating: number | null;
-  review: string;
-  name: string;
-  email: string;
-};
-
-export type IProductReview = {
-  id: string;
-  name: string;
-  rating: number;
-  comment: string;
-  helpful: number;
-  avatarUrl: string;
-  isPurchased: boolean;
-  attachments?: string[];
-  postedAt: Date;
-};
-
-export type IProductItem = {
-  id: string;
-  sku: string;
-  name: string;
-  code: string;
-  price: number;
-  taxes: number;
-  tags: string[];
-  gender: string;
-  sizes: string[];
-  publish: string;
-  coverUrl: string;
-  images: string[];
-  colors: string[];
-  quantity: number;
-  category: string;
-  available: number;
-  totalSold: number;
-  description: string;
-  totalRatings: number;
-  totalReviews: number;
-  inventoryType: string;
-  subDescription: string;
-  priceSale: number | null;
-  reviews: IProductReview[];
-  createdAt: Date;
-  ratings: {
-    name: string;
-    starCount: number;
-    reviewCount: number;
-  }[];
-  saleLabel: {
-    enabled: boolean;
-    content: string;
-  };
-  newLabel: {
-    enabled: boolean;
-    content: string;
-  };
-};
-
-export type IProductTableFilterValue = string | string[];
+export const STATUS_OPTIONS = [
+  { value: 'all', label: 'Всі' },
+  { value: EProductStatus.ACTIVE, label: 'Активні' },
+  { value: EProductStatus.INACTIVE, label: 'Виключені' },
+];
 
 export type IProductTableFilters = {
-  name: string;
-  stock: string[];
-  publish: string[];
+  search: string;
+  status: TProductStatus | 'all';
+};
+
+export interface IProductItemCatalog extends Pick<IProductItem, 'id' | 'imageSrc' | 'alias' | 'title' | 'warehouseProducts'>{}
+
+export type IProductItem = {
+  id: number;
+  imageSrc: string;
+  category: ICategoryItem;
+  code: string;
+  alias: string;
+  title: string;
+  description: string;
+  warehouseProducts: IWarehouseProductItemCatalog[];
+  status: TProductStatus;
 };

@@ -1,12 +1,9 @@
 'use client';
 
 import { createContext, useContext } from 'react';
-//
-import { SettingsContextProps } from '../types';
+import { SettingsValueProps } from '../types';
 
-// ----------------------------------------------------------------------
-
-export const SettingsContext = createContext({} as SettingsContextProps);
+export const SettingsContext = createContext({} as SettingsValueProps);
 
 export const useSettingsContext = () => {
   const context = useContext(SettingsContext);

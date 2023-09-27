@@ -2,7 +2,7 @@
 
 import React, { createContext, useState, useCallback, useMemo } from 'react';
 import Dialog from '@mui/material/Dialog';
-import { DeleteAlertDialog, DiscountDialog } from 'src/dialogs';
+import { DeleteAlertDialog, DiscountDialog, InformProductAvailableDialog } from 'src/dialogs';
 
 interface IOpenDialogParamsProps {
   id: string,
@@ -20,12 +20,14 @@ const DialogContext = createContext(initialState);
 export const DialogIds = {
   DELETE_ALERT: 'deleteAlertDialog',
   DISCOUNT_DIALOG: 'discountDialog',
+  INFORM_PRODUCT_AVAILABLE_DIALOG: 'informProductAvailableDialog',
 };
 
 const getDialogContentById = (dialogId: string): any => {
   const dialogs = {
     [DialogIds.DELETE_ALERT]: DeleteAlertDialog,
     [DialogIds.DISCOUNT_DIALOG]: DiscountDialog,
+    [DialogIds.INFORM_PRODUCT_AVAILABLE_DIALOG]: InformProductAvailableDialog,
   };
 
   return dialogs[dialogId] || null;

@@ -1,20 +1,7 @@
 import { useEffect, useCallback, useState } from 'react';
-// routes
-import { paths } from 'src/routes/paths';
+import { PATH_PAGE } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
-//
 import { useAuthContext } from '../hooks';
-
-// ----------------------------------------------------------------------
-
-const loginPaths: Record<string, string> = {
-  jwt: paths.auth.jwt.login,
-  auth0: paths.auth.auth0.login,
-  amplify: paths.auth.amplify.login,
-  firebase: paths.auth.firebase.login,
-};
-
-// ----------------------------------------------------------------------
 
 type Props = {
   children: React.ReactNode;
@@ -22,31 +9,21 @@ type Props = {
 
 export default function AuthGuard({ children }: Props) {
   const router = useRouter();
-
-  const { authenticated, method } = useAuthContext();
-
+  const { authenticated } = useAuthContext();
   const [checked, setChecked] = useState(false);
 
   const check = useCallback(() => {
     if (!authenticated) {
-      const searchParams = new URLSearchParams({
-        returnTo: window.location.pathname,
-      }).toString();
-
-      const loginPath = loginPaths[method];
-
-      const href = `${loginPath}?${searchParams}`;
-
-      router.replace(href);
+      router.replace(PATH_PAGE.auth);
     } else {
       setChecked(true);
     }
-  }, [authenticated, method, router]);
+  }, [authenticated, router]);
 
   useEffect(() => {
     check();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [authenticated]);
 
   if (!checked) {
     return null;

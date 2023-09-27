@@ -12,6 +12,7 @@ interface Props {
 	productSize: string;
 	quantity: number;
 	canDecrementDelete?: boolean;
+	readOnly?: boolean;
 }
 
 const getSizesByType = (type: Props['type']) => {
@@ -30,7 +31,7 @@ const getSizesByType = (type: Props['type']) => {
 	return {};
 };
 
-const ProductCounterField = ({ type, canDecrementDelete = false, productId, productSize, quantity }: Props) => {
+const ProductCounterField = ({ type, canDecrementDelete = false, readOnly = false, productId, productSize, quantity }: Props) => {
 	const theme = useTheme();
 	const { incrementProduct, decrementProduct } = useCheckout();
 
@@ -52,7 +53,7 @@ const ProductCounterField = ({ type, canDecrementDelete = false, productId, prod
 				size='small'
 				variant='contained'
 				onClick={onDecrementProductClick}
-				disabled={isBlockDecrement}
+				disabled={isBlockDecrement || readOnly}
 			>
 				<Iconify icon='material-symbols:remove' />
 			</Button>
@@ -61,7 +62,7 @@ const ProductCounterField = ({ type, canDecrementDelete = false, productId, prod
 				width: { xs: '52px', sm: '64px' },
 				'& .MuiInputBase-root': { height: sizes.buttonHeight },
 				'& .MuiInputBase-input': {
-					'-webkit-text-fill-color': `${theme.palette.grey[100]} !important`,
+					WebkitTextFillColor: `${theme.palette.grey[100]} !important`,
 					textAlign: 'center',
 					height: '32px',
 					padding: 0,
@@ -75,6 +76,7 @@ const ProductCounterField = ({ type, canDecrementDelete = false, productId, prod
 				size='small'
 				variant='contained'
 				onClick={onIncrementProductClick}
+				disabled={readOnly}
 			>
 				<Iconify icon='material-symbols:add' />
 			</Button>

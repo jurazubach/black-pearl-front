@@ -8,12 +8,12 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import { useRouter } from 'next/navigation';
-import { IFilterContainerOut } from 'src/utils/getFilterContainer';
+import { IFilterContainerOut } from 'src/utils/get-filter-container';
 import Scrollbar from 'src/components/scrollbar/scrollbar';
 import Iconify from 'src/components/iconify';
 import { paper } from 'src/theme/css';
-import UrlBuilder from '../../utils/urlBuilder';
-import { PATH_PAGE } from '../../routes/paths';
+import UrlBuilder from 'src/utils/url-builder';
+import { PATH_PAGE } from 'src/routes/paths';
 
 interface Props {
 	openMenu: boolean;

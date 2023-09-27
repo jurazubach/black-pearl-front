@@ -32,6 +32,8 @@ export default function CarouselMainFeatures({ features }: Props) {
     speed: 800,
     infinite: true,
     centerPadding: theme.spacing(0),
+    swipe: true,
+    swipeToSlide: true,
     slidesToShow: slidesToShowByBreakPoints[breakpoints],
     ...CarouselDots({ rounded: true, sx: { py: 3 } }),
   });

@@ -1,9 +1,7 @@
 import 'src/utils/highlight';
 import dynamic from 'next/dynamic';
-// @mui
 import { alpha } from '@mui/material/styles';
 import Skeleton from '@mui/material/Skeleton';
-//
 import { EditorProps } from './types';
 import { StyledEditor } from './styles';
 import Toolbar, { formats } from './toolbar';
@@ -24,8 +22,6 @@ const ReactQuill = dynamic(() => import('react-quill'), {
     />
   ),
 });
-
-// ----------------------------------------------------------------------
 
 export default function Editor({
   id = 'minimal-quill',
@@ -68,7 +64,7 @@ export default function Editor({
         <ReactQuill
           modules={modules}
           formats={formats}
-          placeholder="Write something awesome..."
+          placeholder="Заповніть поле..."
           {...other}
         />
       </StyledEditor>

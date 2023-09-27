@@ -29,8 +29,6 @@ function NavSectionVertical({ data, config, sx, ...other }: NavSectionProps) {
 
 export default memo(NavSectionVertical);
 
-// ----------------------------------------------------------------------
-
 type GroupProps = {
   subheader: string;
   items: NavListProps[];

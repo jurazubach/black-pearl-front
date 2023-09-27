@@ -1,25 +1,15 @@
 'use client';
 
 import { useEffect } from 'react';
-// @mui
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
-// hooks
-import { useResponsive } from 'src/hooks/use-responsive';
-// hooks
-import { useMockedUser } from 'src/hooks/use-mocked-user';
-// components
-import Logo from 'src/components/logo';
+import Link from '@mui/material/Link';
 import Scrollbar from 'src/components/scrollbar';
 import { usePathname } from 'src/routes/hooks';
 import { NavSectionVertical } from 'src/components/nav-section';
-//
+import { RouterLink } from 'src/routes/components';
 import { NAV } from '../config-layout';
 import { useNavData } from './config-navigation';
-import { NavToggleButton, NavUpgrade } from '../_common';
-
-// ----------------------------------------------------------------------
 
 type Props = {
   openNav: boolean;
@@ -27,12 +17,7 @@ type Props = {
 };
 
 export default function NavVertical({ openNav, onCloseNav }: Props) {
-  const { user } = useMockedUser();
-
   const pathname = usePathname();
-
-  const lgUp = useResponsive('up', 'lg');
-
   const navData = useNavData();
 
   useEffect(() => {
@@ -53,55 +38,32 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
         },
       }}
     >
-      <Logo sx={{ mt: 3, ml: 4, mb: 1 }} />
+      <Link component={RouterLink} href="/admin" sx={{ display: 'contents' }}>
+        <Box
+          component="img"
+          src="/assets/images/header/logo-color.png"
+          sx={{ width: '230px', cursor: 'pointer', mx: 3, my: 2 }}
+        />
+      </Link>
 
-      <NavSectionVertical
-        data={navData}
-        config={{
-          currentRole: user?.role || 'admin',
-        }}
-      />
+      <NavSectionVertical data={navData} config={{ currentRole: 'admin' }} />
 
       <Box sx={{ flexGrow: 1 }} />
-
-      <NavUpgrade />
     </Scrollbar>
   );
 
   return (
     <Box
       component="nav"
-      sx={{
-        flexShrink: { lg: 0 },
-        width: { lg: NAV.W_VERTICAL },
-      }}
+      sx={{ flexShrink: { lg: 0 } }}
     >
-      <NavToggleButton />
-
-      {lgUp ? (
-        <Stack
-          sx={{
-            height: 1,
-            position: 'fixed',
-            width: NAV.W_VERTICAL,
-            borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
-          }}
-        >
-          {renderContent}
-        </Stack>
-      ) : (
-        <Drawer
-          open={openNav}
-          onClose={onCloseNav}
-          PaperProps={{
-            sx: {
-              width: NAV.W_VERTICAL,
-            },
-          }}
-        >
-          {renderContent}
-        </Drawer>
-      )}
+      <Drawer
+        open={openNav}
+        onClose={onCloseNav}
+        PaperProps={{ sx: { width: NAV.W_VERTICAL } }}
+      >
+        {renderContent}
+      </Drawer>
     </Box>
   );
 }

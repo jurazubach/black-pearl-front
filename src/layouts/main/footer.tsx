@@ -17,10 +17,10 @@ import { CatalogTitles, ECatalogSection, TCatalogSection } from 'src/types/catal
 
 const NAVIGATION_LINKS = [
 	{ name: 'Головна', href: PATH_PAGE.home },
+	{ name: 'Блог', href: PATH_PAGE.blog },
 	{ name: 'Доставка і оплата', href: PATH_PAGE.delivery },
 	{ name: 'Обмін і повернення', href: PATH_PAGE.returnOfGoods },
 	{ name: 'Угода користувача', href: PATH_PAGE.terms },
-	{ name: 'Співпраця', href: PATH_PAGE.cooperation },
 	{ name: 'Контакти', href: PATH_PAGE.contacts },
 	{ name: 'Про нас', href: PATH_PAGE.about },
 ];
@@ -46,7 +46,7 @@ export default function Footer() {
 			const title = CatalogTitles[catalogSection as TCatalogSection];
 
 			return (
-				<StyledLink key={title} component={NextLink} href={`/catalog/${catalogSection}`} variant='subtitle2'>
+				<StyledLink key={catalogSection} component={NextLink} href={`/catalog/${catalogSection}`} variant='subtitle2'>
 					{title}
 				</StyledLink>
 			);
@@ -57,13 +57,13 @@ export default function Footer() {
 			backgroundColor: 'background.default',
 			borderTop: `1px solid ${theme.palette.divider}`,
 		}}>
-			<Container maxWidth='md' sx={{ py: 6 }}>
+			<Container maxWidth='md' sx={{ py: 3 }}>
 				<Grid
 					container
 					direction="row"
 					justifyContent={{ xs: 'center', md: 'space-between' }}
 					sx={{ textAlign: { xs: 'center', md: 'left' } }}
-					spacing={6}
+					spacing={3}
 				>
 					<Grid item xs={12} sm={6} md={4}>
 						<Stack
@@ -92,7 +92,7 @@ export default function Footer() {
 					</Grid>
 
 					<Grid item xs={12} md={4}>
-						<Stack spacing={6} alignItems={{ xs: 'center', md: 'flex-start' }}>
+						<Stack spacing={3} alignItems={{ xs: 'center', md: 'flex-start' }}>
 							<Stack spacing={2} alignItems={{ xs: 'center', md: 'flex-start', width: '100%', maxWidth: '460px' }}>
 								<Typography variant='subtitle1'>
 									Підпишіться на розсилку

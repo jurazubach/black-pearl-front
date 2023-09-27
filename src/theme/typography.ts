@@ -28,7 +28,7 @@ declare module '@mui/material/styles' {
   }
 }
 export const primaryFont = Montserrat({
-    weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800'],
   subsets: ['latin'],
   display: 'swap',
   fallback: ['Helvetica', 'Arial', 'sans-serif'],

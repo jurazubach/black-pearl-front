@@ -2,9 +2,9 @@ import React, { useMemo } from 'react';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import _omit from 'lodash/omit';
-import UrlBuilder from 'src/utils/urlBuilder';
+import UrlBuilder from 'src/utils/url-builder';
 import { PATH_PAGE } from 'src/routes/paths';
-import { IFilterContainerOut } from 'src/utils/getFilterContainer';
+import { IFilterContainerOut } from 'src/utils/get-filter-container';
 import { useRouter } from 'src/routes/hooks';
 import { useResponsive } from 'src/hooks/use-responsive';
 

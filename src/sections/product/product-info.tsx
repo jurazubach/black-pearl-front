@@ -1,20 +1,21 @@
 import React from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import Label from 'src/components/label';
+import { IProductItem } from 'src/types/product';
+import { IWarehouseProductItemCatalog } from 'src/types/warehouseProduct';
+import ProductAvailability from './product-availability';
 
 interface Props {
-	product: any;
+	product: IProductItem;
+	warehouseProduct: IWarehouseProductItemCatalog | null;
 }
 
-const ProductInfo = ({ product }: Props) => (
+const ProductInfo = ({ product, warehouseProduct }: Props) => (
 		<Stack direction='column' spacing={3}>
 			<Typography variant='h3' sx={{ fontWeight: 'bold' }}>{product.title}</Typography>
 
 			<Stack direction='row' justifyContent='space-between' spacing={2}>
-				<Label variant='soft' color='success'>
-					<Typography sx={{ fontWeight: 'bold', textTransform: 'none' }}>В наявності</Typography>
-				</Label>
+				<ProductAvailability warehouseProduct={warehouseProduct} />
 
 				<Stack direction='row' spacing={1}>
 					<Typography variant='body2'>Актикул:</Typography>
@@ -22,6 +23,6 @@ const ProductInfo = ({ product }: Props) => (
 				</Stack>
 			</Stack>
 		</Stack>
-	)
+	);
 
 export default ProductInfo;

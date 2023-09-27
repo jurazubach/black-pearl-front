@@ -1,17 +1,13 @@
-// @mui
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-//
 import { CustomBreadcrumbsProps } from './types';
 import LinkItem from './link-item';
 
-// ----------------------------------------------------------------------
-
 export default function CustomBreadcrumbs({
-  links,
+  links = [],
   action,
   heading,
   moreLink,
@@ -19,8 +15,6 @@ export default function CustomBreadcrumbs({
   sx,
   ...other
 }: CustomBreadcrumbsProps) {
-  const lastLink = links[links.length - 1].name;
-
   return (
     <Box sx={{ ...sx }}>
       <Stack direction="row" alignItems="center">
@@ -40,7 +34,7 @@ export default function CustomBreadcrumbs({
                   key={link.name || ''}
                   link={link}
                   activeLast={activeLast}
-                  disabled={link.name === lastLink}
+                  disabled={link.name === links[links.length - 1].name}
                 />
               ))}
             </Breadcrumbs>

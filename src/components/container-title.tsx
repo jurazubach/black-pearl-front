@@ -13,7 +13,7 @@ interface Props {
   maxWidth?: Breakpoint;
 }
 
-export default ({ title, description = null, center, maxWidth = 'xl' }: Props) => {
+export default ({ title, description = null, center, maxWidth = 'lg' }: Props) => {
   const theme = useTheme();
 
   const descriptionMemo = useMemo(() => {

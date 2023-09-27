@@ -18,7 +18,7 @@ import CarouselBasic1 from './carousel-basic-1';
 import CarouselBasic2 from './carousel-basic-2';
 import CarouselBasic3 from './carousel-basic-3';
 import CarouselBasic4 from './carousel-basic-4';
-import CarouselAnimation from './carousel-animation';
+// import CarouselAnimation from './carousel-animation';
 import CarouselThumbnail from './carousel-thumbnail';
 import CarouselCenterMode from './carousel-center-mode';
 
@@ -117,7 +117,7 @@ export default function CarouselView() {
           <Card>
             <CardHeader title="Carousel Animation" />
             <CardContent>
-              <CarouselAnimation data={_carouselsExample.slice(12, 16)} />
+              {/* <CarouselAnimation data={_carouselsExample.slice(12, 16)} /> */}
             </CardContent>
           </Card>
         </Stack>

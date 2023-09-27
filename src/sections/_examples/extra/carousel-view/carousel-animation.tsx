@@ -52,7 +52,7 @@ function CarouselItem({ item, active }: CarouselItemProps) {
   const { coverUrl, title } = item;
 
   return (
-    <Box sx={{ position: 'relative', maxHeight: { xs: 'calc(100vh - 115px)', sm: 'calc(100vh - 140px)'} }}>
+    <Box sx={{ position: 'relative', maxHeight: { xs: 'calc(100vh - 105px)', sm: 'calc(100vh - 140px)'} }}>
       <Image dir="ltr" alt={title} src={coverUrl} ratio="16/9" />
 
       <Box

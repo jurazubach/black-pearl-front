@@ -28,7 +28,6 @@ import { primaryFont } from 'src/theme/typography';
 import ProgressBar from 'src/components/progress-bar';
 import { MotionLazy } from 'src/components/animate/motion-lazy';
 import SnackbarProvider from 'src/components/snackbar/snackbar-provider';
-import { SettingsProvider } from 'src/components/settings';
 import { CheckoutProvider } from 'src/context/checkout-context';
 import { DialogProvider } from 'src/context/dialog-context';
 import { DrawerProvider } from 'src/context/drawer-context';
@@ -80,32 +79,21 @@ export default function RootLayout({ children }: Props) {
 		<html lang='en' className={primaryFont.className}>
 		<body>
 		<LocalizationProvider>
-			<SettingsProvider
-				defaultSettings={{
-					themeMode: 'dark', // 'light' | 'dark'
-					themeDirection: 'ltr', //  'rtl' | 'ltr'
-					themeContrast: 'default', // 'default' | 'bold'
-					themeLayout: 'vertical', // 'vertical' | 'horizontal' | 'mini'
-					themeColorPresets: 'default', // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
-					themeStretch: false,
-				}}
-			>
-				<ThemeProvider>
-					<MotionLazy>
-						<SnackbarProvider>
-							<CheckoutProvider>
-								<DrawerProvider>
-									<DialogProvider>
-										<CheckoutDrawer />
-										<ProgressBar />
-										{children}
-									</DialogProvider>
-								</DrawerProvider>
-							</CheckoutProvider>
-						</SnackbarProvider>
-					</MotionLazy>
-				</ThemeProvider>
-			</SettingsProvider>
+			<ThemeProvider>
+				<MotionLazy>
+					<SnackbarProvider>
+						<CheckoutProvider>
+							<DrawerProvider>
+								<DialogProvider>
+									<CheckoutDrawer />
+									<ProgressBar />
+									{children}
+								</DialogProvider>
+							</DrawerProvider>
+						</CheckoutProvider>
+					</SnackbarProvider>
+				</MotionLazy>
+			</ThemeProvider>
 		</LocalizationProvider>
 		</body>
 		</html>

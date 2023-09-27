@@ -2,42 +2,55 @@
 
 import merge from 'lodash/merge';
 import { useMemo } from 'react';
-// @mui
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider as MuiThemeProvider, ThemeOptions } from '@mui/material/styles';
-// locales
+import { usePathname } from 'next/navigation';
 import { useLocales } from 'src/locales';
-// components
-import { useSettingsContext } from 'src/components/settings';
-// system
+import { SettingsProvider, SettingsValueProps } from 'src/components/settings';
 import breakpoints from './breakpoints';
 import { palette } from './palette';
 import { shadows } from './shadows';
 import { typography } from './typography';
 import { customShadows } from './custom-shadows';
 import { componentsOverrides } from './overrides';
-// options
 import { presets } from './options/presets';
 import { darkMode } from './options/dark-mode';
 import { contrast } from './options/contrast';
 import RTL, { direction } from './options/right-to-left';
-//
 import NextAppDirEmotionCacheProvider from './next-emotion-cache';
-
-// ----------------------------------------------------------------------
 
 type Props = {
   children: React.ReactNode;
 };
 
+const adminTheme = {
+  themeMode: 'light', // 'light' | 'dark'
+  themeDirection: 'ltr', //  'rtl' | 'ltr'
+  themeContrast: 'default', // 'default' | 'bold'
+  themeLayout: 'vertical', // 'vertical' | 'horizontal' | 'mini'
+  themeColorPresets: 'default', // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
+  themeStretch: false,
+} as SettingsValueProps;
+
+const shopTheme = {
+  themeMode: 'dark', // 'light' | 'dark'
+  themeDirection: 'ltr', //  'rtl' | 'ltr'
+  themeContrast: 'default', // 'default' | 'bold'
+  themeLayout: 'vertical', // 'vertical' | 'horizontal' | 'mini'
+  themeColorPresets: 'default', // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
+  themeStretch: false,
+} as SettingsValueProps;
+
 export default function ThemeProvider({ children }: Props) {
   const { currentLang } = useLocales();
+  const pathname = usePathname();
+  const isAdmin = String(pathname).includes('/admin') || String(pathname).includes('/auth');
+  const themeSettings = useMemo(() => isAdmin ? adminTheme : shopTheme, [isAdmin]);
 
-  const settings = useSettingsContext();
-  const darkModeOption = darkMode(settings.themeMode);
-  const presetsOption = presets(settings.themeColorPresets);
-  const contrastOption = contrast(settings.themeContrast === 'bold', settings.themeMode);
-  const directionOption = direction(settings.themeDirection);
+  const darkModeOption = darkMode(themeSettings.themeMode);
+  const presetsOption = presets(themeSettings.themeColorPresets);
+  const contrastOption = contrast(themeSettings.themeContrast === 'bold', themeSettings.themeMode);
+  const directionOption = direction(themeSettings.themeDirection);
   const baseOption = useMemo(
     () => ({
       breakpoints,
@@ -45,9 +58,9 @@ export default function ThemeProvider({ children }: Props) {
       shadows: shadows('dark'),
       customShadows: customShadows('dark'),
       typography,
-      shape: { borderRadius: 0 },
+      shape: { borderRadius: isAdmin ? 8 : 0 },
     }),
-    []
+    [isAdmin]
   );
 
   const memoizedValue = useMemo(
@@ -77,13 +90,15 @@ export default function ThemeProvider({ children }: Props) {
   );
 
   return (
-    <NextAppDirEmotionCacheProvider options={{ key: 'css' }}>
-      <MuiThemeProvider theme={themeWithLocale}>
-        <RTL themeDirection={settings.themeDirection}>
-          <CssBaseline />
-          {children}
-        </RTL>
-      </MuiThemeProvider>
-    </NextAppDirEmotionCacheProvider>
+    <SettingsProvider defaultSettings={themeSettings}>
+      <NextAppDirEmotionCacheProvider options={{ key: 'css' }}>
+        <MuiThemeProvider theme={themeWithLocale}>
+          <RTL themeDirection={themeSettings.themeDirection}>
+            <CssBaseline />
+            {children}
+          </RTL>
+        </MuiThemeProvider>
+      </NextAppDirEmotionCacheProvider>
+    </SettingsProvider>
   );
 }

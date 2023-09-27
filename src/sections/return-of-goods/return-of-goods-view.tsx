@@ -29,7 +29,7 @@ export default function ReturnOfGoodsView() {
 		<MainLayout>
 			<ContainerTitle center title='Обмін і повернення' />
 
-			<Container maxWidth='xl'>
+			<Container maxWidth='lg'>
 				<Stack direction='column' spacing={3}>
 					<Typography variant='h4' sx={{ mt: 3 }}>ПОВЕРНЕННЯ НЕЯКІСНОГО ТОВАРУ</Typography>
 

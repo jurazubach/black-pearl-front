@@ -1,7 +1,5 @@
 import { alpha } from '@mui/material/styles';
 
-// ----------------------------------------------------------------------
-
 export type ColorSchema = 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error';
 
 declare module '@mui/material/styles/createPalette' {
@@ -113,6 +111,7 @@ export function palette(mode: 'light' | 'dark') {
   const light = {
     ...COMMON,
     mode: 'light',
+    divider: alpha(GREY[500], 0.2),
     text: {
       primary: GREY[800],
       secondary: GREY[600],

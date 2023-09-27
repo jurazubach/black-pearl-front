@@ -1,17 +1,11 @@
-// @mui
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
 import ListItemText from '@mui/material/ListItemText';
-// routes
 import { RouterLink } from 'src/routes/components';
-//
 import Iconify from '../../iconify';
-//
 import { NavItemProps, NavConfigProps } from '../types';
 import { StyledItem, StyledIcon, StyledDotIcon } from './styles';
-
-// ----------------------------------------------------------------------
 
 type Props = NavItemProps & {
   config: NavConfigProps;
@@ -62,7 +56,6 @@ export default function NavItem({
           primaryTypographyProps={{
             noWrap: true,
             typography: 'body2',
-            textTransform: 'capitalize',
             fontWeight: active ? 'fontWeightSemiBold' : 'fontWeightMedium',
           }}
           secondaryTypographyProps={{
