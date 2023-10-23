@@ -7,7 +7,7 @@ import useCheckout from 'src/hooks/use-checkout';
 import Typography from '@mui/material/Typography';
 
 interface Props {
-	type: 'catalog' | 'card' | 'checkout';
+	type: 'catalog' | 'checkout';
 	productId: number;
 	productSize: string;
 	quantity: number;
@@ -22,10 +22,6 @@ const getSizesByType = (type: Props['type']) => {
 
 	if (type === 'catalog') {
 		return { buttonHeight: '36px', buttonWidth: '36px' };
-	}
-
-	if (type === 'card') {
-		return { buttonHeight: '48px', buttonWidth: '48px' };
 	}
 
 	return {};
@@ -59,7 +55,7 @@ const ProductCounterField = ({ type, canDecrementDelete = false, readOnly = fals
 			</Button>
 
 			<TextField sx={{
-				width: { xs: '52px', sm: '64px' },
+				width: '52px',
 				'& .MuiInputBase-root': { height: sizes.buttonHeight },
 				'& .MuiInputBase-input': {
 					WebkitTextFillColor: `${theme.palette.grey[100]} !important`,

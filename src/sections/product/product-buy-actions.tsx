@@ -6,7 +6,6 @@ import Button from '@mui/material/Button';
 import Iconify from 'src/components/iconify';
 import useCheckout from 'src/hooks/use-checkout';
 import ProductCounterField from 'src/components/product-counter-field';
-import { useResponsive } from 'src/hooks/use-responsive';
 import { IProductItem } from 'src/types/product';
 import { IWarehouseProductItemCatalog } from 'src/types/warehouseProduct';
 
@@ -18,7 +17,6 @@ interface Props {
 
 const ProductBuyActions = ({ product, warehouseProduct, setWarehouseProduct }: Props) => {
 	const { openToggle, checkoutProducts, addProduct } = useCheckout();
-	const smUp = useResponsive('up', 'sm');
 	const { warehouseProducts } = product;
 
 	const onAddProductClick = () => {
@@ -35,7 +33,6 @@ const ProductBuyActions = ({ product, warehouseProduct, setWarehouseProduct }: P
 	};
 
 	const checkoutProduct = useMemo(() => checkoutProducts.find((i) => i.productId === product.id && i.size === warehouseProduct.size), [checkoutProducts, product, warehouseProduct]);
-
 	const onWarehouseProductClick = useCallback((wp: IWarehouseProductItemCatalog) => () => setWarehouseProduct(wp), [setWarehouseProduct]);
 
 	return (
@@ -49,15 +46,15 @@ const ProductBuyActions = ({ product, warehouseProduct, setWarehouseProduct }: P
 							sx={{
 								userSelect: 'none',
 								display: 'flex',
+								cursor: 'pointer',
 								justifyContent: 'center',
 								alignItems: 'center',
-								width: { xs: '36px', sm: '48px' },
-								height: { xs: '36px', sm: '48px' },
-								cursor: 'pointer',
+								width: '36px',
+								height: '36px',
+								transition: 'all .1s ease-in',
 								backgroundColor: warehouseProduct.size === wProduct.size ? 'primary.main' : 'grey.100',
 								'&:hover': {
 									backgroundColor: warehouseProduct.size === wProduct.size ? 'primary.dark' : 'grey.200',
-									textDecoration: 'none',
 								},
 							}}
 						>
@@ -83,7 +80,7 @@ const ProductBuyActions = ({ product, warehouseProduct, setWarehouseProduct }: P
 				{checkoutProduct && (
 					<ProductCounterField
 						canDecrementDelete
-						type={smUp ? 'card' : 'catalog'}
+						type='catalog'
 						productId={checkoutProduct.productId}
 						productSize={checkoutProduct.size}
 						quantity={checkoutProduct.quantity}
@@ -93,7 +90,7 @@ const ProductBuyActions = ({ product, warehouseProduct, setWarehouseProduct }: P
 				<Button
 					onClick={onAddProductClick}
 					fullWidth
-					size={smUp ? 'large' : 'medium'}
+					size='medium'
 					startIcon={(<Iconify icon='solar:cart-plus-outline' color='inherit' width={24} />)}
 					variant='contained'
 				>

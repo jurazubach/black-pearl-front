@@ -11,7 +11,7 @@ const ProductAvailability = ({ warehouseProduct }: Props) => {
 	if (!warehouseProduct) {
 		return (
 			<Label variant='soft' color='default'>
-				<Typography sx={{ fontWeight: 'bold', textTransform: 'none' }}>Немає в наявності</Typography>
+				<Typography variant='caption' sx={{ fontWeight: 'bold', textTransform: 'none' }}>Немає в наявності</Typography>
 			</Label>
 		);
 	}
@@ -19,14 +19,14 @@ const ProductAvailability = ({ warehouseProduct }: Props) => {
 	if (warehouseProduct.quantity > 0 && warehouseProduct.quantity < 10) {
 		return (
 			<Label variant='soft' color='warning'>
-				<Typography sx={{ fontWeight: 'bold', textTransform: 'none' }}>Закінчується</Typography>
+				<Typography variant='caption' sx={{ fontWeight: 'bold', textTransform: 'none' }}>Закінчується</Typography>
 			</Label>
 		)
 	}
 
 	return (
 		<Label variant='soft' color='success'>
-			<Typography sx={{ fontWeight: 'bold', textTransform: 'none' }}>В наявності</Typography>
+			<Typography variant='caption' sx={{ fontWeight: 'bold', textTransform: 'none' }}>В наявності</Typography>
 		</Label>
 	);
 }

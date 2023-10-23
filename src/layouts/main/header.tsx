@@ -76,7 +76,6 @@ const ImageLogoWrapper: any = styled(Image)({
 const StyledMenu: any = styled(Link)(({ theme }) => ({
 	cursor: 'pointer',
 	padding: '0 12px',
-	...theme.typography.body2,
 	color: theme.palette.grey[300],
 	height: '28px',
 	userSelect: 'none',
