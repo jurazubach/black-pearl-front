@@ -30,7 +30,8 @@ const Filters = ({ categoryAlias, filterContainer }: Props) => {
 		<Box>
 			<Stack
 				sx={{
-					p: theme.spacing(2, 2),
+					px: { xs: 1, sm: 2, md: 3 },
+					py: { xs: 1, sm: 1 },
 					borderTop: `1px solid ${theme.palette.divider}`,
 					borderBottom: `1px solid ${theme.palette.divider}`,
 				}}
@@ -46,7 +47,7 @@ const Filters = ({ categoryAlias, filterContainer }: Props) => {
 								variant='text'
 								color='primary'
 								onClick={openMenuToggle}
-								startIcon={<Iconify icon='mdi:filter-multiple' color='inherit' width={24} />}
+								startIcon={<Iconify icon='solar:tuning-4-outline' color='inherit' width={24} />}
 							>
 								Фільтри
 							</Button>

@@ -1,7 +1,7 @@
 import TrackingView from 'src/sections/tracking/tracking-view';
 
 export const metadata = {
-  title: 'Відстежити замовлення | The Black Pearl',
+  title: 'Відстежити замовлення | NVRMORE',
 };
 
 export default function DeliveryPage() {

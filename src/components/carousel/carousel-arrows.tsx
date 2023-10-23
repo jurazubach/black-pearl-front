@@ -47,8 +47,6 @@ const StyledIconButton = styled(IconButton, {
   }),
 }));
 
-// ----------------------------------------------------------------------
-
 interface Props extends StackProps {
   shape?: 'circular' | 'rounded';
   filled?: boolean;
@@ -73,9 +71,6 @@ export default function CarouselArrows({
   ...other
 }: Props) {
   const theme = useTheme();
-
-  const isRTL = theme.direction === 'rtl';
-
   const hasChild = !!children;
 
   if (hasChild) {
@@ -93,7 +88,7 @@ export default function CarouselArrows({
               ...leftButtonProps?.sx,
             }}
           >
-            <LeftIcon icon={icon} isRTL={isRTL} />
+            <LeftIcon icon={icon} />
           </StyledIconButton>
         )}
 
@@ -111,7 +106,7 @@ export default function CarouselArrows({
               ...rightButtonProps?.sx,
             }}
           >
-            <RightIcon icon={icon} isRTL={isRTL} />
+            <RightIcon icon={icon} />
           </StyledIconButton>
         )}
       </Stack>
@@ -121,11 +116,11 @@ export default function CarouselArrows({
   return (
     <Stack direction="row" alignItems="center" display="inline-flex" sx={sx} {...other}>
       <StyledIconButton filled={filled} shape={shape} onClick={onPrev} {...leftButtonProps}>
-        <LeftIcon icon={icon} isRTL={isRTL} />
+        <LeftIcon icon={icon} />
       </StyledIconButton>
 
       <StyledIconButton filled={filled} shape={shape} onClick={onNext} {...rightButtonProps}>
-        <RightIcon icon={icon} isRTL={isRTL} />
+        <RightIcon icon={icon} />
       </StyledIconButton>
     </Stack>
   );

@@ -20,13 +20,13 @@ export default function BreadcrumbsLink({ link, activeLast, disabled }: Props) {
   const styles = {
     typography: 'body2',
     alignItems: 'center',
-    color: 'text.primary',
+    color: 'grey.300',
     display: 'inline-flex',
     ...(disabled &&
       !activeLast && {
         cursor: 'default',
         pointerEvents: 'none',
-        color: 'text.disabled',
+        color: 'grey.500',
       }),
   };
 

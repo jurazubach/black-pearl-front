@@ -68,7 +68,7 @@ const WarehouseBuyButton = ({ selectedWarehouseProduct, setWarehouseProduct, pro
 				<Button
 					onClick={onAddProductClick}
 					fullWidth
-					startIcon={<Iconify icon='material-symbols:add-shopping-cart' color='inherit' width={24} />}
+					startIcon={<Iconify icon='solar:cart-plus-outline' color='inherit' width={24} />}
 					variant='contained'
 				>{checkoutProduct ? 'Додати в кошик' : 'Покласти в кошик'}</Button>
 			</Stack>

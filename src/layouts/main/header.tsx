@@ -23,28 +23,46 @@ import { RouterLink } from 'src/routes/components';
 import { PATH_PAGE } from 'src/routes/paths';
 import { Searchbar } from '../_common';
 
-const StyledTopHeaderWrapper: any = styled(Box)(({ theme }) => ({
-	width: '100%',
-	height: theme.spacing(3),
-	borderBottom: `1px solid ${theme.palette.divider}`,
-}));
-
-const StyledTopHeaderBox: any = styled(Box)(({ theme }) => ({
-	width: '100%',
-	height: theme.spacing(3),
+const StyledLinkBox: any = styled(Link)(({ theme }) => ({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center',
+	alignItems: 'center',
 	cursor: 'pointer',
-	transition: 'all 0.2s ease-in',
-	borderBottom: `1px solid ${theme.palette.divider}`,
+	height: '58px',
+	textDecoration: 'none !important',
+	'& svg.iconify, .MuiTypography-root': {
+		transition: theme.transitions.create('color', {
+			duration: theme.transitions.duration.standard,
+		}),
+		color: theme.palette.grey[300],
+	},
 	'&:hover': {
-		transition: 'all 0.2s ease-in',
-		'& .MuiTypography-root': {
-			transition: 'all 0.2s ease-in',
+		'& svg.iconify, .MuiTypography-root': {
 			color: theme.palette.grey[100],
 		},
-		backgroundColor: theme.palette.grey[800],
-		borderBottom: `1px solid ${theme.palette.divider}`,
 	},
 }));
+
+const StyledIconBox: any = styled(Box)(({ theme }) => ({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center',
+	alignItems: 'center',
+	cursor: 'pointer',
+	transition: theme.transitions.create('color', {
+		duration: theme.transitions.duration.standard,
+	}),
+	'& svg.iconify, .MuiTypography-root': {
+		color: theme.palette.grey[300],
+	},
+	'&:hover': {
+		'& svg.iconify, .MuiTypography-root': {
+			color: theme.palette.grey[100],
+		},
+	},
+}));
+
 
 const ImageLogoWrapper: any = styled(Image)({
 	maxWidth: '320px',
@@ -59,7 +77,7 @@ const StyledMenu: any = styled(Link)(({ theme }) => ({
 	cursor: 'pointer',
 	padding: '0 12px',
 	...theme.typography.body2,
-	color: theme.palette.grey[500],
+	color: theme.palette.grey[300],
 	height: '28px',
 	userSelect: 'none',
 	transition: 'all 0.2s ease-in',
@@ -99,7 +117,7 @@ export default function Header() {
 	}), [matchCatalogSection, theme]);
 
 	return (
-		<AppBar sx={{ display: { xs: 'none', sm: 'block' } }}>
+		<AppBar sx={{ display: { xs: 'none', md: 'block' } }}>
 			<Toolbar
 				disableGutters
 				sx={{
@@ -107,34 +125,12 @@ export default function Header() {
 					position: 'relative',
 					backgroundColor: theme.palette.background.default,
 					padding: '0 !important',
-					height: '141px',
+					height: '117px',
 					display: 'flex',
 					flexDirection: 'column',
 					borderBottom: `1px solid ${theme.palette.divider}`,
 				}}
 			>
-				<StyledTopHeaderWrapper>
-					<Container maxWidth='lg'>
-						<Stack direction="row" justifyContent='space-between'>
-							<StyledTopHeaderBox>
-								<Link component={RouterLink} href={PATH_PAGE.delivery}>
-									<Typography color='grey.300' variant='subtitle1' textAlign='center'>Безкоштовна доставка</Typography>
-								</Link>
-							</StyledTopHeaderBox>
-							<StyledTopHeaderBox>
-								<Link component={RouterLink} href={PATH_PAGE.tracking}>
-									<Typography color='grey.300' variant='subtitle1' textAlign='center'>Відстежити замовлення</Typography>
-								</Link>
-							</StyledTopHeaderBox>
-							<StyledTopHeaderBox>
-								<Link component={RouterLink} href={PATH_PAGE.contacts}>
-									<Typography color='grey.300' variant='subtitle1' textAlign='center'>Графік роботи</Typography>
-								</Link>
-							</StyledTopHeaderBox>
-						</Stack>
-					</Container>
-				</StyledTopHeaderWrapper>
-
 				<Container maxWidth='lg'>
 					<Box
 						sx={{
@@ -146,34 +142,64 @@ export default function Header() {
 							alignItems: 'center',
 						}}
 					>
-						<Stack direction="row" spacing={1}>
-							<Iconify icon='mdi:cellphone' width={24} sx={{ color: theme.palette.grey[300] }} />
-							<Link href='tel:+380997305113' target="_blank" sx={{ ...theme.typography.subtitle1, width: '185px', color: theme.palette.grey[300] }}>
-								+38(099)73-05-113
-							</Link>
+						<Stack direction='row' alignItems='center' spacing={2} sx={{ width: '250px' }}>
+							<StyledLinkBox href='https://t.me/JuraZubach' target='_blank'>
+								<Box sx={{ p: 1, pb: 0 }}>
+									<Iconify icon='solar:map-arrow-square-outline' width={24} />
+								</Box>
+								<Typography variant='caption'>Telegram</Typography>
+							</StyledLinkBox>
+
+							<StyledLinkBox href='tel:+380997305113' target='_blank'>
+								<Box sx={{ p: 1, pb: 0 }}>
+									<Iconify icon='solar:phone-calling-outline' width={24} />
+								</Box>
+								<Typography variant='caption'>Call</Typography>
+							</StyledLinkBox>
+
+							<Box sx={{
+								display: 'flex',
+								flexDirection: 'column',
+								justifyContent: 'flex-end',
+								alignItems: 'center',
+								height: '58px',
+							}}>
+								<Typography variant='body2'>Графік роботи</Typography>
+								<Typography variant='subtitle1' sx={{ paddingTop: 0.5 }}>09:00 - 18:00</Typography>
+							</Box>
 						</Stack>
 
 						<NextLink href='/'>
 							<ImageLogoWrapper disabledEffect alt='logo' src='/assets/images/header/logo-color.png' />
 						</NextLink>
 
-						<Stack direction='row' alignItems='center' justifyContent='flex-end' spacing={1} sx={{ width: '185px' }}>
-							<Searchbar iconSize='large' />
+						<Stack direction='row' alignItems='center' justifyContent='flex-end' spacing={2} sx={{ width: '250px' }}>
+							<Searchbar />
 
-							<IconButton onClick={openToggle} size='large'>
-								<Badge badgeContent={countProductsInCheckout} color='error'>
-									<Iconify icon='mdi:cart-variant' width={24} />
-								</Badge>
-							</IconButton>
+							<StyledLinkBox component={RouterLink} href={PATH_PAGE.tracking}>
+								<Box sx={{ p: 1, pb: 0 }}>
+									<Iconify icon='solar:delivery-linear' width={24} />
+								</Box>
+								<Typography variant='caption'>Статус</Typography>
+							</StyledLinkBox>
+
+							<StyledIconBox onClick={openToggle}>
+								<IconButton disableRipple>
+									<Badge badgeContent={countProductsInCheckout} color='error'>
+										<Iconify icon='solar:cart-large-minimalistic-outline' width={24} />
+									</Badge>
+								</IconButton>
+
+								<Typography variant='caption'>Кошик</Typography>
+							</StyledIconBox>
 						</Stack>
 					</Box>
 				</Container>
 
 				<Stack direction='row' spacing={1} sx={{
-					height: '42px',
+					height: '36px',
 					width: '100vw',
 					borderTop: `1px solid ${theme.palette.divider}`,
-					borderBottom: `1px solid ${theme.palette.divider}`,
 					justifyContent: 'center',
 					alignItems: 'center',
 				}}>

@@ -1,7 +1,7 @@
 import CheckoutView from 'src/sections/checkout/checkout-view';
 
 export const metadata = {
-  title: 'Кошик | The Black Pearl',
+  title: 'Кошик | NVRMORE',
 };
 
 export default function DeliveryPage() {

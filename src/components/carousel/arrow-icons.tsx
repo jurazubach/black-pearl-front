@@ -1,36 +1,17 @@
-//
 import Iconify, { IconifyProps } from '../iconify';
-
-// ----------------------------------------------------------------------
 
 type Props = {
   icon?: IconifyProps; // Right icon
-  isRTL?: boolean;
 };
 
-export function LeftIcon({ icon = 'eva:arrow-ios-forward-fill', isRTL }: Props) {
+export function LeftIcon({ icon = 'solar:double-alt-arrow-left-line-duotone' }: Props) {
   return (
-    <Iconify
-      icon={icon}
-      sx={{
-        transform: ' scaleX(-1)',
-        ...(isRTL && {
-          transform: ' scaleX(1)',
-        }),
-      }}
-    />
+    <Iconify icon={icon} />
   );
 }
 
-export function RightIcon({ icon = 'eva:arrow-ios-forward-fill', isRTL }: Props) {
+export function RightIcon({ icon = 'solar:double-alt-arrow-right-line-duotone' }: Props) {
   return (
-    <Iconify
-      icon={icon}
-      sx={{
-        ...(isRTL && {
-          transform: ' scaleX(-1)',
-        }),
-      }}
-    />
+    <Iconify icon={icon} />
   );
 }

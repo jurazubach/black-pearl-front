@@ -25,7 +25,7 @@ export default function OrderView() {
 		<MainLayout>
 			<Container maxWidth='lg'>
 				<Stack sx={{ py: 10 }} direction='column' justifyContent='center' alignItems='center' spacing={3}>
-					<Iconify icon='emojione-monotone:party-popper' width={120} />
+					<Iconify icon='solar:confetti-linear' width={120} />
 					<Typography variant='h1' sx={{ textAlign: 'center' }}>Дякуємо за замовлення</Typography>
 
 					<Alert variant="outlined" severity="success">

@@ -105,7 +105,7 @@ const FilterDrawer = ({ openMenuToggle, categoryAlias, openMenu, filterContainer
 						variant='outlined'
 						color='inherit'
 						onClick={onResetClick}
-						startIcon={<Iconify icon='mdi:restore' color='inherit' width={24} />}
+						startIcon={<Iconify icon='solar:trash-bin-2-outline' color='inherit' width={24} />}
 					>
 						Скасувати
 					</Button>
@@ -115,7 +115,7 @@ const FilterDrawer = ({ openMenuToggle, categoryAlias, openMenu, filterContainer
 						variant='contained'
 						color='primary'
 						onClick={onApplyClick}
-						startIcon={<Iconify icon='mdi:check-all' color='inherit' width={24} />}
+						startIcon={<Iconify icon='solar:checklist-broken' color='inherit' width={24} />}
 					>
 						Застосувати
 					</Button>

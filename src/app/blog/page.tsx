@@ -1,7 +1,7 @@
 import BlogMainView from 'src/sections/blog/blog-main-view';
 
 export const metadata = {
-  title: 'Блог | The Black Pearl',
+  title: 'Блог | NVRMORE',
 };
 
 export default function BlogPage() {

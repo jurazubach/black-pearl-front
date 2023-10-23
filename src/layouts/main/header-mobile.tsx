@@ -22,9 +22,9 @@ import { calculateTotalProductsInCheckout } from 'src/utils/checkout';
 import { paper } from 'src/theme/css';
 import { _socials } from 'src/_mock';
 import { PATH_PAGE } from 'src/routes/paths';
-import Carousel, { useCarousel } from 'src/components/carousel';
 import { Searchbar } from '../_common';
 import CategoryLinks from './category-links';
+import { RouterLink } from '../../routes/components';
 
 const MainLogoWrapper: any = styled(Image)({
 	maxWidth: '220px',
@@ -37,23 +37,29 @@ const MainLogoWrapper: any = styled(Image)({
 
 const StyledDrawerMenu: any = styled(Link)(({ theme }) => ({
 	cursor: 'pointer',
-	color: theme.palette.grey[500],
+	color: theme.palette.grey[300],
 	...theme.typography.subtitle2,
 	userSelect: 'none',
 	textDecoration: 'none',
 }));
 
-const StyledHeaderMenu: any = styled(Link)(({ theme }) => ({
-	padding: '0 8px',
-	margin: '0 4px !important',
-	...theme.typography.body2,
-	color: theme.palette.grey[500],
-	height: '26px',
-	userSelect: 'none',
-	transition: 'all 0.2s ease-in',
-	borderBottom: `2px solid ${theme.palette.background.default}`,
+const StyledIconBox: any = styled(Box)(({ theme }) => ({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center',
+	alignItems: 'center',
+	cursor: 'pointer',
+	transition: theme.transitions.create('color', {
+		duration: theme.transitions.duration.standard,
+	}),
+	textDecoration: 'none',
+	'& svg.iconify, .MuiTypography-root': {
+		color: theme.palette.grey[300],
+	},
 	'&:hover': {
-		textDecoration: 'none',
+		'& svg.iconify, .MuiTypography-root': {
+			color: theme.palette.grey[100],
+		},
 	},
 }));
 
@@ -78,34 +84,6 @@ export default function HeaderMobile() {
 	const matchCatalogSection: string | undefined = _get(query, 'pageFilters', [])[0];
 	const { checkoutProducts, openToggle } = useCheckout();
 	const countProductsInCheckout = calculateTotalProductsInCheckout(checkoutProducts);
-
-	const [activeHeaderItemNumber, headerItemsMemo] = useMemo(() => {
-		let activeHeaderItem = 0;
-		const headerItems: any[] = [];
-
-		Object.values(ECatalogSection).forEach((catalogSection, idx) => {
-			const title = CatalogTitles[catalogSection as TCatalogSection];
-
-			const styleOptions = {};
-			if (matchCatalogSection === catalogSection) {
-				Object.assign(styleOptions, {
-					color: theme.palette.grey[100],
-					borderBottom: `2px solid ${theme.palette.primary.main}`,
-				});
-			}
-
-			if (matchCatalogSection === catalogSection) {
-				activeHeaderItem = idx;
-			}
-
-			const href = `/catalog/${catalogSection}`;
-			headerItems.push(
-				<StyledHeaderMenu key={href} sx={styleOptions} component={NextLink} href={href}>{title}</StyledHeaderMenu>,
-			);
-		});
-
-		return [activeHeaderItem, headerItems];
-	}, [matchCatalogSection, theme]);
 
 	const drawerMenuItems = useMemo(() => {
 		const navigationLinks = NAVIGATION_LINKS.map((link) => (
@@ -132,16 +110,8 @@ export default function HeaderMobile() {
 		return { navigationLinks, categoryLinks };
 	}, [matchCatalogSection, theme]);
 
-	const carousel = useCarousel({
-		speed: 500,
-		variableWidth: true,
-		swipe: true,
-		swipeToSlide: true,
-		initialSlide: activeHeaderItemNumber,
-	});
-
 	return (
-		<AppBar sx={{ display: { xs: 'block', sm: 'none' } }}>
+		<AppBar sx={{ display: { xs: 'block', md: 'none' } }}>
 			<Toolbar
 				disableGutters
 				sx={{
@@ -158,50 +128,54 @@ export default function HeaderMobile() {
 						width: '100%',
 						height: '72px',
 						display: 'flex',
-						p: theme.spacing(0, 1),
+						paddingLeft: { xs: 1, sm: 2 },
+						paddingRight: { xs: 2, sm: 3 },
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						alignItems: 'center',
 					}}
 				>
-					<NextLink href='/'>
-						<MainLogoWrapper disabledEffect alt='hero' src='/assets/images/header/logo-color.png' />
-					</NextLink>
+					<Stack direction='row'>
+						<StyledIconBox onClick={openMenuToggle}>
+							<IconButton>
+								<Iconify icon='solar:hamburger-menu-broken' width={24} />
+							</IconButton>
+						</StyledIconBox>
 
-					<Stack direction='row' alignItems='center' justifyContent='flex-end'>
-						<Searchbar iconSize='medium' />
+						<NextLink href='/'>
+							<MainLogoWrapper disabledEffect alt='hero' src='/assets/images/header/logo-color.png' />
+						</NextLink>
+					</Stack>
 
-						<IconButton onClick={openToggle}>
-							<Badge badgeContent={countProductsInCheckout} color='error'>
-								<Iconify icon='mdi:cart-variant' />
-							</Badge>
-						</IconButton>
+					<Stack direction='row' alignItems='center' justifyContent='flex-end' spacing={{ xs: 0, sm: 2 }}>
+						<Searchbar />
 
-						<IconButton onClick={openMenuToggle}>
-							<Iconify icon='mdi:menu' width={24} />
-						</IconButton>
+						<StyledIconBox
+							component={RouterLink} href={PATH_PAGE.tracking}
+							sx={{ display: { xs: 'none', sm: 'block' } }}
+						>
+							<Box sx={{ p: 1, pb: 0 }}>
+								<Iconify icon='solar:delivery-linear' width={24} />
+							</Box>
+							<Typography variant='caption'>Статус</Typography>
+						</StyledIconBox>
+
+						<StyledIconBox onClick={openToggle}>
+							<IconButton disableRipple>
+								<Badge badgeContent={countProductsInCheckout} color='error'>
+									<Iconify icon='solar:cart-large-minimalistic-outline' width={24} />
+								</Badge>
+							</IconButton>
+
+							<Typography sx={{ display: { xs: 'none', sm: 'block' } }} variant='caption'>Кошик</Typography>
+						</StyledIconBox>
 					</Stack>
 				</Box>
 
 				<CategoryLinks />
-				<Box sx={{
-					display: 'none',
-					backgroundColor: theme.palette.grey[900],
-					height: '32px',
-					width: '100vw',
-					borderTop: `1px solid ${theme.palette.divider}`,
-					borderBottom: `1px solid ${theme.palette.divider}`,
-					position: 'relative',
-					overflow: 'hidden',
-					px: theme.spacing(1),
-				}}>
-					<Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
-						{headerItemsMemo}
-					</Carousel>
-				</Box>
 
 				<Drawer
-					anchor='right'
+					anchor='left'
 					open={openMenu}
 					onClose={openMenuToggle}
 					sx={{

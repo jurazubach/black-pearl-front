@@ -22,6 +22,7 @@ const OtherWarehouseProducts = ({ selectedWarehouseProduct, warehouseProducts, s
 					onClick={onWarehouseProductClick(warehouseProduct)}
 					key={warehouseProduct.id}
 					sx={{
+						userSelect: 'none',
 						display: 'flex',
 						cursor: 'pointer',
 						justifyContent: 'center',

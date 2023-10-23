@@ -129,7 +129,7 @@ export default function Footer() {
 
 			<Box sx={{ m: 0, p: theme.spacing(1), textAlign: 'center', background: theme.palette.grey[800] }}>
 				<Typography variant='caption'>
-					© 2023. The Black Pearl. Всі права захищені.
+					© 2023. NVRMORE. Всі права захищені.
 				</Typography>
 			</Box>
 		</Box>

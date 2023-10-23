@@ -43,7 +43,7 @@ const ProductDescriptions = ({ product }: Props) => {
 			<Accordion expanded={expanded === 'descriptions'} onChange={handleChange('descriptions')}
 			           sx={{ marginTop: '0px !important' }}>
 				<AccordionSummary
-					expandIcon={<Iconify icon='material-symbols:arrow-drop-down-rounded' color='primary' width={32} />}>
+					expandIcon={<Iconify icon='solar:alt-arrow-down-bold' color='primary' width={24} />}>
 					<Typography variant='h6'>Короткий опис товару</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
@@ -53,7 +53,7 @@ const ProductDescriptions = ({ product }: Props) => {
 			<Accordion expanded={expanded === 'properties'} onChange={handleChange('properties')}
 			           sx={{ marginTop: '0px !important' }}>
 				<AccordionSummary
-					expandIcon={<Iconify icon='material-symbols:arrow-drop-down-rounded' color='primary' width={32} />}>
+					expandIcon={<Iconify icon='solar:alt-arrow-down-bold' color='primary' width={24} />}>
 					<Typography variant='h6'>Деталі</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
@@ -67,7 +67,7 @@ const ProductDescriptions = ({ product }: Props) => {
 			<Accordion expanded={expanded === 'returns'} onChange={handleChange('returns')}
 			           sx={{ marginTop: '0px !important' }}>
 				<AccordionSummary
-					expandIcon={<Iconify icon='material-symbols:arrow-drop-down-rounded' color='primary' width={32} />}>
+					expandIcon={<Iconify icon='solar:alt-arrow-down-bold' color='primary' width={24} />}>
 					<Typography variant='h6'>Гарантія та повернення</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
@@ -90,7 +90,7 @@ const ProductDescriptions = ({ product }: Props) => {
 			<Accordion expanded={expanded === 'instructions'} onChange={handleChange('instructions')}
 			           sx={{ marginTop: '0px !important' }}>
 				<AccordionSummary
-					expandIcon={<Iconify icon='material-symbols:arrow-drop-down-rounded' color='primary' width={32} />}
+					expandIcon={<Iconify icon='solar:alt-arrow-down-bold' color='primary' width={24} />}
 				>
 					<Typography variant='h6'>Інструкція з догляду</Typography>
 				</AccordionSummary>
@@ -115,7 +115,7 @@ const ProductDescriptions = ({ product }: Props) => {
 			</Accordion>
 			<Accordion expanded={expanded === 'sizes'} onChange={handleChange('sizes')} sx={{ marginTop: '0px !important' }}>
 				<AccordionSummary
-					expandIcon={<Iconify icon='material-symbols:arrow-drop-down-rounded' color='primary' width={32} />}
+					expandIcon={<Iconify icon='solar:alt-arrow-down-bold' color='primary' width={24} />}
 				>
 					<Typography variant='h6'>Розмірна сітка</Typography>
 				</AccordionSummary>

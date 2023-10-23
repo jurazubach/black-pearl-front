@@ -85,7 +85,7 @@ export default () => {
 									loading={isSubmitting}
 									disabled={isSubmitting || formValues.accept === false}
 									type='submit'
-									startIcon={<Iconify icon='mdi:email-arrow-right' color='inherit' width={24} />}
+									startIcon={<Iconify icon='solar:card-send-outline' color='inherit' width={24} />}
 									fullWidth
 									size='large'
 									variant='contained'

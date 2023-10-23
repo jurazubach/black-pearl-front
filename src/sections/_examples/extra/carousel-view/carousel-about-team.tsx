@@ -6,6 +6,7 @@ import Image from 'src/components/image';
 import { useWidth } from 'src/hooks/use-responsive';
 import Carousel, { CarouselDots, useCarousel } from 'src/components/carousel';
 import BorderCard from 'src/components/border-card';
+import Stack from '@mui/material/Stack';
 
 type Props = {
   members: {
@@ -41,13 +42,15 @@ export default function CarouselAboutTeam({ members }: Props) {
             width: 'unset !important',
             '&:hover .component-image.MuiBox-root': { transform: 'scale(1.1)' },
           }}>
-            <Typography variant="h5">
-              {title}
-            </Typography>
+            <Stack direction='row' spacing={1} sx={{ mb: 2.5 }} alignItems='flex-end'>
+              <Typography variant="h5">
+                {title}
+              </Typography>
 
-            <Typography variant="body2" sx={{ mb: 2.5 }}>
-              {position}
-            </Typography>
+              <Typography variant="body2" color='primary'>
+                {position}
+              </Typography>
+            </Stack>
 
             <Box sx={{ overflow: 'hidden', maxHeight: '370px', width: { xs: 'calc(100vw - 96px)', sm: '300px' }, }}>
               <Image

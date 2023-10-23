@@ -1,81 +1,86 @@
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { CustomBreadcrumbsProps } from './types';
-import LinkItem from './link-item';
+import { hideScroll } from 'src/theme/css';
+import React, { useMemo } from 'react';
+import Link from '@mui/material/Link';
+import { RouterLink } from 'src/routes/components';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
-export default function CustomBreadcrumbs({
-  links = [],
-  action,
-  heading,
-  moreLink,
-  activeLast,
-  sx,
-  ...other
-}: CustomBreadcrumbsProps) {
+export default function CustomBreadcrumbs({ links = [], sx, ...other }: CustomBreadcrumbsProps) {
+  const theme = useTheme();
+
+  const renderLinksMemo = useMemo(() => links.map(({ name, href }) => {
+    return (
+      <Box component='li' key={name} sx={{
+        padding: theme.spacing(0.5, 1, 0.5, 0),
+        '&:not(:first-of-type)': {
+          padding: theme.spacing(0.5, 1),
+        },
+        '&:last-of-type': {
+          padding: theme.spacing(0.5, 0, 0.5, 1),
+          paddingRight: { xs: 2, sm: 3 },
+        },
+      }}>
+        {href ? (
+          <Link
+            component={RouterLink}
+            href={href}
+            sx={{ '&:hover': { textDecoration: 'none' } }}
+          >
+            <Typography variant='body2' component='span' sx={{
+              color: theme.palette.grey[300],
+              position: 'relative',
+              cursor: 'pointer',
+              transition: 'color .3s ease',
+              '&:hover': {
+                color: theme.palette.grey[100],
+              },
+            }}>{name}</Typography>
+          </Link>
+        ) : (
+          <Typography variant='body2' component='span' sx={{
+            color: theme.palette.grey[500],
+            position: 'relative',
+          }}>{name}</Typography>
+        )}
+      </Box>
+    )
+  }), [links, theme]);
+
   return (
-    <Box sx={{ ...sx }}>
-      <Stack direction="row" alignItems="center">
-        <Box sx={{ flexGrow: 1 }}>
-          {/* HEADING */}
-          {heading && (
-            <Typography variant="h4" gutterBottom>
-              {heading}
-            </Typography>
-          )}
-
-          {/* BREADCRUMBS */}
-          {!!links.length && (
-            <Breadcrumbs separator={<Separator />} {...other}>
-              {links.map((link) => (
-                <LinkItem
-                  key={link.name || ''}
-                  link={link}
-                  activeLast={activeLast}
-                  disabled={link.name === links[links.length - 1].name}
-                />
-              ))}
-            </Breadcrumbs>
-          )}
-        </Box>
-
-        {action && <Box sx={{ flexShrink: 0 }}> {action} </Box>}
+    <Box sx={{
+      px: { xs: 2, sm: 3 },
+      py: { xs: 1, md: 2 },
+      width: '100%',
+      ...hideScroll.x,
+      ...sx,
+    }} {...other}>
+      <Stack direction='row' divider={<Separator />} component='ul' sx={{
+        width: '100%',
+        listStyle: 'none',
+        padding: 0,
+        margin: 0,
+        alignItems: 'center',
+        flexWrap: 'nowrap',
+        whiteSpace: 'nowrap',
+      }}>
+        {renderLinksMemo}
       </Stack>
-
-      {/* MORE LINK */}
-      {!!moreLink && (
-        <Box sx={{ mt: 2 }}>
-          {moreLink.map((href) => (
-            <Link
-              key={href}
-              href={href}
-              variant="body2"
-              target="_blank"
-              rel="noopener"
-              sx={{ display: 'table' }}
-            >
-              {href}
-            </Link>
-          ))}
-        </Box>
-      )}
     </Box>
   );
 }
-
-// ----------------------------------------------------------------------
 
 function Separator() {
   return (
     <Box
       component="span"
       sx={{
-        width: 4,
-        height: 4,
+        margin: 1,
+        padding: '2px',
         borderRadius: '50%',
-        bgcolor: 'text.disabled',
+        bgcolor: 'primary.main',
       }}
     />
   );

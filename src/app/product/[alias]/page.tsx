@@ -20,7 +20,7 @@ export async function generateMetadata(
   const parentMeta = await parent;
 
   return {
-    title: product ? `${product.title} | The Black Pearl` : parentMeta.title,
+    title: product ? `${product.title} | NVRMORE` : parentMeta.title,
     // other seo
   }
 }

@@ -12,13 +12,14 @@ import { MotionContainer, varFade } from 'src/components/animate';
 import Carousel, { CarouselArrowIndex, useCarousel } from 'src/components/carousel';
 import { IBannerItem } from 'src/types/banner';
 import { RouterLink } from 'src/routes/components';
+import { HEADER_MAIN } from 'src/layouts/config-layout';
 
 type Props = {
   banners: IBannerItem[];
 };
 
 export default function CarouselBanners({ banners }: Props) {
-  const carousel = useCarousel({ speed: 800, autoplay: true });
+  const carousel = useCarousel({ speed: 800, autoplay: false });
 
   return (
     <Box sx={{ position: 'relative' }}>
@@ -50,12 +51,16 @@ function CarouselItem({ banner, active }: CarouselItemProps) {
   return (
     <Box sx={{
       position: 'relative',
-      height: { xs: 'calc(100vh - 105px)', sm: 'calc(100vh - 140px)'},
-      maxHeight: { xs: 'calc(100vh - 105px)', sm: 'calc(100vh - 140px)'}
+      height: { xs: `calc(100vh - ${HEADER_MAIN.H_MOBILE}px)`, md: `calc(100vh - ${HEADER_MAIN.H_DESKTOP}px)` },
+      maxHeight: { xs: `calc(100vh - ${HEADER_MAIN.H_MOBILE}px)`, md: `calc(100vh - ${HEADER_MAIN.H_DESKTOP}px)` }
     }}>
       <Image
-        dir="ltr" alt={title} src={imageSrc}
-        sx={{ height: { xs: 'calc(100vh - 105px)', sm: 'calc(100vh - 140px)'} }}
+        decoding='async'
+        disabledEffect
+        loading='lazy'
+        alt={title}
+        src={imageSrc}
+        sx={{ height: '100%', width: '100%' }}
       />
 
       <Box

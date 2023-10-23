@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, memo, useCallback } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
-import { useTheme } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import InputBase from '@mui/material/InputBase';
@@ -20,10 +20,30 @@ import SearchNotFound from 'src/components/search-not-found';
 import ResultItem from './result-item';
 import { useNavData } from '../../dashboard/config-navigation';
 import { applyFilter, groupedData, getAllItems } from './utils';
+import Typography from '@mui/material/Typography';
 
 interface Props {
   iconSize?: 'small' | 'medium' | 'large';
 }
+
+const StyledIconBox: any = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  cursor: 'pointer',
+  transition: theme.transitions.create('color', {
+    duration: theme.transitions.duration.standard,
+  }),
+  '& svg.iconify, .MuiTypography-root': {
+    color: theme.palette.grey[300],
+  },
+  '&:hover': {
+    '& svg.iconify, .MuiTypography-root': {
+      color: theme.palette.grey[100],
+    },
+  },
+}));
 
 function Searchbar({ iconSize = 'medium' }: Props) {
   const theme = useTheme();
@@ -99,9 +119,13 @@ function Searchbar({ iconSize = 'medium' }: Props) {
   };
 
   const renderButton = (
-    <IconButton onClick={search.onTrue} size={iconSize}>
-      <Iconify icon="eva:search-fill" />
-    </IconButton>
+    <StyledIconBox onClick={search.onTrue}>
+      <IconButton disableRipple size={iconSize}>
+        <Iconify icon='solar:magnifer-outline' width={20} />
+      </IconButton>
+
+      <Typography sx={{ display: { xs: 'none', sm: 'block' } }} variant='caption'>Пошук</Typography>
+    </StyledIconBox>
   );
 
   return (
@@ -138,7 +162,7 @@ function Searchbar({ iconSize = 'medium' }: Props) {
             onChange={handleSearch}
             startAdornment={
               <InputAdornment position="start">
-                <Iconify icon="eva:search-fill" width={24} sx={{ color: 'text.disabled' }} />
+                <Iconify icon="solar:magnifer-outline" width={24} sx={{ color: 'text.disabled' }} />
               </InputAdornment>
             }
             endAdornment={<Label sx={{ letterSpacing: 1, color: 'text.secondary' }}>esc</Label>}

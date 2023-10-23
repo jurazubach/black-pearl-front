@@ -7,11 +7,11 @@ import useDialog from 'src/hooks/use-dialog';
 import { DialogIds } from 'src/context/dialog-context';
 import { useLocalStorage } from 'src/hooks/use-local-storage';
 import { DISCOUNT_DEFAULT_FLAG, DISCOUNT_STORAGE_FLAG_KEY, DISCOUNT_STORAGE_KEY } from 'src/dialogs/discount-dialog';
-import ChatFab from 'src/components/chat-fab';
 
 import Footer from './footer';
 import Header from './header';
 import HeaderMobile from './header-mobile';
+import { HEADER_MAIN } from '../config-layout';
 
 type Props = {
   children: React.ReactNode;
@@ -38,12 +38,14 @@ export default function MainLayout({ children }: Props) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: 1 }}>
       <GdprAlert />
-      <ChatFab />
 
       <Header />
       <HeaderMobile />
 
-      <Box component="main" sx={{ flexGrow: 1, paddingTop: { xs: '105px', sm: '140px' } }}>
+      <Box component="main" sx={{
+        flexGrow: 1,
+        paddingTop: { xs: `${HEADER_MAIN.H_MOBILE}px`, md: `${HEADER_MAIN.H_DESKTOP}px` },
+      }}>
         {children}
       </Box>
 

@@ -221,7 +221,7 @@ const CheckoutView = () => {
 										disabled={formCoupon.promocode.length === 0 || formCoupon.isLoading}
 										variant='contained'
 										sx={{ width: '205px' }}
-										startIcon={<Iconify icon='material-symbols:check-circle' sx={{ color: 'white' }} />}
+										startIcon={<Iconify icon='solar:check-square-outline' />}
 										onClick={onApplyPromocode}
 									>
 										Застосувати
@@ -269,7 +269,7 @@ const CheckoutView = () => {
 									loading={isSubmitting}
 									disabled={isSubmitting || checkoutProducts.length === 0}
 									type='submit'
-									startIcon={<Iconify icon='material-symbols:check-circle' color='inherit' width={24} />}
+									startIcon={<Iconify icon='solar:cart-check-outline' color='inherit' width={24} />}
 									fullWidth
 									size='large'
 									variant='contained'

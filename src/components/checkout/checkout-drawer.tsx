@@ -41,8 +41,8 @@ export default function CheckoutDrawer() {
 			sx={{
 				[`& .${drawerClasses.paper}`]: {
 					...paper({ theme, bgcolor: theme.palette.background.default }),
-					borderLeft: { xs: 'none', sm: `1px solid ${theme.palette.divider}` },
-					width: { xs: '100%', sm: '540px' },
+					borderLeft: { xs: 'none', md: `1px solid ${theme.palette.divider}` },
+					width: { xs: '100%', md: '540px' },
 				},
 			}}
 		>
@@ -103,7 +103,7 @@ export default function CheckoutDrawer() {
 						variant='outlined'
 						color='inherit'
 						onClick={checkout.openToggle}
-						startIcon={<Iconify icon='mdi:cart-arrow-right' color='inherit' width={24} />}
+						startIcon={<Iconify icon='solar:login-3-outline' color='inherit' width={24} />}
 					>
 						Продовжити покупки
 					</Button>
@@ -114,7 +114,7 @@ export default function CheckoutDrawer() {
 						variant='contained'
 						color='primary'
 						onClick={onGoToCheckoutClick}
-						startIcon={<Iconify icon='mdi:lead-pencil' color='inherit' width={24} />}
+						startIcon={<Iconify icon='solar:cart-check-outline' color='inherit' width={24} />}
 					>
 						Оформити замовлення
 					</Button>

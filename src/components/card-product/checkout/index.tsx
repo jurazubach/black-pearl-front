@@ -41,7 +41,7 @@ export default ({ product, readOnly = false }: Props) => {
 		<Stack
 			direction='row'
 			spacing={2}
-			sx={{ p: 3, '& + &': { borderTop: `1px solid ${theme.palette.divider}` } }}
+			sx={{ p: 2, '& + &': { borderTop: `1px solid ${theme.palette.divider}` } }}
 		>
 			<ImagePreview disabledEffect src={product.imageSrc} />
 
@@ -49,7 +49,7 @@ export default ({ product, readOnly = false }: Props) => {
 				direction='column'
 				sx={{
 					width: {
-						xs: 'calc(100vw - 64px - 78px)',
+						xs: 'calc(100vw - 48px - 78px)',
 						md: 'calc(100% - 16px - 78px)',
 					},
 					position: 'relative',

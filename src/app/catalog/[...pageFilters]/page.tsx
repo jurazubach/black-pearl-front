@@ -28,7 +28,7 @@ export async function generateMetadata(
   const parentMeta = await parent;
 
   return {
-    title: category ? `Каталог: ${category.singleTitle} | The Black Pearl` : parentMeta.title,
+    title: category ? `Каталог: ${category.singleTitle} | NVRMORE` : parentMeta.title,
     // other seo
   }
 }

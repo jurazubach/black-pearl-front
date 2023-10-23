@@ -8,7 +8,7 @@ import {
 } from 'src/services/app';
 
 export const metadata = {
-  title: 'Головна | The Black Pearl',
+  title: 'Головна | NVRMORE',
 };
 
 async function getContent() {

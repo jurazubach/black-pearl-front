@@ -77,7 +77,7 @@ export default function CouponTableToolbar({
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
+                  <Iconify icon="solar:magnifer-outline" sx={{ color: 'text.disabled' }} />
                 </InputAdornment>
               ),
             }}

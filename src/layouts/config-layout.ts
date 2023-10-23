@@ -1,3 +1,9 @@
+
+export const HEADER_MAIN = {
+  H_MOBILE: 105,
+  H_DESKTOP: 116,
+};
+
 export const HEADER = {
   H_MOBILE: 64,
   H_DESKTOP: 80,

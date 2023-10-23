@@ -28,7 +28,7 @@ export default function CarouselProducts({ products }: Props) {
 
   return (
     <Box sx={{ position: 'relative', overflow: 'hidden', my: 1 }}>
-      <CarouselArrows filled icon="mdi:arrow-right" onNext={carousel.onNext} onPrev={carousel.onPrev}>
+      <CarouselArrows filled onNext={carousel.onNext} onPrev={carousel.onPrev}>
         <Carousel ref={carousel.carouselRef} {...carousel.carouselSettings}>
           {products.map((product, idx) => (
             <CardProduct key={product.id} idx={idx} product={product} />

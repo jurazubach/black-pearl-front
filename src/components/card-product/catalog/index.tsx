@@ -49,7 +49,7 @@ export default ({ product, idx }: Props) => {
 			'&:hover .component-image.MuiBox-root': { transform: 'scale(1.1)' },
 		}}>
 			<Stack sx={{ zIndex: 1 }} spacing={1}>
-				<Box sx={{ overflow: 'hidden', height: '480px' }}>
+				<Box sx={{ overflow: 'hidden', height: '540px' }}>
 					<Image
 						disabledEffect
 						decoding='async'
@@ -57,8 +57,8 @@ export default ({ product, idx }: Props) => {
 						src={images[idx]}
 						sx={{
 							transition: 'all .2s ease-in',
-							height: '480px',
-							minHeight: '480px',
+							height: '100%',
+							// minHeight: '540px',
 							width: '100%',
 						}}
 					/>

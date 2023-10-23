@@ -3,9 +3,9 @@ import ContainerTitle from 'src/components/container-title';
 import CarouselAboutTeam from 'src/sections/_examples/extra/carousel-view/carousel-about-team';
 
 const members = [
-  { title: 'Юрій Зубач', position: 'Розробник', imageSrc: 'jura.png' },
-  { title: 'Ольга Зубач', position: 'Дизайнер', imageSrc: 'olia.png' },
-  { title: 'Артем Пляхтур', position: 'Виробництво', imageSrc: 'artem.png' },
+  { title: 'Юрій', position: 'Розробник', imageSrc: 'jura.png' },
+  { title: 'Ольга', position: 'Дизайнер', imageSrc: 'olia.png' },
+  { title: 'Артем', position: 'Виробництво', imageSrc: 'artem.png' },
 ];
 
 export default function AboutTeam() {

@@ -62,7 +62,7 @@ const SortPanel = ({ categoryAlias, filterContainer }: ISortPanelProps) => {
 				aria-haspopup='true'
 				aria-expanded={open ? 'true' : undefined}
 				onClick={handleClick}
-				startIcon={<Iconify icon='mdi:sort' color='inherit' width={24} />}
+				startIcon={<Iconify icon='solar:sort-from-bottom-to-top-bold' color='inherit' width={24} />}
 			>
 				{SortTitles[filterContainer.sort]}
 			</Button>

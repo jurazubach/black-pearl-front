@@ -30,7 +30,7 @@ export default function Header({ onOpenNav }: Props) {
         <SvgColor src="/assets/icons/navbar/ic_menu_item.svg" />
       </IconButton>
 
-      <Searchbar />
+      <Searchbar iconSize="large" />
 
       <Stack
         flexGrow={1}

@@ -1,7 +1,7 @@
 import MainView from 'src/sections/blog-article/main-view';
 
 export const metadata = {
-  title: 'Блог | The Black Pearl',
+  title: 'Блог | NVRMORE',
 };
 
 const blogPost = {
@@ -13,7 +13,7 @@ const blogPost = {
 };
 
 export default function ArticleBlogPage() {
-  Object.assign(metadata, { title: `${blogPost.title} | The Black Pearl` });
+  Object.assign(metadata, { title: `${blogPost.title} | NVRMORE` });
 
   return <MainView post={blogPost} />;
 }

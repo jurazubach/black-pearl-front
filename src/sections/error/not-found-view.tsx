@@ -39,7 +39,7 @@ export default function NotFoundView() {
 
           <m.div variants={varBounce().in}>
             <Typography sx={{ color: 'text.secondary' }}>
-              Вибачте, але сторінка, яку ви шукаєте, не існує або більше не доступна. Повертайтеся на головну сторінку та продовжуйте покупки на The Black Pearl!
+              Вибачте, але сторінка, яку ви шукаєте, не існує або більше не доступна. Повертайтеся на головну сторінку та продовжуйте покупки на NVRMORE!
             </Typography>
           </m.div>
 

@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useTheme } from '@mui/material/styles';
 import useCheckout from 'src/hooks/use-checkout';
-import Iconify from 'src/components/iconify';
+import Typography from '@mui/material/Typography';
 
 interface Props {
 	type: 'catalog' | 'card' | 'checkout';
@@ -55,7 +55,7 @@ const ProductCounterField = ({ type, canDecrementDelete = false, readOnly = fals
 				onClick={onDecrementProductClick}
 				disabled={isBlockDecrement || readOnly}
 			>
-				<Iconify icon='material-symbols:remove' />
+				<Typography sx={{ fontSize: '32px' }}>−</Typography>
 			</Button>
 
 			<TextField sx={{
@@ -78,7 +78,7 @@ const ProductCounterField = ({ type, canDecrementDelete = false, readOnly = fals
 				onClick={onIncrementProductClick}
 				disabled={readOnly}
 			>
-				<Iconify icon='material-symbols:add' />
+				<Typography sx={{ fontSize: '32px' }}>+</Typography>
 			</Button>
 		</Stack>
 	);

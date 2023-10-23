@@ -10,8 +10,6 @@ import { IconifyProps } from '../iconify';
 //
 import { LeftIcon, RightIcon } from './arrow-icons';
 
-// ----------------------------------------------------------------------
-
 const StyledRoot = styled(Box)(({ theme }) => ({
   ...bgBlur({
     opacity: 0.48,
@@ -56,22 +54,18 @@ export default function CarouselArrowIndex({
   sx,
   ...other
 }: Props) {
-  const theme = useTheme();
-
-  const isRTL = theme.direction === 'rtl';
-
   return (
     <StyledRoot sx={sx} {...other}>
       <StyledIconButton color="primary" onClick={onPrev}>
-        <LeftIcon icon={icon} isRTL={isRTL} />
+        <LeftIcon icon={icon} />
       </StyledIconButton>
 
       <Typography color="primary" variant="subtitle1" component="span" sx={{ mx: 0.25 }}>
-        {index + 1}/{total}
+        {index + 1} / {total}
       </Typography>
 
       <StyledIconButton color="primary" onClick={onNext}>
-        <RightIcon icon={icon} isRTL={isRTL} />
+        <RightIcon icon={icon} />
       </StyledIconButton>
     </StyledRoot>
   );

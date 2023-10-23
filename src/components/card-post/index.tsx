@@ -28,7 +28,7 @@ const CardPost = ({ blogPost }: Props) => {
 					disabledEffect
 					decoding='async'
 					loading='lazy'
-					sx={{ transition: 'all .2s ease-in' }}
+					sx={{ transition: 'all .2s ease-in', height: '100%', width: '100%' }}
 				/>
 			</Box>
 			<Stack direction='row' spacing={1} sx={{ p: 1, pb: 0, zIndex: 1 }}>

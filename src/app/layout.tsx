@@ -34,10 +34,10 @@ import { DrawerProvider } from 'src/context/drawer-context';
 import CheckoutDrawer from 'src/components/checkout/checkout-drawer';
 
 export const metadata = {
-	title: 'The Black Pearl',
+	title: 'NVRMORE',
 	description:
 		'Відкрийте світ розкіші та елегантності з Black Pearl. Ми пропонуємо унікальний люксовий одяг зі звичайною метою вивести ваш стиль на новий рівень. Вишуканість, деталі та індивідуальний підхід - ось те, чим ми відзначаємось.',
-	keywords: 'Люксовий одяг,Елегантний стиль,Розкішні вироби,Український бренд,Унікальний дизайн,Індивідуальний підхід,Стильний образ,Бренд The Black Pearl',
+	keywords: 'Люксовий одяг,Елегантний стиль,Розкішні вироби,Український бренд,Унікальний дизайн,Індивідуальний підхід,Стильний образ,Бренд NVRMORE',
 	themeColor: '#000000',
 	manifest: '/manifest.json',
 	viewport: {

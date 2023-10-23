@@ -33,7 +33,7 @@ const CategoryLinks = () => {
 
 		return (
 			<Box component='li' key={href} sx={{
-				padding: theme.spacing(0.5, 1, 0.5, 0.5),
+				padding: theme.spacing(0.5, 1, 0.5, 0),
 				'&:not(:first-of-type)': {
 					padding: theme.spacing(0.5, 1),
 				},
@@ -67,11 +67,10 @@ const CategoryLinks = () => {
 		<Box sx={{
 			userSelect: 'none',
 			width: '100%',
-			position: 'relative',
 			backgroundColor: theme.palette.grey[900],
 			borderTop: `1px solid ${theme.palette.divider}`,
 			borderBottom: `1px solid ${theme.palette.divider}`,
-			px: theme.spacing(1),
+			px: { xs: 2, sm: 3 },
 			...hideScroll.x,
 		}}>
 			<Box component='ul' sx={{
@@ -80,7 +79,7 @@ const CategoryLinks = () => {
 				padding: 0,
 				margin: 0,
 				display: 'flex',
-				justifyContent: { xs: 'flex-start', sm: 'center' },
+				justifyContent: { xs: 'flex-start', md: 'center' },
 				flexWrap: 'nowrap',
 				whiteSpace: 'nowrap',
 				userSelect: 'none'
