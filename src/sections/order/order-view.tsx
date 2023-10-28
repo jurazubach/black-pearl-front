@@ -3,12 +3,13 @@
 import React, { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Container from '@mui/material/Container';
+import { m } from 'framer-motion';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
-import MainLayout from 'src/layouts/main';
 import Iconify from 'src/components/iconify';
 import useCheckout from 'src/hooks/use-checkout';
+import { MotionContainer, varFade } from 'src/components/animate';
 
 export default function OrderView() {
 	const { orderNumber } = useParams();
@@ -22,25 +23,27 @@ export default function OrderView() {
 	}, [checkoutProducts, router]);
 
 	return (
-		<MainLayout>
-			<Container maxWidth='lg'>
-				<Stack sx={{ py: 10 }} direction='column' justifyContent='center' alignItems='center' spacing={3}>
-					<Iconify icon='solar:confetti-linear' width={120} />
-					<Typography variant='h1' sx={{ textAlign: 'center' }}>Дякуємо за замовлення</Typography>
+		<MotionContainer>
+			<m.div variants={varFade().in}>
+				<Container maxWidth='lg'>
+					<Stack sx={{ py: 10 }} direction='column' justifyContent='center' alignItems='center' spacing={3}>
+						<Iconify icon='solar:confetti-linear' width={120} />
+						<Typography variant='h1' sx={{ textAlign: 'center' }}>Дякуємо за замовлення</Typography>
 
-					<Alert variant="outlined" severity="success">
-						<Stack direction='row' spacing={1}>
-							<Typography>Ваш номер замовлення:</Typography>
-							<Typography sx={{ fontWeight: 'bold' }}>#{orderNumber}</Typography>
+						<Alert variant="outlined" severity="success">
+							<Stack direction='row' spacing={1}>
+								<Typography>Ваш номер замовлення:</Typography>
+								<Typography sx={{ fontWeight: 'bold' }}>#{orderNumber}</Typography>
+							</Stack>
+						</Alert>
+
+						<Stack direction='column' spacing={1} alignItems='center'>
+							<Typography sx={{ textAlign: 'center' }}>Наші менеджери б'ються за можливість прийняти ваше замовлення.</Typography>
+							<Typography sx={{ textAlign: 'center' }}>Переможець зв'яжеться з вами найближчим часом.</Typography>
 						</Stack>
-					</Alert>
-
-					<Stack direction='column' spacing={1} alignItems='center'>
-						<Typography sx={{ textAlign: 'center' }}>Наші менеджери б'ються за можливість прийняти ваше замовлення.</Typography>
-						<Typography sx={{ textAlign: 'center' }}>Переможець зв'яжеться з вами найближчим часом.</Typography>
 					</Stack>
-				</Stack>
-			</Container>
-		</MainLayout>
+				</Container>
+			</m.div>
+		</MotionContainer>
 	);
 }

@@ -3,8 +3,8 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useTheme } from '@mui/material/styles';
-import useCheckout from 'src/hooks/use-checkout';
 import Typography from '@mui/material/Typography';
+import useCheckout from 'src/hooks/use-checkout';
 
 interface Props {
 	type: 'catalog' | 'checkout';

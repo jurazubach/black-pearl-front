@@ -1,27 +1,29 @@
 'use client';
 
-import { useScroll } from 'framer-motion';
+import React, { useState } from 'react';
+import { m, useScroll } from 'framer-motion';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import React, { useState } from 'react';
+import { useTheme } from '@mui/material/styles';
 import _first from 'lodash/first';
 import ScrollProgress from 'src/components/scroll-progress';
 import CarouselProducts from 'src/sections/_examples/extra/carousel-view/carousel-products';
-import MainLayout from 'src/layouts/main';
 import ContainerTitle from 'src/components/container-title';
 import ProductPrices from 'src/components/product-prices';
 import { IProductItem, IProductItemCatalog } from 'src/types/product';
 import { IWarehouseProductItemCatalog } from 'src/types/warehouseProduct';
+
+import { PATH_PAGE } from 'src/routes/paths';
+import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
+import CarouselProductImages from 'src/sections/_examples/extra/carousel-view/carousel-product-images';
+import { MotionContainer, varFade } from 'src/components/animate';
+
 import ProductDescriptions from './product-descriptions';
 import ProductBuyActions from './product-buy-actions';
 import ProductInfo from './product-info';
 import ProductSubscriptionButton from './product-subscription-button';
-import { useTheme } from '@mui/material/styles';
-import { PATH_PAGE } from 'src/routes/paths';
-import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
-import CarouselProductImages from 'src/sections/_examples/extra/carousel-view/carousel-product-images';
 
 interface Props {
 	product: IProductItem;
@@ -57,7 +59,7 @@ export default function ProductMainView({ product, similarProducts }: Props) {
 	);
 
 	return (
-		<MainLayout>
+		<Stack>
 			<ScrollProgress scrollYProgress={scrollYProgress} />
 
 			<Box sx={{
@@ -75,52 +77,50 @@ export default function ProductMainView({ product, similarProducts }: Props) {
 				</Container>
 			</Box>
 
-			<Container maxWidth='lg' sx={{ py: { xs: 2, sm: 3 }, px: { xs: 2, sm: 3, lg: 0 } }} disableGutters>
-				<Grid container spacing={{ xs: 1, sm: 3 }}>
-					<Grid item xs={12} md={6}>
-						<CarouselProductImages images={DEFAULT_IMAGES} />
-					</Grid>
-					<Grid item xs={12} md={6}>
-						<Stack spacing={3}>
-							<ProductInfo product={product} warehouseProduct={warehouseProduct} />
+			<MotionContainer>
+				<m.div variants={varFade().inRight}>
+					<Container maxWidth='lg' sx={{ py: { xs: 2, sm: 3 }, px: { xs: 2, sm: 3, lg: 0 } }} disableGutters>
+						<Grid container spacing={{ xs: 1, sm: 3 }}>
+							<Grid item xs={12} md={6}>
+								<CarouselProductImages images={DEFAULT_IMAGES} />
+							</Grid>
+							<Grid item xs={12} md={6}>
+								<Stack spacing={3}>
+									<ProductInfo product={product} warehouseProduct={warehouseProduct} />
 
-							{warehouseProduct && (
-								<ProductPrices oldPrice={warehouseProduct.oldPrice} price={warehouseProduct.price} />
-							)}
+									{warehouseProduct && (
+										<ProductPrices oldPrice={warehouseProduct.oldPrice} price={warehouseProduct.price} />
+									)}
 
-							<Box sx={{ display: { xs: 'none', md: 'block' } }}>
-								<ProductDescriptions product={product} />
-							</Box>
+									{warehouseProduct && (
+										<ProductBuyActions
+											product={product}
+											warehouseProduct={warehouseProduct}
+											setWarehouseProduct={setWarehouseProduct}
+										/>
+									)}
 
-							{warehouseProduct && (
-								<ProductBuyActions
-									product={product}
-									warehouseProduct={warehouseProduct}
-									setWarehouseProduct={setWarehouseProduct}
-								/>
-							)}
+									{!warehouseProduct && (
+										<ProductSubscriptionButton product={product} />
+									)}
 
-							{!warehouseProduct && (
-								<ProductSubscriptionButton product={product} />
-							)}
+									<ProductDescriptions product={product} />
+								</Stack>
+							</Grid>
+						</Grid>
+					</Container>
 
-							<Box sx={{ display: { xs: 'block', md: 'none' } }}>
-								<ProductDescriptions product={product} />
-							</Box>
-						</Stack>
-					</Grid>
-				</Grid>
-			</Container>
+					<ContainerTitle center title="Носіть разом" description="Об'єднайте стиль та знайдіть ідеальний образ" />
+					<Container maxWidth='lg' disableGutters>
+						<CarouselProducts products={similarProducts} />
+					</Container>
 
-			<ContainerTitle center title="Носіть разом" description="Об'єднайте стиль та знайдіть ідеальний образ" />
-			<Container maxWidth='lg' disableGutters>
-				<CarouselProducts products={similarProducts} />
-			</Container>
-
-			<ContainerTitle center title="Схожі товари" description="Знайдіть схожий стиль та оберіть ідеальний варіант" />
-			<Container maxWidth='lg' disableGutters>
-				<CarouselProducts products={similarProducts} />
-			</Container>
-		</MainLayout>
+					<ContainerTitle center title="Схожі товари" description="Знайдіть схожий стиль та оберіть ідеальний варіант" />
+					<Container maxWidth='lg' disableGutters>
+						<CarouselProducts products={similarProducts} />
+					</Container>
+				</m.div>
+			</MotionContainer>
+		</Stack>
 	);
 }

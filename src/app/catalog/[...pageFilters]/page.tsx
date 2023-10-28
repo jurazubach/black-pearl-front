@@ -6,6 +6,8 @@ import getFilterContainer from 'src/utils/get-filter-container';
 import getCategoryAlias from 'src/utils/get-category-alias';
 import { PATH_PAGE } from 'src/routes/paths';
 import { ICategoryItem } from 'src/types/category';
+import { httpGetCategoryFilters } from 'src/services/filters';
+import { IFilterModels } from 'src/types/filters';
 
 interface Props {
   params: { pageFilters: string[] };
@@ -28,7 +30,7 @@ export async function generateMetadata(
   const parentMeta = await parent;
 
   return {
-    title: category ? `Каталог: ${category.singleTitle} | NVRMORE` : parentMeta.title,
+    title: category ? `Каталог: ${category.multipleTitle} | NVRMORE` : parentMeta.title,
     // other seo
   }
 }
@@ -37,6 +39,11 @@ export default async function CatalogPage({ params }: Props) {
   const alias = getCategoryAlias(params);
   const filterContainer = getFilterContainer(params);
   let category: ICategoryItem;
+  let categoryFilters: IFilterModels = {
+    categories: [],
+    sizes: [],
+    properties: [],
+  };
 
   try {
     category = await httpGetCategory(alias);
@@ -44,7 +51,15 @@ export default async function CatalogPage({ params }: Props) {
     return redirect(PATH_PAGE.home);
   }
 
+  try {
+    categoryFilters = await httpGetCategoryFilters(alias);
+  } catch (err) {
+    console.log('err', err);
+  }
+
   const products = await httpGetCatalogProducts(filterContainer.currentPage, filterContainer.sort, filterContainer.list);
 
-  return <CatalogMainView category={category} products={products} filterContainer={filterContainer} />;
+  return (
+    <CatalogMainView categoryFilters={categoryFilters} category={category} products={products} filterContainer={filterContainer} />
+  );
 }

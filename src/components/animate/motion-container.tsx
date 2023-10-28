@@ -1,15 +1,10 @@
-import { m, MotionProps } from 'framer-motion';
-// @mui
+import { AnimationProps, m, MotionProps } from 'framer-motion';
 import Box, { BoxProps } from '@mui/material/Box';
-//
 import { varContainer } from './variants';
-
-// ----------------------------------------------------------------------
 
 type IProps = BoxProps & MotionProps;
 
-export interface Props extends IProps {
-  animate?: boolean;
+export interface Props extends IProps, Pick<AnimationProps, 'animate'> {
   action?: boolean;
 }
 

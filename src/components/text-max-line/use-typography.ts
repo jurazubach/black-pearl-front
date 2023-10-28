@@ -1,10 +1,6 @@
-// @mui
 import { useTheme } from '@mui/material/styles';
 import { Variant } from '@mui/material/styles/createTypography';
-// hooks
 import { useWidth } from 'src/hooks/use-responsive';
-
-// ----------------------------------------------------------------------
 
 function remToPx(value: string) {
   return Math.round(parseFloat(value) * 16);

@@ -17,7 +17,7 @@ declare module '@mui/material/styles/createPalette' {
 }
 
 const GREY = {
-  0: '#D9D9D9',
+  50: '#D9D9D9',
   100: '#C1C1C1',
   200: '#A9A9A9',
   300: '#919191',

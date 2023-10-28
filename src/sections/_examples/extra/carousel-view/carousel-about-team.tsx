@@ -2,11 +2,11 @@ import Box from '@mui/material/Box';
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 import Image from 'src/components/image';
 import { useWidth } from 'src/hooks/use-responsive';
 import Carousel, { CarouselDots, useCarousel } from 'src/components/carousel';
 import BorderCard from 'src/components/border-card';
-import Stack from '@mui/material/Stack';
 
 type Props = {
   members: {

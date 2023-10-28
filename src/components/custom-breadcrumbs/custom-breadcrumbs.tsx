@@ -1,14 +1,15 @@
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import { CustomBreadcrumbsProps } from './types';
-import { hideScroll } from 'src/theme/css';
 import React, { useMemo } from 'react';
 import Link from '@mui/material/Link';
-import { RouterLink } from 'src/routes/components';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import { RouterLink } from 'src/routes/components';
+import { hideScroll } from 'src/theme/css';
 
-export default function CustomBreadcrumbs({ links = [], sx, ...other }: CustomBreadcrumbsProps) {
+import { CustomBreadcrumbsProps } from './types';
+
+export default ({ links = [], sx, ...other }: CustomBreadcrumbsProps) => {
   const theme = useTheme();
 
   const renderLinksMemo = useMemo(() => links.map(({ name, href }) => {
@@ -72,7 +73,7 @@ export default function CustomBreadcrumbs({ links = [], sx, ...other }: CustomBr
   );
 }
 
-function Separator() {
+const Separator = () => {
   return (
     <Box
       component="span"

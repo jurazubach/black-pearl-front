@@ -1,4 +1,4 @@
-import { AboutView } from 'src/sections/about/view';
+import { AboutView } from 'src/sections/about';
 
 export const metadata = {
   title: 'Трішки про нас | NVRMORE',

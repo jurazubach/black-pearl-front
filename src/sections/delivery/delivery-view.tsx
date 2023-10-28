@@ -1,15 +1,19 @@
 'use client';
 
 import React from 'react';
-import MainLayout from 'src/layouts/main';
+import { m } from 'framer-motion';
+
+import { MotionContainer, varFade } from 'src/components/animate';
 import DeliveryTypes from './delivery-types';
 import DeliveryReturns from './delivery-returns';
 
 export default function DeliveryView() {
 	return (
-		<MainLayout>
-			<DeliveryTypes />
-			<DeliveryReturns />
-		</MainLayout>
+		<MotionContainer>
+			<m.div variants={varFade().in}>
+				<DeliveryTypes />
+				<DeliveryReturns />
+			</m.div>
+		</MotionContainer>
 	);
 }

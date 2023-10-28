@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useMemo } from 'react';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -13,7 +15,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import { PATH_PAGE } from 'src/routes/paths';
 import { _socials } from 'src/_mock';
 import Iconify from 'src/components/iconify';
-import { CatalogTitles, ECatalogSection, TCatalogSection } from 'src/types/catalog';
+import { IMenuItem } from 'src/types/main';
 
 const NAVIGATION_LINKS = [
 	{ name: 'Головна', href: PATH_PAGE.home },
@@ -31,26 +33,28 @@ export const StyledLink: any = styled(Link)(({ theme }) => ({
 	'&:hover': {
 		color: theme.palette.grey[100],
 		textDecoration: 'none',
-	}
+	},
 }));
 
-export default function Footer() {
+interface Props {
+	menuItems: IMenuItem[];
+}
+
+export default function Footer({ menuItems }: Props) {
 	const theme = useTheme();
 	const navigationItems = useMemo(() => NAVIGATION_LINKS.map((link) => (
-			<StyledLink key={link.name} component={NextLink} href={link.href} variant='subtitle2'>
-				{link.name}
+		<StyledLink key={link.name} component={NextLink} href={link.href} variant='subtitle2'>
+			{link.name}
+		</StyledLink>
+	)), []);
+
+	const catalogItems = useMemo(() => menuItems.map(({ alias, title }) => {
+		return (
+			<StyledLink key={title} component={NextLink} href={`/catalog/${alias}`} variant='subtitle2'>
+				{title}
 			</StyledLink>
-		)), []);
-
-	const catalogItems = useMemo(() => Object.values(ECatalogSection).map((catalogSection) => {
-			const title = CatalogTitles[catalogSection as TCatalogSection];
-
-			return (
-				<StyledLink key={catalogSection} component={NextLink} href={`/catalog/${catalogSection}`} variant='subtitle2'>
-					{title}
-				</StyledLink>
-			);
-		}), []);
+		);
+	}), [menuItems]);
 
 	return (
 		<Box component='footer' sx={{
@@ -60,7 +64,7 @@ export default function Footer() {
 			<Container maxWidth='md' sx={{ py: 3 }}>
 				<Grid
 					container
-					direction="row"
+					direction='row'
 					justifyContent={{ xs: 'center', md: 'space-between' }}
 					sx={{ textAlign: { xs: 'center', md: 'left' } }}
 					spacing={3}
@@ -99,7 +103,10 @@ export default function Footer() {
 								</Typography>
 
 								<Typography variant='caption' color='grey.300'>
-									Введіть адресу електронної пошти, щоб <Typography variant='caption' sx={{ fontWeight: 'bold', color: theme.palette.primary.main }}>отримати знижку 10%</Typography> на перше замовлення. Інформацію про
+									Введіть адресу електронної пошти, щоб <Typography variant='caption' sx={{
+									fontWeight: 'bold',
+									color: theme.palette.primary.main,
+								}}>отримати знижку 10%</Typography> на перше замовлення. Інформацію про
 									розпродажі та пропозиції.
 								</Typography>
 

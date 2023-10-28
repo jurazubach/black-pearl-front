@@ -1,42 +1,49 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-import { useScroll } from 'framer-motion';
+import { m, useScroll } from 'framer-motion';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-import MainLayout from 'src/layouts/main';
 import ScrollProgress from 'src/components/scroll-progress';
 import Iconify from 'src/components/iconify';
-import getCategoryAlias from 'src/utils/get-category-alias';
 import CatalogGrid from 'src/components/catalog-grid';
 import { IFilterContainerOut } from 'src/utils/get-filter-container';
 import Filters from 'src/components/filters/filters';
 import { IProductItemCatalog } from 'src/types/product';
 import { ICategoryItem } from 'src/types/category';
+import { varFade } from 'src/components/animate';
+import { IFilterModels } from 'src/types/filters';
 
 interface Props {
+	categoryFilters: IFilterModels;
 	category: ICategoryItem;
 	products: IProductItemCatalog[];
 	filterContainer: IFilterContainerOut;
 }
 
-export default function CatalogMainView({ category, products, filterContainer }: Props) {
-	console.log('category', category);
-	console.log('products', products);
+const variantsContainer = {
+	hidden: varFade().in.initial,
+	show: {
+		...varFade().in.animate,
+		transition: { ...varFade().in.animate.transition, staggerChildren: 0.05 }
+	},
+};
+
+export default function CatalogMainView({ categoryFilters, category, products, filterContainer }: Props) {
 	const theme = useTheme();
 	const { scrollYProgress } = useScroll();
-	const query = useParams();
-	const alias = getCategoryAlias(query);
 
 	return (
-		<MainLayout>
+		<Stack>
 			<ScrollProgress scrollYProgress={scrollYProgress} />
-			<Filters categoryAlias={alias} filterContainer={filterContainer} />
+			<Filters categoryFilters={categoryFilters} categoryAlias={category.alias} filterContainer={filterContainer} />
 
 			<Container maxWidth='lg' disableGutters>
-				<CatalogGrid products={products} />
+				<m.div variants={variantsContainer} initial="hidden" animate="show">
+					<CatalogGrid products={products} />
+				</m.div>
 			</Container>
 
 			<Box py={2} display='flex' justifyContent='center' alignItems='center' sx={{ borderTop: `1px solid ${theme.palette.divider}` }}>
@@ -46,6 +53,7 @@ export default function CatalogMainView({ category, products, filterContainer }:
 					startIcon={<Iconify icon='mdi:reload' width={24} sx={{ color: 'common.white' }} />}
 				>Показати ще</Button>
 			</Box>
-		</MainLayout>
+		</Stack>
+
 	);
 }

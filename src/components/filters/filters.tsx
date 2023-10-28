@@ -10,13 +10,15 @@ import { IFilterContainerOut } from 'src/utils/get-filter-container';
 import SortPanel from './sort-panel';
 import FilterChips from './filter-chips';
 import FilterDrawer from './filter-drawer';
+import { IFilterModels } from '../../types/filters';
 
 interface Props {
+	categoryFilters: IFilterModels;
 	categoryAlias: string;
 	filterContainer: IFilterContainerOut;
 }
 
-const Filters = ({ categoryAlias, filterContainer }: Props) => {
+const Filters = ({ categoryFilters, categoryAlias, filterContainer }: Props) => {
 	const theme = useTheme();
 
 	const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -31,32 +33,34 @@ const Filters = ({ categoryAlias, filterContainer }: Props) => {
 			<Stack
 				sx={{
 					px: { xs: 1, sm: 2, md: 3 },
-					py: { xs: 1, sm: 1 },
+					py: { xs: 1, sm: 1, md: 2 },
 					borderTop: `1px solid ${theme.palette.divider}`,
 					borderBottom: `1px solid ${theme.palette.divider}`,
 				}}
 			>
-				<Container disableGutters maxWidth='lg' sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-					<Stack direction='row' alignItems="center" spacing={1} sx={{ width: '100%' }}>
-						<Badge
-							badgeContent={countFiltersApplied}
-							color='error'
-							anchorOrigin={{ vertical: 'top', horizontal: 'left'}}
-						>
-							<Button
-								variant='text'
-								color='primary'
-								onClick={openMenuToggle}
-								startIcon={<Iconify icon='solar:tuning-4-outline' color='inherit' width={24} />}
+				<Container disableGutters maxWidth='lg'>
+					<Stack direction='row' alignItems="center" justifyContent='space-between' spacing={{ xs: 1, md: 2 }}>
+						<Stack direction='row' alignItems="center" spacing={{ xs: 1, md: 2 }} sx={{ width: '100%' }}>
+							<Badge
+								badgeContent={countFiltersApplied}
+								color='error'
+								anchorOrigin={{ vertical: 'top', horizontal: 'left'}}
 							>
-								Фільтри
-							</Button>
-						</Badge>
+								<Button
+									variant='text'
+									color='primary'
+									onClick={openMenuToggle}
+									startIcon={<Iconify icon='solar:tuning-4-outline' color='inherit' width={24} />}
+								>
+									Фільтри
+								</Button>
+							</Badge>
 
-						<FilterChips categoryAlias={categoryAlias} filterContainer={filterContainer} />
+							<FilterChips categoryFilters={categoryFilters} categoryAlias={categoryAlias} filterContainer={filterContainer} />
+						</Stack>
+
+						<SortPanel categoryAlias={categoryAlias} filterContainer={filterContainer} />
 					</Stack>
-
-					<SortPanel categoryAlias={categoryAlias} filterContainer={filterContainer} />
 				</Container>
 			</Stack>
 
@@ -65,6 +69,7 @@ const Filters = ({ categoryAlias, filterContainer }: Props) => {
 				openMenuToggle={openMenuToggle}
 				categoryAlias={categoryAlias}
 				filterContainer={filterContainer}
+				categoryFilters={categoryFilters}
 			/>
 		</Box>
 	)

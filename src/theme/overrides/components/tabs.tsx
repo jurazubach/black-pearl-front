@@ -25,9 +25,9 @@ export function tabs(theme: Theme) {
           minHeight: 48,
           fontWeight: theme.typography.fontWeightSemiBold,
           '&:not(:last-of-type)': {
-            marginRight: theme.spacing(3),
+            marginRight: theme.spacing(1),
             [theme.breakpoints.up('sm')]: {
-              marginRight: theme.spacing(5),
+              marginRight: theme.spacing(2),
             },
           },
           [`&:not(.${tabClasses.selected})`]: {

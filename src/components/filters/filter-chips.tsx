@@ -1,66 +1,90 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import _omit from 'lodash/omit';
+import Box from '@mui/material/Box';
 import UrlBuilder from 'src/utils/url-builder';
 import { PATH_PAGE } from 'src/routes/paths';
-import { IFilterContainerOut } from 'src/utils/get-filter-container';
+import { IFilterContainerOut, LISTEN_FILTERS } from 'src/utils/get-filter-container';
 import { useRouter } from 'src/routes/hooks';
 import { useResponsive } from 'src/hooks/use-responsive';
+import { IFilterModels } from 'src/types/filters';
+import Scrollbar from 'src/components/scrollbar';
 
 interface Props {
+	categoryFilters: IFilterModels;
 	categoryAlias: string;
 	filterContainer: IFilterContainerOut;
 }
 
-const FilterChips = ({ categoryAlias, filterContainer }: Props) => {
+const FilterChips = ({ categoryFilters, categoryAlias, filterContainer }: Props) => {
 	const router = useRouter();
-	const smUp = useResponsive('up', 'sm');
+	const mdUp = useResponsive('up', 'md');
+
+	const getPropertyFromFilters = useCallback((propertyAlias: string) => {
+		if (propertyAlias === LISTEN_FILTERS.SIZE) {
+			return { children: categoryFilters.sizes };
+		}
+
+		return categoryFilters.properties.find((i) => i.alias === propertyAlias);
+	}, [categoryFilters]);
 
 	const chipsMemo = useMemo(() => {
 		const chips: React.ReactNode[] = [];
 
 		Object.entries(filterContainer.list).forEach(([filterKey, filterValues]) => {
 			if (Array.isArray(filterValues) && filterValues.length > 0) {
-				filterValues.forEach((filterValue) => {
-					const restValues = filterValues.filter((i) => i !== filterValue);
-					let nextFilters = {};
+				const categoryProperty = getPropertyFromFilters(filterKey);
 
-					if (restValues.length > 0) {
-						nextFilters = { ...filterContainer.list, [filterKey]: restValues };
-					} else {
-						nextFilters = _omit(filterContainer.list, [filterKey]);
-					}
+				if (categoryProperty) {
+					filterValues.forEach((filterValue) => {
+						const categoryPropertyValue = categoryProperty.children.find((i) => i.alias === filterValue);
 
-					const nextUrl = new UrlBuilder({ baseUrl: `${PATH_PAGE.catalog}/${categoryAlias}` })
-						.setPage(1)
-						.setSort(filterContainer.sort)
-						.setFilters(nextFilters)
-						.build();
+						if (categoryPropertyValue) {
+							const restValues = filterValues.filter((i) => i !== filterValue);
+							let nextFilters = {};
 
-					chips.push(
-						<Chip
-							key={filterValue}
-							label={filterValue}
-							variant="outlined"
-							onDelete={() => router.push(nextUrl)}
-						/>
-					);
-				})
+							if (restValues.length > 0) {
+								nextFilters = { ...filterContainer.list, [filterKey]: restValues };
+							} else {
+								nextFilters = _omit(filterContainer.list, [filterKey]);
+							}
+
+							const nextUrl = new UrlBuilder({ baseUrl: `${PATH_PAGE.catalog}/${categoryAlias}` })
+								.setPage(1)
+								.setSort(filterContainer.sort)
+								.setFilters(nextFilters)
+								.build();
+
+							chips.push(
+								<Chip
+									key={categoryPropertyValue.alias}
+									label={categoryPropertyValue.title}
+									variant='outlined'
+									onDelete={() => router.push(nextUrl)}
+								/>,
+							);
+						}
+					});
+				}
 			}
 		});
 
 		return chips;
-	}, [filterContainer, router, categoryAlias]);
+	}, [filterContainer, router, categoryAlias, getPropertyFromFilters]);
 
-	if (chipsMemo.length === 0 || !smUp) {
+	if (chipsMemo.length === 0 || !mdUp) {
 		return null;
 	}
 
 	return (
-		<Stack direction="row" spacing={1} alignItems="center">
-			{chipsMemo}
-		</Stack>
+		<Box sx={{ width: 'calc(100vw - 221px - 80px)' }}>
+			<Scrollbar sx={{ '.simplebar-horizontal': { display: 'none' } }}>
+				<Stack direction='row' spacing={1} alignItems='center'>
+					{chipsMemo}
+				</Stack>
+			</Scrollbar>
+		</Box>
 	);
 };
 

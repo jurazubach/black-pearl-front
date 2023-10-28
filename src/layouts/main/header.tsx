@@ -1,6 +1,8 @@
 'use client';
 
 import { styled, useTheme } from '@mui/material/styles';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -9,19 +11,20 @@ import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import React, { useMemo } from 'react';
+import Drawer, { drawerClasses } from '@mui/material/Drawer';
+import React, { useCallback, useState } from 'react';
 import NextLink from 'next/link';
-import { useParams } from 'next/navigation';
-import _get from 'lodash/get';
 import Badge from '@mui/material/Badge';
 import Iconify from 'src/components/iconify';
 import Image from 'src/components/image';
-import { CatalogTitles, ECatalogSection, TCatalogSection } from 'src/types/catalog';
 import useCheckout from 'src/hooks/use-checkout';
 import { calculateTotalProductsInCheckout } from 'src/utils/checkout';
 import { RouterLink } from 'src/routes/components';
 import { PATH_PAGE } from 'src/routes/paths';
+import { IMenuItem } from 'src/types/main';
 import { Searchbar } from '../_common';
+import { paper } from '../../theme/css';
+import MenuDrawer from './menu-drawer';
 
 const StyledLinkBox: any = styled(Link)(({ theme }) => ({
 	display: 'flex',
@@ -50,6 +53,7 @@ const StyledIconBox: any = styled(Box)(({ theme }) => ({
 	justifyContent: 'center',
 	alignItems: 'center',
 	cursor: 'pointer',
+	textDecoration: 'none',
 	transition: theme.transitions.create('color', {
 		duration: theme.transitions.duration.standard,
 	}),
@@ -63,7 +67,6 @@ const StyledIconBox: any = styled(Box)(({ theme }) => ({
 	},
 }));
 
-
 const ImageLogoWrapper: any = styled(Image)({
 	maxWidth: '320px',
 	opacity: 0.8,
@@ -73,50 +76,74 @@ const ImageLogoWrapper: any = styled(Image)({
 	},
 });
 
-const StyledMenu: any = styled(Link)(({ theme }) => ({
-	cursor: 'pointer',
-	padding: '0 12px',
-	color: theme.palette.grey[300],
-	height: '28px',
-	userSelect: 'none',
-	transition: 'all 0.2s ease-in',
-	paddingBottom: '4px',
-	borderBottom: `2px solid ${theme.palette.background.default}`,
-	'&:hover': {
-		borderBottom: `3px solid ${theme.palette.primary.main}`,
-		color: theme.palette.grey[100],
-		textDecoration: 'none',
+const StyledTabs: any = styled(Tabs)(({ theme }) => ({
+	minHeight: '28px',
+	'& .MuiTab-root': {
+		overflow: 'visible',
+		position: 'relative',
+		color: theme.palette.grey[400],
+		minHeight: '28px',
+		minWidth: 'unset',
+		transition: 'all 0.2s ease-in',
+		paddingLeft: theme.spacing(1),
+		paddingRight: theme.spacing(1),
+		'&:not(:last-of-type)': {
+			'&:after': {
+				cursor: 'default',
+				position: 'absolute',
+				top: '12px',
+				right: `-15px`,
+				content: '""',
+				width: '6px',
+				height: '6px',
+				borderRadius: '50%',
+				backgroundColor: theme.palette.primary.main,
+			},
+
+			marginRight: theme.spacing(2),
+			[theme.breakpoints.up('sm')]: {
+				marginRight: theme.spacing(3),
+			},
+		},
+		'&:hover': {
+			color: theme.palette.grey[100],
+		},
+		'&.Mui-selected': {
+			color: theme.palette.grey[50],
+		},
+	},
+	'& .MuiTabs-indicator': {
+		backgroundColor: theme.palette.primary.main,
 	},
 }));
 
-export default function Header() {
-	const theme = useTheme();
-	const query = useParams();
+const MainLogoWrapper: any = styled(Image)({
+	maxWidth: '220px',
+	opacity: 0.7,
+	transition: 'all 0.2s ease-in',
+	'&:hover': {
+		opacity: 1,
+	},
+});
 
-	const matchCatalogSection: string | undefined = _get(query, 'pageFilters', [])[0];
+interface Props {
+	menuItems: IMenuItem[];
+	activeMenuIdx: number | null;
+}
+
+export default function Header({ menuItems, activeMenuIdx }: Props) {
+	const [openMenu, setOpenMenu] = useState<boolean>(false);
+	const openMenuToggle = useCallback(() => {
+		setOpenMenu((prevState) => !prevState);
+	}, [setOpenMenu]);
+
+	const theme = useTheme();
+
 	const { checkoutProducts, openToggle } = useCheckout();
 	const countProductsInCheckout = calculateTotalProductsInCheckout(checkoutProducts);
 
-	const renderLinksMemo = useMemo(() => Object.values(ECatalogSection).map((catalogSection) => {
-		const title = CatalogTitles[catalogSection as TCatalogSection];
-
-		const styleOptions = {};
-		if (!!matchCatalogSection && matchCatalogSection === catalogSection) {
-			Object.assign(styleOptions, {
-				borderBottom: `2px solid ${theme.palette.primary.main}`,
-				color: theme.palette.grey[100],
-			});
-		}
-
-		const href = `/catalog/${catalogSection}`;
-
-		return (
-			<StyledMenu key={href} sx={styleOptions} component={NextLink} href={href}>{title}</StyledMenu>
-		);
-	}), [matchCatalogSection, theme]);
-
 	return (
-		<AppBar sx={{ display: { xs: 'none', md: 'block' } }}>
+		<AppBar>
 			<Toolbar
 				disableGutters
 				sx={{
@@ -124,18 +151,21 @@ export default function Header() {
 					position: 'relative',
 					backgroundColor: theme.palette.background.default,
 					padding: '0 !important',
-					height: '117px',
+					height: { xs: '106px', md: '117px' },
+					transition: 'all 0.2s ease-in',
 					display: 'flex',
 					flexDirection: 'column',
 					borderBottom: `1px solid ${theme.palette.divider}`,
 				}}
 			>
-				<Container maxWidth='lg'>
+				<Container maxWidth='lg' disableGutters>
 					<Box
 						sx={{
+							display: { xs: 'none', md: 'flex' },
 							width: '100%',
 							height: '80px',
-							display: 'flex',
+							paddingLeft: 3,
+							paddingRight: 3,
 							flexDirection: 'row',
 							justifyContent: 'space-between',
 							alignItems: 'center',
@@ -193,17 +223,90 @@ export default function Header() {
 							</StyledIconBox>
 						</Stack>
 					</Box>
+
+					<Box
+						sx={{
+							display: { xs: 'flex', md: 'none' },
+							width: '100%',
+							height: '72px',
+							paddingLeft: { xs: 1, sm: 2 },
+							paddingRight: { xs: 2, sm: 3 },
+							flexDirection: 'row',
+							justifyContent: 'space-between',
+							alignItems: 'center',
+						}}
+					>
+						<Stack direction='row'>
+							<StyledIconBox onClick={openMenuToggle}>
+								<IconButton>
+									<Iconify icon='solar:hamburger-menu-broken' width={24} />
+								</IconButton>
+							</StyledIconBox>
+
+							<NextLink href='/'>
+								<MainLogoWrapper disabledEffect alt='hero' src='/assets/images/header/logo-color.png' />
+							</NextLink>
+						</Stack>
+
+						<Stack direction='row' alignItems='center' justifyContent='flex-end' spacing={{ xs: 0, sm: 2 }}>
+							<Searchbar />
+
+							<StyledIconBox
+								component={RouterLink} href={PATH_PAGE.tracking}
+								sx={{ display: { xs: 'none', sm: 'block' } }}
+							>
+								<Box sx={{ p: 1, pb: 0 }}>
+									<Iconify icon='solar:delivery-linear' width={24} />
+								</Box>
+								<Typography variant='caption'>Статус</Typography>
+							</StyledIconBox>
+
+							<StyledIconBox onClick={openToggle}>
+								<IconButton disableRipple>
+									<Badge badgeContent={countProductsInCheckout} color='error'>
+										<Iconify icon='solar:cart-large-minimalistic-outline' width={24} />
+									</Badge>
+								</IconButton>
+
+								<Typography sx={{ display: { xs: 'none', sm: 'block' } }} variant='caption'>Кошик</Typography>
+							</StyledIconBox>
+						</Stack>
+					</Box>
 				</Container>
 
-				<Stack direction='row' spacing={1} sx={{
+				<Stack direction='row' sx={{
 					height: '36px',
 					width: '100vw',
+					px: { xs: 2, sm: 3, md: 0 },
 					borderTop: `1px solid ${theme.palette.divider}`,
-					justifyContent: 'center',
+					justifyContent: { xs: 'flex-start', md: 'center' },
 					alignItems: 'center',
 				}}>
-					{renderLinksMemo}
+					<StyledTabs
+						width={{ xs: '100%', md: 'inherit' }}
+						value={activeMenuIdx}
+						variant="scrollable"
+						scrollButtons={false}
+					>
+						{[...menuItems, ...menuItems, ...menuItems].map(({ alias, title }) => {
+							return <Tab disableRipple component={NextLink} href={`${PATH_PAGE.catalog}/${alias}`} label={title} />
+						})}
+					</StyledTabs>
 				</Stack>
+
+				<Drawer
+					anchor='left'
+					open={openMenu}
+					onClose={openMenuToggle}
+					sx={{
+						[`& .${drawerClasses.paper}`]: {
+							...paper({ theme, bgcolor: theme.palette.background.default }),
+							width: { xs: '100%', sm: '540px' },
+						},
+					}}
+				>
+					<MenuDrawer openMenu={openMenu} openMenuToggle={openMenuToggle} menuItems={menuItems} activeMenuIdx={activeMenuIdx} />
+				</Drawer>
 			</Toolbar>
 		</AppBar>
 	);

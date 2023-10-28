@@ -1,7 +1,7 @@
 import { m } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Box, { BoxProps } from '@mui/material/Box';
-import Logo from '../logo';
+import Logo from 'src/components/logo';
 
 export default function SplashScreen({ sx, ...other }: BoxProps) {
   const [mounted, setMounted] = useState(false);

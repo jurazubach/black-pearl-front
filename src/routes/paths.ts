@@ -16,6 +16,7 @@ export const PATH_PAGE = {
   home: '/',
   auth: '/auth/login',
   admin: {
+    root: '/admin',
     banners: '/admin/banners',
     social: '/admin/social',
     blog: '/admin/blog',

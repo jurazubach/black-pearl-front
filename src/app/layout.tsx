@@ -32,13 +32,14 @@ import { CheckoutProvider } from 'src/context/checkout-context';
 import { DialogProvider } from 'src/context/dialog-context';
 import { DrawerProvider } from 'src/context/drawer-context';
 import CheckoutDrawer from 'src/components/checkout/checkout-drawer';
+import LayoutMatcher from 'src/layouts/layout-matcher';
 
 export const metadata = {
 	title: 'NVRMORE',
 	description:
-		'Відкрийте світ розкіші та елегантності з Black Pearl. Ми пропонуємо унікальний люксовий одяг зі звичайною метою вивести ваш стиль на новий рівень. Вишуканість, деталі та індивідуальний підхід - ось те, чим ми відзначаємось.',
+		'Відкрийте світ розкіші та елегантності з NVRMORE. Ми пропонуємо унікальний люксовий одяг зі звичайною метою вивести ваш стиль на новий рівень. Вишуканість, деталі та індивідуальний підхід - ось те, чим ми відзначаємось.',
 	keywords: 'Люксовий одяг,Елегантний стиль,Розкішні вироби,Український бренд,Унікальний дизайн,Індивідуальний підхід,Стильний образ,Бренд NVRMORE',
-	themeColor: '#000000',
+	themeColor: '#050505',
 	manifest: '/manifest.json',
 	viewport: {
 		width: 'device-width',
@@ -87,7 +88,9 @@ export default function RootLayout({ children }: Props) {
 								<DialogProvider>
 									<CheckoutDrawer />
 									<ProgressBar />
-									{children}
+									<LayoutMatcher>
+										{children}
+									</LayoutMatcher>
 								</DialogProvider>
 							</DrawerProvider>
 						</CheckoutProvider>

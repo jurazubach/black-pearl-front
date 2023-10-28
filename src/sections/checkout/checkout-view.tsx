@@ -19,16 +19,18 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Alert from '@mui/material/Alert';
+import { m } from 'framer-motion';
 import dayjs from 'dayjs';
+
 import Iconify from 'src/components/iconify';
 import FormProvider, { RHFCheckbox, RHFTextField } from 'src/components/hook-form';
-import MainLayout from 'src/layouts/main';
 import { calculateTotalPrices } from 'src/utils/checkout';
 import useFormCoupon from 'src/hooks/use-form-coupon';
 import useCheckout from 'src/hooks/use-checkout';
 import ContainerTitle from 'src/components/container-title';
 import ProductPrices from 'src/components/product-prices';
 import CheckoutCardProduct from 'src/components/card-product/checkout';
+import { MotionContainer, varFade } from 'src/components/animate';
 
 const StyledRHFTextField: any = styled(RHFTextField)({
 	'& .MuiInputBase-input': {
@@ -130,159 +132,161 @@ const CheckoutView = () => {
 	};
 
 	return (
-		<MainLayout>
-			<ContainerTitle center maxWidth='lg' title='Оформлення замовлення' />
+		<MotionContainer>
+			<m.div variants={varFade().in}>
+				<ContainerTitle center maxWidth='lg' title='Оформлення замовлення' />
 
-			<Container maxWidth='lg' disableGutters>
-				<FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-					<Grid container>
-						<Grid item xs={12} md={8} sx={{ p: 3 }}>
-							<Grid container spacing={3}>
-								<Grid item xs={12}>
-									<Typography variant='h6'>Персональні данні</Typography>
-								</Grid>
-								<Grid item xs={12} md={6}>
-									<StyledRHFTextField fullWidth name='firstName' variant='outlined' label='Ім`я' type='text' />
-								</Grid>
-								<Grid item xs={12} md={6}>
-									<StyledRHFTextField fullWidth name='lastName' variant='outlined' label='Прізвище' type='text' />
-								</Grid>
+				<Container maxWidth='lg' disableGutters>
+					<FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+						<Grid container>
+							<Grid item xs={12} md={8} sx={{ p: 3 }}>
+								<Grid container spacing={3}>
+									<Grid item xs={12}>
+										<Typography variant='h6'>Персональні данні</Typography>
+									</Grid>
+									<Grid item xs={12} md={6}>
+										<StyledRHFTextField fullWidth name='firstName' variant='outlined' label='Ім`я' type='text' />
+									</Grid>
+									<Grid item xs={12} md={6}>
+										<StyledRHFTextField fullWidth name='lastName' variant='outlined' label='Прізвище' type='text' />
+									</Grid>
 
-								<Grid item xs={12} md={6}>
-									<StyledRHFTextField fullWidth name='email' variant='outlined' label='Email' type='text' />
-								</Grid>
+									<Grid item xs={12} md={6}>
+										<StyledRHFTextField fullWidth name='email' variant='outlined' label='Email' type='text' />
+									</Grid>
 
-								<Grid item xs={12} md={6}>
-									<StyledRHFTextField fullWidth name='phone' variant='outlined' label='Мобільний телефон' type='text' />
-								</Grid>
+									<Grid item xs={12} md={6}>
+										<StyledRHFTextField fullWidth name='phone' variant='outlined' label='Мобільний телефон' type='text' />
+									</Grid>
 
-								<Grid item xs={12}>
-									<Typography variant='h6'>Доставка</Typography>
-								</Grid>
-								<Grid item xs={12}>
-									<FormControl>
-										<RadioGroup defaultValue={EPostType.NOVA_POSHTA} value={formValues.postType} onChange={onPostTypeChange}>
-											<FormControlLabel value={EPostType.NOVA_POSHTA} control={<Radio />} label='Нова пошта' />
-											<FormControlLabel value={EPostType.UKR_POSHTA} control={<Radio />} label='Укр пошта' />
-										</RadioGroup>
-									</FormControl>
-								</Grid>
-								<Grid item xs={12} md={6}>
-									<StyledRHFTextField fullWidth name='region' variant='outlined' label='Область' type='text' />
-								</Grid>
-								<Grid item xs={12} md={6}>
-									<StyledRHFTextField fullWidth name='city' variant='outlined' label='Місто' type='text' />
-								</Grid>
-								<Grid item xs={12}>
-									<StyledRHFTextField fullWidth name='postAddress' variant='outlined' label='Адреса та номер відділення' type='text' />
-								</Grid>
+									<Grid item xs={12}>
+										<Typography variant='h6'>Доставка</Typography>
+									</Grid>
+									<Grid item xs={12}>
+										<FormControl>
+											<RadioGroup defaultValue={EPostType.NOVA_POSHTA} value={formValues.postType} onChange={onPostTypeChange}>
+												<FormControlLabel value={EPostType.NOVA_POSHTA} control={<Radio />} label='Нова пошта' />
+												<FormControlLabel value={EPostType.UKR_POSHTA} control={<Radio />} label='Укр пошта' />
+											</RadioGroup>
+										</FormControl>
+									</Grid>
+									<Grid item xs={12} md={6}>
+										<StyledRHFTextField fullWidth name='region' variant='outlined' label='Область' type='text' />
+									</Grid>
+									<Grid item xs={12} md={6}>
+										<StyledRHFTextField fullWidth name='city' variant='outlined' label='Місто' type='text' />
+									</Grid>
+									<Grid item xs={12}>
+										<StyledRHFTextField fullWidth name='postAddress' variant='outlined' label='Адреса та номер відділення' type='text' />
+									</Grid>
 
-								<Grid item xs={12}>
-									<Typography variant='h6'>Оплата</Typography>
-								</Grid>
-								<Grid item xs={12}>
-									<FormControl>
-										<RadioGroup defaultValue={EPaymentType.CASH} value={formValues.paymentType} onChange={onPaymentTypeChange}>
-											<FormControlLabel value={EPaymentType.CASH} control={<Radio />} label='Оплата під час отримання товару' />
-											<FormControlLabel value={EPaymentType.CARD} control={<Radio />} label='Переказ на карту' />
-										</RadioGroup>
-									</FormControl>
+									<Grid item xs={12}>
+										<Typography variant='h6'>Оплата</Typography>
+									</Grid>
+									<Grid item xs={12}>
+										<FormControl>
+											<RadioGroup defaultValue={EPaymentType.CASH} value={formValues.paymentType} onChange={onPaymentTypeChange}>
+												<FormControlLabel value={EPaymentType.CASH} control={<Radio />} label='Оплата під час отримання товару' />
+												<FormControlLabel value={EPaymentType.CARD} control={<Radio />} label='Переказ на карту' />
+											</RadioGroup>
+										</FormControl>
+									</Grid>
 								</Grid>
 							</Grid>
-						</Grid>
 
-						<Grid
-							item
-							xs={12}
-							md={4}
-							sx={{
-								borderLeft: { xs: 'none', md: `1px solid ${theme.palette.divider}` },
-								borderTop: { xs: `2px solid ${theme.palette.divider}`, md: `none` },
-							}}
-						>
-							<Grid item xs={12} sx={{ pt: 3, pl: 3 }}>
-								<Typography variant='h6'>Список товарів</Typography>
-							</Grid>
+							<Grid
+								item
+								xs={12}
+								md={4}
+								sx={{
+									borderLeft: { xs: 'none', md: `1px solid ${theme.palette.divider}` },
+									borderTop: { xs: `2px solid ${theme.palette.divider}`, md: `none` },
+								}}
+							>
+								<Grid item xs={12} sx={{ pt: 3, pl: 3 }}>
+									<Typography variant='h6'>Список товарів</Typography>
+								</Grid>
 
-							<Stack spacing={1}>
-								{checkoutProducts.map((checkoutProduct) => (
-									<CheckoutCardProduct key={checkoutProduct.productId} product={checkoutProduct} />
-								))}
-							</Stack>
+								<Stack spacing={1}>
+									{checkoutProducts.map((checkoutProduct) => (
+										<CheckoutCardProduct key={checkoutProduct.productId} product={checkoutProduct} />
+									))}
+								</Stack>
 
-							<Divider />
+								<Divider />
 
-							<Box sx={{ p: 2 }}>
-								<Stack direction='row'>
-									<StyledTextField fullWidth onChange={onPromocodeChange} variant='outlined' label='Промокод' />
+								<Box sx={{ p: 2 }}>
+									<Stack direction='row'>
+										<StyledTextField fullWidth onChange={onPromocodeChange} variant='outlined' label='Промокод' />
+
+										<LoadingButton
+											loading={formCoupon.isLoading}
+											disabled={formCoupon.promocode.length === 0 || formCoupon.isLoading}
+											variant='contained'
+											sx={{ width: '205px' }}
+											startIcon={<Iconify icon='solar:check-square-outline' />}
+											onClick={onApplyPromocode}
+										>
+											Застосувати
+										</LoadingButton>
+									</Stack>
+									{formCoupon.coupon && discount > 0 && (
+										<Alert sx={{ mt: 2 }} variant='outlined' severity='success'>
+											<Stack direction='row' spacing={1}>
+												<Typography>Додаткова знижка:</Typography>
+												<Typography sx={{ fontWeight: 'bold' }}>{discount} грн.</Typography>
+											</Stack>
+											<Stack direction='row' spacing={1}>
+												<Typography sx={{ color: 'text.secondary' }} variant='caption'>Дійсний
+													до: {dayjs(formCoupon.coupon.endAt).format('YYYY-MM-DD HH:mm:ss')}</Typography>
+											</Stack>
+										</Alert>
+									)}
+
+									{formCoupon.error && (
+										<Alert sx={{ mt: 2 }} variant='outlined' severity='error'>
+											<Stack direction='row' spacing={1}>
+												<Typography>{formCoupon.error}</Typography>
+											</Stack>
+										</Alert>
+									)}
+								</Box>
+
+								<Divider />
+
+								<Box display='flex' justifyContent='space-between' p={2}>
+									<Typography variant="subtitle1">Всього:</Typography>
+									<ProductPrices
+										size='small'
+										oldPrice={totalOldPrice}
+										price={totalPrice}
+									/>
+								</Box>
+
+								<Divider />
+
+								<Stack sx={{ p: 2 }} spacing={3}>
+									<RHFCheckbox name='accept' label='Я даю згоду на передачу та обробку моїх персональних данних' />
 
 									<LoadingButton
-										loading={formCoupon.isLoading}
-										disabled={formCoupon.promocode.length === 0 || formCoupon.isLoading}
+										loading={isSubmitting}
+										disabled={isSubmitting || checkoutProducts.length === 0}
+										type='submit'
+										startIcon={<Iconify icon='solar:cart-check-outline' color='inherit' width={24} />}
+										fullWidth
+										size='large'
 										variant='contained'
-										sx={{ width: '205px' }}
-										startIcon={<Iconify icon='solar:check-square-outline' />}
-										onClick={onApplyPromocode}
+										disableRipple
 									>
-										Застосувати
+										Зробити замовлення
 									</LoadingButton>
 								</Stack>
-								{formCoupon.coupon && discount > 0 && (
-									<Alert sx={{ mt: 2 }} variant='outlined' severity='success'>
-										<Stack direction='row' spacing={1}>
-											<Typography>Додаткова знижка:</Typography>
-											<Typography sx={{ fontWeight: 'bold' }}>{discount} грн.</Typography>
-										</Stack>
-										<Stack direction='row' spacing={1}>
-											<Typography sx={{ color: 'text.secondary' }} variant='caption'>Дійсний
-												до: {dayjs(formCoupon.coupon.endAt).format('YYYY-MM-DD HH:mm:ss')}</Typography>
-										</Stack>
-									</Alert>
-								)}
-
-								{formCoupon.error && (
-									<Alert sx={{ mt: 2 }} variant='outlined' severity='error'>
-										<Stack direction='row' spacing={1}>
-											<Typography>{formCoupon.error}</Typography>
-										</Stack>
-									</Alert>
-								)}
-							</Box>
-
-							<Divider />
-
-							<Box display='flex' justifyContent='space-between' p={2}>
-								<Typography variant="subtitle1">Всього:</Typography>
-								<ProductPrices
-									size='small'
-									oldPrice={totalOldPrice}
-									price={totalPrice}
-								/>
-							</Box>
-
-							<Divider />
-
-							<Stack sx={{ p: 2 }} spacing={3}>
-								<RHFCheckbox name='accept' label='Я даю згоду на передачу та обробку моїх персональних данних' />
-
-								<LoadingButton
-									loading={isSubmitting}
-									disabled={isSubmitting || checkoutProducts.length === 0}
-									type='submit'
-									startIcon={<Iconify icon='solar:cart-check-outline' color='inherit' width={24} />}
-									fullWidth
-									size='large'
-									variant='contained'
-									disableRipple
-								>
-									Зробити замовлення
-								</LoadingButton>
-							</Stack>
+							</Grid>
 						</Grid>
-					</Grid>
-				</FormProvider>
-			</Container>
-		</MainLayout>
+					</FormProvider>
+				</Container>
+			</m.div>
+		</MotionContainer>
 	);
 };
 

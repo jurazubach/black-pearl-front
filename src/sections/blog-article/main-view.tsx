@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { useScroll } from 'framer-motion';
+import { m, useScroll } from 'framer-motion';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import { MotionContainer, varFade } from 'src/components/animate';
 import ScrollProgress from 'src/components/scroll-progress';
-import MainLayout from 'src/layouts/main';
 import ContainerTitle from 'src/components/container-title';
 import BlogHero from './blog-hero';
 
@@ -17,19 +17,20 @@ export default function MainView({ post }: Props) {
 	const { scrollYProgress } = useScroll();
 
 	return (
-		<MainLayout>
-			<ScrollProgress scrollYProgress={scrollYProgress} />
-			<BlogHero />
-			<ContainerTitle center title={post.title} />
+		<MotionContainer>
+			<m.div variants={varFade().in}>
+				<ScrollProgress scrollYProgress={scrollYProgress} />
+				<BlogHero />
+				<ContainerTitle center title={post.title} />
 
-			<Container maxWidth='lg' sx={{ my: { xs: 2, sm: 3 } }} disableGutters>
-				<Grid container spacing={3}>
-					<Grid item xs={12}>
-						{post.description}
+				<Container maxWidth='lg' sx={{ my: { xs: 2, sm: 3 } }} disableGutters>
+					<Grid container spacing={3}>
+						<Grid item xs={12}>
+							{post.description}
+						</Grid>
 					</Grid>
-				</Grid>
-			</Container>
-
-		</MainLayout>
+				</Container>
+			</m.div>
+		</MotionContainer>
 	);
 }

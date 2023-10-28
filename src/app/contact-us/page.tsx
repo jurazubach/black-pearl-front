@@ -1,4 +1,4 @@
-import { ContactsView } from 'src/sections/contacts/view';
+import { ContactsView } from 'src/sections/contacts';
 
 export const metadata = {
   title: 'Контакти | NVRMORE',

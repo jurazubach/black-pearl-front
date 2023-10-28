@@ -33,12 +33,10 @@ export default function AboutHero() {
           </Stack>
 
           <Stack spacing={1} display="inline-flex" direction="row" sx={{ color: 'primary.main' }}>
-            <TextAnimate text="The" variants={varFade().inRight} />
-            <TextAnimate text="Black" variants={varFade().inRight} />
-            <TextAnimate text="Pearl" variants={varFade().inRight} />
+            <TextAnimate text="NVRMORE" variants={varFade().inRight} />
           </Stack>
 
-          <m.div variants={varFade().inUp}>
+          <m.div variants={varFade().inRight}>
             <Typography variant="h6" sx={{ mt: 2, textAlign: 'center', color: 'common.white' }}>
               Унікального бренду, де розкіш зустрічається з індивідуальністю.
               <br />Ми з гордістю створюємо чудові речі класу люкс, уособлюючи стиль, якість та витонченість.
