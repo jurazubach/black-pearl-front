@@ -1,8 +1,6 @@
 import Typography from '@mui/material/Typography';
 import Paper, { PaperProps } from '@mui/material/Paper';
 
-// ----------------------------------------------------------------------
-
 interface Props extends PaperProps {
   query?: string;
 }
@@ -10,26 +8,21 @@ interface Props extends PaperProps {
 export default function SearchNotFound({ query, sx, ...other }: Props) {
   return query ? (
     <Paper
-      sx={{
-        bgcolor: 'unset',
-        textAlign: 'center',
-        ...sx,
-      }}
+      sx={{ bgcolor: 'unset', textAlign: 'center', ...sx, }}
       {...other}
     >
       <Typography variant="h6" gutterBottom>
-        Not Found
+        Нічого не знайдено
       </Typography>
 
       <Typography variant="body2">
-        No results found for &nbsp;
+        Немає результатів для &nbsp;
         <strong>&quot;{query}&quot;</strong>.
-        <br /> Try checking for typos or using complete words.
       </Typography>
     </Paper>
   ) : (
     <Typography variant="body2" sx={sx}>
-      Please enter keywords
+      Введіть артикул або назву моделі
     </Typography>
   );
 }

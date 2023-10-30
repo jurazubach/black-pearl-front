@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useEffect, useReducer, useCallback, useMemo } from 'react';
 import { httpPostLogout, httpPostSignIn, IHttpPostSignInProps } from 'src/services/auth';
 import { httpGetUser } from 'src/services/admin/user';
@@ -70,7 +71,7 @@ export function AuthProvider({ children }: Props) {
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        const { data: user } = await httpGetUser();
+        const user = await httpGetUser();
         dispatch({ type: Types.INITIAL, payload: { user } });
       } else {
         dispatch({
@@ -98,8 +99,8 @@ export function AuthProvider({ children }: Props) {
   // LOGIN
   const login = useCallback(async (email: string, password: string) => {
     const data: IHttpPostSignInProps = { email, password };
-    const { data: accessToken } = await httpPostSignIn(data);
-    const { data: user } = await httpGetUser();
+    const accessToken = await httpPostSignIn(data);
+    const user = await httpGetUser();
 
     setSession(accessToken);
     dispatch({ type: Types.LOGIN, payload: { user } });

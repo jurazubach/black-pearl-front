@@ -1,4 +1,4 @@
-import { paths } from 'src/routes/paths';
+import { PATH_PAGE } from 'src/routes/paths';
 import axios from 'src/utils/axios';
 
 function jwtDecode(token: string) {
@@ -27,8 +27,6 @@ export const isValidToken = (accessToken: string) => {
   return decoded.exp > currentTime;
 };
 
-// ----------------------------------------------------------------------
-
 export const tokenExpired = (exp: number) => {
   // eslint-disable-next-line prefer-const
   let expiredTimer;
@@ -46,24 +44,18 @@ export const tokenExpired = (exp: number) => {
 
     sessionStorage.removeItem('accessToken');
 
-    window.location.href = paths.auth.jwt.login;
+    window.location.href = PATH_PAGE.auth;
   }, timeLeft);
 };
-
-// ----------------------------------------------------------------------
 
 export const setSession = (accessToken: string | null) => {
   if (accessToken) {
     sessionStorage.setItem('accessToken', accessToken);
-
-    axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
     // This function below will handle when token is expired
     const { exp } = jwtDecode(accessToken); // ~3 days by minimals server
     tokenExpired(exp);
   } else {
     sessionStorage.removeItem('accessToken');
-
-    delete axios.defaults.headers.common.Authorization;
   }
 };

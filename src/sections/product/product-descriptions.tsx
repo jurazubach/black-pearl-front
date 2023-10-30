@@ -5,15 +5,24 @@ import Box from '@mui/material/Box';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import { useTheme } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import NextLink from 'next/link';
 import Link from '@mui/material/Link';
 import Iconify from 'src/components/iconify';
 import { PATH_PAGE } from '../../routes/paths';
+import { paper } from '../../theme/css';
 
 interface Props {
 	product: any;
 }
+
+const StyledAccordion = styled(Accordion)(({ theme, expanded }) => {
+	return {
+		transition: 'all 0.2s ease-in',
+		...(expanded ? paper({ theme, bgcolor: theme.palette.background.default }): {}),
+		marginTop: '0px !important',
+	};
+});
 
 const BetweenTextWrapper = ({ leftText, rightText }: { leftText: string, rightText: string }) => {
 	const theme = useTheme();
@@ -40,8 +49,7 @@ const ProductDescriptions = ({ product }: Props) => {
 
 	return (
 		<Box sx={{ '& .MuiPaper-root.MuiAccordion-root.Mui-expanded': { bgcolor: 'grey.800' } }}>
-			<Accordion expanded={expanded === 'descriptions'} onChange={handleChange('descriptions')}
-			           sx={{ marginTop: '0px !important' }}>
+			<StyledAccordion expanded={expanded === 'descriptions'} onChange={handleChange('descriptions')}>
 				<AccordionSummary
 					expandIcon={<Iconify icon='solar:alt-arrow-down-bold' color='primary' width={24} />}>
 					<Typography variant='h6'>Короткий опис товару</Typography>
@@ -49,9 +57,8 @@ const ProductDescriptions = ({ product }: Props) => {
 				<AccordionDetails>
 					<Typography>{product.description}</Typography>
 				</AccordionDetails>
-			</Accordion>
-			<Accordion expanded={expanded === 'properties'} onChange={handleChange('properties')}
-			           sx={{ marginTop: '0px !important' }}>
+			</StyledAccordion>
+			<StyledAccordion expanded={expanded === 'properties'} onChange={handleChange('properties')}>
 				<AccordionSummary
 					expandIcon={<Iconify icon='solar:alt-arrow-down-bold' color='primary' width={24} />}>
 					<Typography variant='h6'>Деталі</Typography>
@@ -63,9 +70,8 @@ const ProductDescriptions = ({ product }: Props) => {
 						))}
 					</Stack>
 				</AccordionDetails>
-			</Accordion>
-			<Accordion expanded={expanded === 'returns'} onChange={handleChange('returns')}
-			           sx={{ marginTop: '0px !important' }}>
+			</StyledAccordion>
+			<StyledAccordion expanded={expanded === 'returns'} onChange={handleChange('returns')}>
 				<AccordionSummary
 					expandIcon={<Iconify icon='solar:alt-arrow-down-bold' color='primary' width={24} />}>
 					<Typography variant='h6'>Гарантія та повернення</Typography>
@@ -86,9 +92,8 @@ const ProductDescriptions = ({ product }: Props) => {
 						</Link>
 					</Stack>
 				</AccordionDetails>
-			</Accordion>
-			<Accordion expanded={expanded === 'instructions'} onChange={handleChange('instructions')}
-			           sx={{ marginTop: '0px !important' }}>
+			</StyledAccordion>
+			<StyledAccordion expanded={expanded === 'instructions'} onChange={handleChange('instructions')}>
 				<AccordionSummary
 					expandIcon={<Iconify icon='solar:alt-arrow-down-bold' color='primary' width={24} />}
 				>
@@ -112,8 +117,8 @@ const ProductDescriptions = ({ product }: Props) => {
 						</Stack>
 					</Stack>
 				</AccordionDetails>
-			</Accordion>
-			<Accordion expanded={expanded === 'sizes'} onChange={handleChange('sizes')} sx={{ marginTop: '0px !important' }}>
+			</StyledAccordion>
+			<StyledAccordion expanded={expanded === 'sizes'} onChange={handleChange('sizes')}>
 				<AccordionSummary
 					expandIcon={<Iconify icon='solar:alt-arrow-down-bold' color='primary' width={24} />}
 				>
@@ -127,7 +132,7 @@ const ProductDescriptions = ({ product }: Props) => {
 						</Stack>
 					</Stack>
 				</AccordionDetails>
-			</Accordion>
+			</StyledAccordion>
 		</Box>
 	);
 };

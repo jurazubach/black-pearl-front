@@ -32,7 +32,7 @@ const ContactsList = () => (
 					<Grid xs={12} md={7}>
 						<Stack spacing={3}>
 							<Typography variant='h4'>Зв`язатись з нами</Typography>
-							<BetweenTextWrapper leftText='E-mail для звязку' rightText='info@theblackpearl.com.ua' />
+							<BetweenTextWrapper leftText='E-mail для звязку' rightText='info@nvrmore.com.ua' />
 							<BetweenTextWrapper leftText='Телефон' rightText='+38(099)73-05-113' />
 							<BetweenTextWrapper leftText='Telegram' rightText='@JuraZubach' />
 							<BetweenTextWrapper leftText='Режим роботи магазину'

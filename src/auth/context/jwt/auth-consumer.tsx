@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { SplashScreen } from 'src/components/loading-screen';
 import { AuthContext } from './auth-context';
 

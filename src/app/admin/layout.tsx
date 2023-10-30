@@ -1,7 +1,7 @@
 'use client';
 
+import React from 'react';
 import { AuthGuard } from 'src/auth/guard';
-import DashboardLayout from 'src/layouts/dashboard';
 import { AuthConsumer, AuthProvider } from 'src/auth/context/jwt';
 
 type Props = {
@@ -13,7 +13,7 @@ export default function Layout({ children }: Props) {
 		<AuthProvider>
 			<AuthConsumer>
 				<AuthGuard>
-					<DashboardLayout>{children}</DashboardLayout>
+					{children}
 				</AuthGuard>
 			</AuthConsumer>
 		</AuthProvider>

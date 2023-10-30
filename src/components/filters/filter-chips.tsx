@@ -10,12 +10,27 @@ import { useRouter } from 'src/routes/hooks';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { IFilterModels } from 'src/types/filters';
 import Scrollbar from 'src/components/scrollbar';
+import { varFade } from '../animate';
+import { m } from 'framer-motion';
 
 interface Props {
 	categoryFilters: IFilterModels;
 	categoryAlias: string;
 	filterContainer: IFilterContainerOut;
 }
+
+const variantsContainer = {
+	hidden: varFade().in.initial,
+	show: {
+		...varFade().in.animate,
+		transition: { ...varFade().in.animate.transition, staggerChildren: 0.05 }
+	},
+};
+
+const variantsVarFadeInRight = {
+	hidden: varFade().in.initial,
+	show: varFade().in.animate
+};
 
 const FilterChips = ({ categoryFilters, categoryAlias, filterContainer }: Props) => {
 	const router = useRouter();
@@ -57,12 +72,14 @@ const FilterChips = ({ categoryFilters, categoryAlias, filterContainer }: Props)
 								.build();
 
 							chips.push(
-								<Chip
-									key={categoryPropertyValue.alias}
-									label={categoryPropertyValue.title}
-									variant='outlined'
-									onDelete={() => router.push(nextUrl)}
-								/>,
+								<m.div variants={variantsVarFadeInRight} key={`${categoryPropertyValue.title}_${categoryPropertyValue.alias}`}>
+									<Chip
+										key={categoryPropertyValue.alias}
+										label={categoryPropertyValue.title}
+										variant='outlined'
+										onDelete={() => router.push(nextUrl)}
+									/>
+								</m.div>,
 							);
 						}
 					});
@@ -78,11 +95,13 @@ const FilterChips = ({ categoryFilters, categoryAlias, filterContainer }: Props)
 	}
 
 	return (
-		<Box sx={{ width: 'calc(100vw - 221px - 80px)' }}>
+		<Box sx={{ width: 'calc(100vw - 221px - 80px)', maxWidth: '1660px' }}>
 			<Scrollbar sx={{ '.simplebar-horizontal': { display: 'none' } }}>
-				<Stack direction='row' spacing={1} alignItems='center'>
-					{chipsMemo}
-				</Stack>
+				<m.div variants={variantsContainer} initial="hidden" animate="show">
+					<Stack direction='row' spacing={1} alignItems='center'>
+						{chipsMemo}
+					</Stack>
+				</m.div>
 			</Scrollbar>
 		</Box>
 	);

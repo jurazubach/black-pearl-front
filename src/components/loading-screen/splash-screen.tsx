@@ -1,6 +1,7 @@
 import { m } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Box, { BoxProps } from '@mui/material/Box';
+import { alpha } from '@mui/material/styles';
 import Logo from 'src/components/logo';
 
 export default function SplashScreen({ sx, ...other }: BoxProps) {
@@ -60,7 +61,7 @@ export default function SplashScreen({ sx, ...other }: BoxProps) {
             width: 100,
             height: 100,
             position: 'absolute',
-            border: (theme) => `solid 3px ${theme.palette.grey[500]}`,
+            border: (theme) => `solid 3px ${theme.palette.primary.main}`,
           }}
         />
 
@@ -81,7 +82,7 @@ export default function SplashScreen({ sx, ...other }: BoxProps) {
             width: 120,
             height: 120,
             position: 'absolute',
-            border: (theme) => `solid 8px ${theme.palette.grey[500]}`,
+            border: (theme) => `solid 8px ${alpha(theme.palette.primary.main, 0.5)}`,
           }}
         />
       </>

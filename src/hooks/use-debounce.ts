@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 
-// ----------------------------------------------------------------------
-
 type ReturnType = string;
 
 export function useDebounce(value: string, delay = 500): ReturnType {

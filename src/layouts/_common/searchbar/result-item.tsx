@@ -9,15 +9,15 @@ type Props = {
     text: string;
     highlight: boolean;
   }[];
-  path: {
+  path: string;
+  code: {
     text: string;
     highlight: boolean;
   }[];
-  groupLabel: string;
   onClickItem: VoidFunction;
 };
 
-export default function ResultItem({ title, path, groupLabel, onClickItem }: Props) {
+export default function ResultItem({ title, path, code, onClickItem }: Props) {
   return (
     <ListItemButton
       onClick={onClickItem}
@@ -35,36 +35,27 @@ export default function ResultItem({ title, path, groupLabel, onClickItem }: Pro
       }}
     >
       <ListItemText
-        primaryTypographyProps={{
-          typography: 'subtitle2',
-          sx: { textTransform: 'capitalize' },
-        }}
+        primaryTypographyProps={{ typography: 'subtitle2' }}
         secondaryTypographyProps={{ typography: 'caption' }}
         primary={title.map((part, index) => (
-          <Box
-            key={index}
-            component="span"
-            sx={{
-              color: part.highlight ? 'primary.main' : 'text.primary',
-            }}
-          >
+          <Box key={index} component="span" sx={{ color: part.highlight ? 'primary.main' : 'text.primary' }}>
             {part.text}
           </Box>
         ))}
-        secondary={path.map((part, index) => (
-          <Box
-            key={index}
-            component="span"
-            sx={{
-              color: part.highlight ? 'primary.main' : 'text.secondary',
-            }}
-          >
-            {part.text}
+        secondary={(
+          <Box component="span" sx={{ color: 'text.secondary' }}>
+            {path}
           </Box>
-        ))}
+        )}
       />
 
-      {groupLabel && <Label color="info">{groupLabel}</Label>}
+      <Label variant='soft' color="primary">{
+        code.map((part, index) => (
+          <Box key={index} component="span" sx={{ color: part.highlight ? 'primary.main' : 'text.primary' }}>
+            {part.text}
+          </Box>
+        ))
+      }</Label>
     </ListItemButton>
   );
 }

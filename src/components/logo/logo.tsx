@@ -5,6 +5,7 @@ import { RouterLink } from 'src/routes/components';
 
 export interface LogoProps extends BoxProps {
   disabledLink?: boolean;
+  src?: string;
 }
 
 const Logo = forwardRef<HTMLDivElement, LogoProps>(
@@ -12,8 +13,9 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
     const logo = (
       <Box
         component="img"
-        src="/assets/images/header/logo-pearl.png"
+        src="/assets/logo/logo-transparent.png"
         sx={{ width: 64, height: 64, cursor: 'pointer', ...sx }}
+        {...other}
       />
     );
 

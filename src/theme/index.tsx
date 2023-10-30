@@ -93,10 +93,8 @@ export default function ThemeProvider({ children }: Props) {
     <SettingsProvider defaultSettings={themeSettings}>
       <NextAppDirEmotionCacheProvider options={{ key: 'css' }}>
         <MuiThemeProvider theme={themeWithLocale}>
-          <RTL themeDirection={themeSettings.themeDirection}>
-            <CssBaseline />
-            {children}
-          </RTL>
+          <CssBaseline />
+          {children}
         </MuiThemeProvider>
       </NextAppDirEmotionCacheProvider>
     </SettingsProvider>

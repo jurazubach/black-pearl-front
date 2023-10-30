@@ -10,8 +10,8 @@ interface Props {
 }
 
 const variantsVarFadeInRight = {
-	hidden: varFade().inRight.initial,
-	show: varFade().inRight.animate
+	hidden: varFade().in.initial,
+	show: varFade().in.animate
 };
 
 export default ({ products }: Props) => (

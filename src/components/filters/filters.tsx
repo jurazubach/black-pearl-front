@@ -5,12 +5,13 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
+import _round from 'lodash/round';
 import Iconify from 'src/components/iconify';
 import { IFilterContainerOut } from 'src/utils/get-filter-container';
+import { IFilterModels } from 'src/types/filters';
 import SortPanel from './sort-panel';
 import FilterChips from './filter-chips';
 import FilterDrawer from './filter-drawer';
-import { IFilterModels } from '../../types/filters';
 
 interface Props {
 	categoryFilters: IFilterModels;
@@ -22,11 +23,14 @@ const Filters = ({ categoryFilters, categoryAlias, filterContainer }: Props) => 
 	const theme = useTheme();
 
 	const [openMenu, setOpenMenu] = useState<boolean>(false);
-	const openMenuToggle = useCallback(() => {
-		setOpenMenu((prevState) => !prevState);
-	}, [setOpenMenu]);
+	const openMenuToggle = useCallback(() => setOpenMenu((prevState) => !prevState), [setOpenMenu]);
 
-	const countFiltersApplied = useMemo(() => Object.keys(filterContainer.list).length, [filterContainer.list]);
+	const countFiltersApplied = useMemo(() => {
+		let count = 0;
+		Object.values(filterContainer.list).forEach((values) => count = _round(count + values.length));
+
+		return count;
+	}, [filterContainer.list]);
 
 	return (
 		<Box>

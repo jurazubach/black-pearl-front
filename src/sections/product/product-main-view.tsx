@@ -78,7 +78,7 @@ export default function ProductMainView({ product, similarProducts }: Props) {
 			</Box>
 
 			<MotionContainer>
-				<m.div variants={varFade().inRight}>
+				<m.div variants={varFade().in}>
 					<Container maxWidth='lg' sx={{ py: { xs: 2, sm: 3 }, px: { xs: 2, sm: 3, lg: 0 } }} disableGutters>
 						<Grid container spacing={{ xs: 1, sm: 3 }}>
 							<Grid item xs={12} md={6}>

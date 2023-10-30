@@ -24,8 +24,10 @@ const CardPost = ({ blogPost }: Props) => {
 		}}>
 			<Box sx={{ overflow: 'hidden', height: '300px' }}>
 				<Image
+					effect="opacity"
+					useIntersectionObserver
+					placeholderSrc='/assets/image-placeholder.png'
 					src={blogPost.imageSrc}
-					disabledEffect
 					decoding='async'
 					loading='lazy'
 					sx={{ transition: 'all .2s ease-in', height: '100%', width: '100%' }}

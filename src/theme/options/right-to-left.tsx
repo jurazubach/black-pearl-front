@@ -1,11 +1,7 @@
 import { useEffect } from 'react';
-// rtl
 import rtlPlugin from 'stylis-plugin-rtl';
-// emotion
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-
-// ----------------------------------------------------------------------
 
 type Props = {
   themeDirection: 'rtl' | 'ltr';
@@ -32,12 +28,8 @@ export default function RTL({ children, themeDirection }: Props) {
   return <>{children}</>;
 }
 
-// ----------------------------------------------------------------------
-
 export function direction(themeDirection: 'rtl' | 'ltr') {
-  const theme = {
+  return {
     direction: themeDirection,
   };
-
-  return theme;
 }

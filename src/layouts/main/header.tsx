@@ -25,6 +25,8 @@ import { IMenuItem } from 'src/types/main';
 import { Searchbar } from '../_common';
 import { paper } from '../../theme/css';
 import MenuDrawer from './menu-drawer';
+import { MotionContainer, varFade } from '../../components/animate';
+import { m } from 'framer-motion';
 
 const StyledLinkBox: any = styled(Link)(({ theme }) => ({
 	display: 'flex',
@@ -131,6 +133,21 @@ interface Props {
 	activeMenuIdx: number | null;
 }
 
+const variantsContainer = {
+	hidden: varFade().in.initial,
+	show: { ...varFade().in.animate, transition: { ...varFade().in.animate.transition, staggerChildren: 0.05 } },
+};
+
+const variantsVarFadeInLeft = {
+	hidden: varFade().inLeft.initial,
+	show: varFade().inLeft.animate
+};
+
+const variantsVarFadeInRight = {
+	hidden: varFade().inRight.initial,
+	show: varFade().inRight.animate
+};
+
 export default function Header({ menuItems, activeMenuIdx }: Props) {
 	const [openMenu, setOpenMenu] = useState<boolean>(false);
 	const openMenuToggle = useCallback(() => {
@@ -171,57 +188,80 @@ export default function Header({ menuItems, activeMenuIdx }: Props) {
 							alignItems: 'center',
 						}}
 					>
-						<Stack direction='row' alignItems='center' spacing={2} sx={{ width: '250px' }}>
-							<StyledLinkBox href='https://t.me/JuraZubach' target='_blank'>
-								<Box sx={{ p: 1, pb: 0 }}>
-									<Iconify icon='solar:map-arrow-square-outline' width={24} />
-								</Box>
-								<Typography variant='caption'>Telegram</Typography>
-							</StyledLinkBox>
+						<m.div variants={variantsContainer} initial="hidden" animate="show">
+							<Stack direction='row' alignItems='center' spacing={2} sx={{ width: '250px' }}>
+								<m.div variants={variantsVarFadeInLeft}>
+									<StyledLinkBox href='https://t.me/JuraZubach' target='_blank'>
+										<Box sx={{ p: 1, pb: 0 }}>
+											<Iconify icon='solar:map-arrow-square-outline' width={24} />
+										</Box>
+										<Typography variant='caption'>Telegram</Typography>
+									</StyledLinkBox>
+								</m.div>
 
-							<StyledLinkBox href='tel:+380997305113' target='_blank'>
-								<Box sx={{ p: 1, pb: 0 }}>
-									<Iconify icon='solar:phone-calling-outline' width={24} />
-								</Box>
-								<Typography variant='caption'>Call</Typography>
-							</StyledLinkBox>
+								<m.div variants={variantsVarFadeInLeft}>
+									<StyledLinkBox href='tel:+380997305113' target='_blank'>
+										<Box sx={{ p: 1, pb: 0 }}>
+											<Iconify icon='solar:phone-calling-outline' width={24} />
+										</Box>
+										<Typography variant='caption'>Call</Typography>
+									</StyledLinkBox>
+								</m.div>
 
-							<Box sx={{
-								display: 'flex',
-								flexDirection: 'column',
-								justifyContent: 'flex-end',
-								alignItems: 'center',
-								height: '58px',
-							}}>
-								<Typography variant='body2'>Графік роботи</Typography>
-								<Typography variant='subtitle1' sx={{ paddingTop: 0.5 }}>09:00 - 18:00</Typography>
-							</Box>
-						</Stack>
+								<m.div variants={variantsVarFadeInLeft}>
+									<Box sx={{
+										display: 'flex',
+										flexDirection: 'column',
+										justifyContent: 'flex-end',
+										alignItems: 'center',
+										height: '58px',
+									}}>
+										<Typography variant='body2'>Графік роботи</Typography>
+										<Typography variant='subtitle1' sx={{ paddingTop: 0.5 }}>09:00 - 18:00</Typography>
+									</Box>
+								</m.div>
+							</Stack>
+						</m.div>
 
 						<NextLink href='/'>
-							<ImageLogoWrapper disabledEffect alt='logo' src='/assets/images/header/logo-color.png' />
+							<ImageLogoWrapper
+								alt='logo'
+								src='/assets/logo/text-transparent.png'
+								decoding='async'
+								loading='lazy'
+								effect="opacity"
+								sx={{ height: '100%', width: '100%' }}
+							/>
 						</NextLink>
 
-						<Stack direction='row' alignItems='center' justifyContent='flex-end' spacing={2} sx={{ width: '250px' }}>
-							<Searchbar />
+						<m.div variants={variantsContainer} initial="hidden" animate="show">
+							<Stack direction='row' alignItems='center' justifyContent='flex-end' spacing={2} sx={{ width: '250px' }}>
+								<m.div variants={variantsVarFadeInRight}>
+									<Searchbar />
+								</m.div>
 
-							<StyledLinkBox component={RouterLink} href={PATH_PAGE.tracking}>
-								<Box sx={{ p: 1, pb: 0 }}>
-									<Iconify icon='solar:delivery-linear' width={24} />
-								</Box>
-								<Typography variant='caption'>Статус</Typography>
-							</StyledLinkBox>
+								<m.div variants={variantsVarFadeInRight}>
+									<StyledLinkBox component={RouterLink} href={PATH_PAGE.tracking}>
+										<Box sx={{ p: 1, pb: 0, minHeight: '16px' }}>
+											<Iconify icon='solar:delivery-linear' width={24} />
+										</Box>
+										<Typography variant='caption'>Статус</Typography>
+									</StyledLinkBox>
+								</m.div>
 
-							<StyledIconBox onClick={openToggle}>
-								<IconButton disableRipple>
-									<Badge badgeContent={countProductsInCheckout} color='error'>
-										<Iconify icon='solar:cart-large-minimalistic-outline' width={24} />
-									</Badge>
-								</IconButton>
+								<m.div variants={variantsVarFadeInRight}>
+									<StyledIconBox onClick={openToggle}>
+										<IconButton disableRipple>
+											<Badge badgeContent={countProductsInCheckout} color='error'>
+												<Iconify icon='solar:cart-large-minimalistic-outline' width={24} />
+											</Badge>
+										</IconButton>
 
-								<Typography variant='caption'>Кошик</Typography>
-							</StyledIconBox>
-						</Stack>
+										<Typography variant='caption'>Кошик</Typography>
+									</StyledIconBox>
+								</m.div>
+							</Stack>
+						</m.div>
 					</Box>
 
 					<Box
@@ -244,33 +284,49 @@ export default function Header({ menuItems, activeMenuIdx }: Props) {
 							</StyledIconBox>
 
 							<NextLink href='/'>
-								<MainLogoWrapper disabledEffect alt='hero' src='/assets/images/header/logo-color.png' />
+								<MainLogoWrapper
+									disabledEffect
+									alt='logo'
+									src='/assets/logo/text-transparent.png'
+									decoding='async'
+									loading='lazy'
+									effect="opacity"
+									sx={{ height: '100%', width: '100%' }}
+								/>
 							</NextLink>
 						</Stack>
 
-						<Stack direction='row' alignItems='center' justifyContent='flex-end' spacing={{ xs: 0, sm: 2 }}>
-							<Searchbar />
+						<m.div variants={variantsContainer} initial="hidden" animate="show">
+							<Stack direction='row' alignItems='center' justifyContent='flex-end' spacing={{ xs: 0, sm: 2 }}>
+								<m.div variants={variantsVarFadeInRight}>
+									<Searchbar />
+								</m.div>
 
-							<StyledIconBox
-								component={RouterLink} href={PATH_PAGE.tracking}
-								sx={{ display: { xs: 'none', sm: 'block' } }}
-							>
-								<Box sx={{ p: 1, pb: 0 }}>
-									<Iconify icon='solar:delivery-linear' width={24} />
-								</Box>
-								<Typography variant='caption'>Статус</Typography>
-							</StyledIconBox>
+								<m.div variants={variantsVarFadeInRight}>
+									<StyledIconBox
+										component={RouterLink} href={PATH_PAGE.tracking}
+										sx={{ display: { xs: 'none', sm: 'block' } }}
+									>
+										<Box sx={{ p: 1, pb: 0 }}>
+											<Iconify icon='solar:delivery-linear' width={24} />
+										</Box>
+										<Typography variant='caption'>Статус</Typography>
+									</StyledIconBox>
+								</m.div>
 
-							<StyledIconBox onClick={openToggle}>
-								<IconButton disableRipple>
-									<Badge badgeContent={countProductsInCheckout} color='error'>
-										<Iconify icon='solar:cart-large-minimalistic-outline' width={24} />
-									</Badge>
-								</IconButton>
+								<m.div variants={variantsVarFadeInRight}>
+									<StyledIconBox onClick={openToggle}>
+										<IconButton disableRipple>
+											<Badge badgeContent={countProductsInCheckout} color='error'>
+												<Iconify icon='solar:cart-large-minimalistic-outline' width={24} />
+											</Badge>
+										</IconButton>
 
-								<Typography sx={{ display: { xs: 'none', sm: 'block' } }} variant='caption'>Кошик</Typography>
-							</StyledIconBox>
-						</Stack>
+										<Typography sx={{ display: { xs: 'none', sm: 'block' } }} variant='caption'>Кошик</Typography>
+									</StyledIconBox>
+								</m.div>
+							</Stack>
+						</m.div>
 					</Box>
 				</Container>
 
@@ -282,16 +338,20 @@ export default function Header({ menuItems, activeMenuIdx }: Props) {
 					justifyContent: { xs: 'flex-start', md: 'center' },
 					alignItems: 'center',
 				}}>
-					<StyledTabs
-						width={{ xs: '100%', md: 'inherit' }}
-						value={activeMenuIdx}
-						variant="scrollable"
-						scrollButtons={false}
-					>
-						{[...menuItems, ...menuItems, ...menuItems].map(({ alias, title }) => {
-							return <Tab disableRipple component={NextLink} href={`${PATH_PAGE.catalog}/${alias}`} label={title} />
-						})}
-					</StyledTabs>
+					<MotionContainer>
+						<m.div variants={varFade().in}>
+							<StyledTabs
+								width={{ xs: '100%', md: 'inherit' }}
+								value={activeMenuIdx}
+								variant="scrollable"
+								scrollButtons={false}
+							>
+								{[...menuItems, ...menuItems, ...menuItems].map(({ alias, title }) => {
+									return <Tab disableRipple component={NextLink} href={`${PATH_PAGE.catalog}/${alias}`} label={title} />
+								})}
+							</StyledTabs>
+						</m.div>
+					</MotionContainer>
 				</Stack>
 
 				<Drawer

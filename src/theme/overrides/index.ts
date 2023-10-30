@@ -1,8 +1,6 @@
 import merge from 'lodash/merge';
 import { Theme } from '@mui/material/styles';
-//
 import { defaultProps } from './default-props';
-//
 import { fab } from './components/fab';
 import { card } from './components/card';
 import { chip } from './components/chip';
@@ -45,8 +43,6 @@ import { buttonGroup } from './components/button-group';
 import { autocomplete } from './components/autocomplete';
 import { toggleButton } from './components/toggle-button';
 import { loadingButton } from './components/loading-button';
-
-// ----------------------------------------------------------------------
 
 export function componentsOverrides(theme: Theme) {
   const components = merge(

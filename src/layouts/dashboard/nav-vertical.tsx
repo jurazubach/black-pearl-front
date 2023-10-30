@@ -41,7 +41,7 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
       <Link component={RouterLink} href="/admin" sx={{ display: 'contents' }}>
         <Box
           component="img"
-          src="/assets/images/header/logo-color.png"
+          src="/assets/logo/text-transparent.png"
           sx={{ width: '230px', cursor: 'pointer', mx: 3, my: 2 }}
         />
       </Link>

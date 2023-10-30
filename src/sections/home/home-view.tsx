@@ -69,7 +69,7 @@ export default function HomeView({ banners, instagramPosts, blogPosts, popularPr
 
 				{instagramPosts.length > 0 && (
 					<>
-						<ContainerTitle center title='Підписуйтесь на наш інстаграм' description='Наша офіційна сторінка @theblackpearl.com.ua' />
+						<ContainerTitle center title='Підписуйтесь на наш інстаграм' description='Наша офіційна сторінка @nvrmore.com.ua' />
 						<Container maxWidth='lg' disableGutters>
 							<CarouselInstagramPosts instagramPosts={instagramPosts} />
 						</Container>

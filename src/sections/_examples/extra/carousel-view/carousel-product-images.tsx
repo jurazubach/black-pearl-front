@@ -27,11 +27,13 @@ export default function CarouselProductImages({ images = [] }: Props) {
 					{images.map((imageSrc: string) => (
 						<Box sx={{ overflow: 'hidden', height: { xs: '450px', sm: '761px' } }}>
 							<Image
-								disabledEffect
 								decoding='async'
 								loading='lazy'
+								effect="opacity"
 								src={imageSrc}
-								sx={{ transition: 'all .2s ease-in', height: '100%', width: '100%' }}
+								useIntersectionObserver
+								placeholderSrc='/assets/image-placeholder.png'
+								sx={{ height: '100%', width: '100%' }}
 							/>
 						</Box>
 					))}

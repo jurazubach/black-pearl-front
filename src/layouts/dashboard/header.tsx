@@ -30,14 +30,12 @@ export default function Header({ onOpenNav }: Props) {
         <SvgColor src="/assets/icons/navbar/ic_menu_item.svg" />
       </IconButton>
 
-      <Searchbar iconSize="large" />
-
       <Stack
         flexGrow={1}
         direction="row"
         alignItems="center"
         justifyContent="flex-end"
-        spacing={{ xs: 0.5, sm: 1 }}
+        spacing={3}
       >
         <Link component={RouterLink} href='/'>
           <Typography>Перейти до магазину</Typography>

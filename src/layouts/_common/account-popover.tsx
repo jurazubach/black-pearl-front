@@ -48,7 +48,7 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src='/assets/auth/user/avatar.png'
+          src='/assets/logo/logo-transparent.png'
           alt='avatar'
           sx={{
             width: 36,

@@ -1,3 +1,4 @@
+import React from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -17,6 +18,7 @@ export default function AuthClassicLayout({ children, image }: Props) {
 
   const renderLogo = (
     <Logo
+      src="/assets/logo/logo-transparent.png"
       sx={{
         zIndex: 9,
         position: 'absolute',
